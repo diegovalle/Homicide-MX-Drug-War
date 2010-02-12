@@ -1,24 +1,37 @@
 ﻿Homicide in Mexico and the Drug War
 =========================================================
-Homicides in Mexico have increased greatly since the government sent in the military to fight drug cartels in December 2006. These series of scripts explore various statistics related to homicides in Mexico. You'll probably want to read the associated blog post at [blog.diegovalle.net](blog.diegovalle.net)
+Homicides in Mexico have increased greatly since the government sent in the military to fight drug cartels in December 2006. These series of scripts explore various statistics related to homicides in Mexico. You'll probably want to read the associated blog post at [blog.diegovalle.net](http://blog.diegovalle.net)
+
 
 ![homicide rate in Mexico 1990-2009](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/historic/output/homicide-mx-1990-2008.png)
 
-![Ciudad Juarez](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/ciudad-juarez.png)
+_While the drug war met with some success at first, the homicide rate increased 65% between 2007 and 2008_
+
+
 
 ![Who's hiding homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/historic/output/INEGIvsICES.png "Chihuahua is missing 1153 homicides")
 
+_Scatter plot of the different homicide data (INEGI vs ICESI). That is, see if the police records (labeled ICESI) match those of the vital statistics system (labeled INEGI). The police records are missing over 1,100 homicides in Chihuahua alone! Note that the vital statistics are not much better missing almost 400 homicides in Sinaloa._
+
+
+
+![Ciudad Juarez](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/ciudad-juarez.png)
+
+_Monthly homicide rates in Ciudad Juarez. The city turned into the most violent in the world after the army took control of it_
+
+
+
 Requirements
 ------------
-* You'll need to download a map of Mexico from the [ICESI](http://www.icesi.org.mx/estadisticas/estadisticas_encuestasTablas.asp)
-* You'll also need to download two maps of Mexico at the state and county level from the [INEGI](http://mapserver.inegi.org.mx/data/mgm/). You'll need to register to download them. They have to be version 3.1.1 or they won't work
+*    You'll need to download a map of Mexico from the [ICESI](http://www.icesi.org.mx/estadisticas/estadisticas_encuestasTablas.asp)
+*    You'll also need to download two maps of Mexico at the state and county level from the [INEGI](http://mapserver.inegi.org.mx/data/mgm/). You'll need to register to download them. They have to be version 3.1.1 or they won't work
     
     [Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=ESTADOS311)
     
     [Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=MUNICIPIOS311)
     
-* Edit the file maps-locations.r with the locations of the maps you downloaded
-* Imagemagick if you want to merge the state level homicide rate maps with the bar plots
+*    Edit the file maps-locations.r with the locations of the maps you downloaded
+*    Imagemagick if you want to merge the state level homicide rate maps with the bar plots
 
 Contents
 --------

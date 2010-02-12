@@ -10,9 +10,9 @@ Output
 Data
 -----
 Because the INEGI has a limit of ~100,000 cells in the files you can download, the data was divided into 3 files
-county-month.csv.bz2: Michoacan, Guerrero, Sonora, Baja California (not Norte), Sinaloa, Durango
-county-month-gue-oax.csv.bz2: Oaxaca and Guerrero
-county-month.csv-tam-nl.bz2: Tamaulipas and Nuevo Leon
+_county-month.csv.bz2_: Michoacan, Guerrero, Sonora, Baja California (not Norte), Sinaloa, Durango
+_county-month-gue-oax.csv.bz2_: Oaxaca and Guerrero
+_county-month.csv-tam-nl.bz2_: Tamaulipas and Nuevo Leon
 
 
 Sources:
