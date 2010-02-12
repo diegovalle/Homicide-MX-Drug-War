@@ -1,0 +1,277 @@
+########################################################
+#####       Author: Diego Valle Jones              #####
+#####       Website: www.diegovalle.net            #####
+#####       Date: 2010-Jan-22                      #####
+########################################################
+
+#######################################################
+#Time series of the monthly homicide rate by county in
+#the Mexican states with the highest homicide rates,
+#plus Michoacan which had the biggest decrease in
+#homicides from 2006-2008
+#######################################################
+library(ggplot2)
+library(Cairo)
+
+source("constants.r")
+
+#;;;;Apply an  artificial correction to the data
+#;;;;to prove that Global Warming is happening
+#;;;;Oh wait, wrong file
+
+#Draw a multiple lines plot of each narco-state
+cleanHom <-  function(df, state) {
+  df <- df[grep(state, df$Code), ]
+  df <- subset(df, Year.of.Murder != "Total" &
+              Year.of.Murder != "No especificado" &
+              Month.of.Murder != "Total" &
+              Month.of.Murder != "No especificado" &
+              County != "No especificado")
+  df$Year.of.Murder <- as.numeric(gsub('[[:alpha:]]', '',
+                                        df$Year.of.Murder))
+  col2cvt <- 5:ncol(df)
+  df[is.na(df)] <- 0
+  df$Total.Murders <- apply(df[ , col2cvt], 1, sum)
+  df$Month.of.Murder <- factor(df$Month.of.Murder)
+  #The months are in a weird order, so 04=Abril, etc.
+  levels(df$Month.of.Murder) <- c("04","08","12","01","02","07","06","03","05","11","10","09")
+
+  df$Date <- as.Date(paste(df$Month.of.Murder,"/",
+                    "01", "/",
+                    df$Year.of.Murder, sep =""), "%m/%d/%Y")
+  #Make sure we code the dates as the last day of the month
+  df$Date <- as.Date(format(df$Date + 31, "%Y%m01"), "%Y%m%d") - 1
+
+  #The data for the last month of 2008 isn't complete
+  df <- subset(df, Date < as.Date("12/01/2008", "%m/%d/%Y"))
+
+  #Remove the space that separates the state code from the
+  #county code so we can merge the homicide data with the
+  #population data
+  df$Code <- as.numeric(gsub("[ ]", "", df$Code ))
+  df
+}
+
+mergeHomPop <- function(df, pop, cutoff) {
+  df.pop <- merge(df, pop, by.x=c("Code", "Year.of.Murder"),
+        by.y=c("Code", "Year"))
+  #Only big counties!
+  #Subseting by size doesn't work because populations change
+  #over time, so
+  #a county that started at 90,000 will be missing half the
+  #the observations
+  counties100 <- subset(df.pop, Population > cutoff)
+  states <- unique(factor(counties100$County.x))
+  df.pop <- subset(df.pop, County.x %in% states)
+
+  df.pop$rate <- (df.pop$Total.Murders / df.pop$Population * 100000) * 12
+  #An NA means there were no murders, so we have to change it to 0
+  #and since the INEGI in all its wisdom decided to simply delete
+  #the rows with no monthly homicides we have to recreate the
+  #database to include them
+  start <- as.Date("2006/2/01")
+  next.mon <- seq(start, length=35, by='1 month')
+  period <- next.mon - 1
+  dates.df <- data.frame(Date = rep(period,
+                                    each = length(states)),
+                         County.x = rep(states,
+                                        length(states) *
+                                        length(period))
+                         )
+  df.pop <- merge(dates.df, df.pop,
+                   by = c("Date", "County.x"),
+                   all.x = TRUE, all.y = TRUE)
+  df.pop$rate[is.na(df.pop$rate)] <- 0
+  df.pop$Total.Murders[is.na(df.pop$Total.Murders)] <- 0
+  df.pop
+}
+
+getData <- function(df, pop, state, cutoff){
+  hom.clean <- cleanHom(df, state)
+  mergeHomPop(hom.clean, pop, cutoff)
+}
+
+cleanPop <- function(filename) {
+  pop <- read.csv(bzfile(filename))
+  pop <- na.omit(pop)
+  col2cvt <- 3:ncol(pop)
+  pop[,col2cvt] <- lapply(pop[ ,col2cvt],
+                          function(x){as.numeric(gsub(" ", "", x))})
+  popm <- melt(pop, id = c("Clave", "Entidad.federativa.o.municipio"))
+  #remove the space before the county code
+  popm$variable <- as.numeric(substring(popm$variable, 2))
+  names(popm) <- c("Code", "County", "Year","Population")
+  popm
+}
+
+drawPlot <- function(df.pop) {
+    ggplot(df.pop, aes(Date, rate)) +
+      geom_point(aes(size=Total.Murders), color="darkred") +
+      facet_wrap(~ County.x, as.table = FALSE, ncol = 1,
+                 scale="free_y") +
+      scale_x_date() +
+      #geom_smooth(se = FALSE) +
+      xlab("") + ylab("Homicide rate")
+}
+
+#Todo: figure out why doesn't this work
+addvline <- function(op.date) {
+  geom_vline(aes(xintercept = op.date), alpha=.4)
+}
+
+addtext <- function(p, date, opname){
+  p + geom_text(aes(x,y), label = opname,
+            data = data.frame(x = date, y = -10),
+            size = 3, hjust = 1, vjust = 0)
+#  geom_vline(aes(xintercept = date), alpha=.4)
+}
+
+hom <- read.csv(bzfile("county-month.csv.bz2"))
+pop <- cleanPop("pop.csv.bz2")
+
+#the county must be this big to enter the chart
+popsize <- 100000
+
+########################################################
+#Finally, the plots
+########################################################
+
+#Baja Califronia Norte! as the ICESI would say, hahahaha
+bcn.df <- getData(hom, pop, baja.california, popsize)
+bcn.df$group <- ifelse(bcn.df$Date < op.tij, 1, 0)
+
+p <- drawPlot(bcn.df) + geom_vline(aes(xintercept = op.tij), alpha=.4)
+addtext(p, op.tij, "Joint Operation Tijuana") + geom_smooth(aes(group = group), se = FALSE)
+dev.print(png, file="output/Baja California.png", width=600, height=600)
+
+#Sonora
+son.df <- getData(hom, pop, sonora, popsize)
+p <- drawPlot(son.df)
+p + geom_smooth(se = FALSE)
+dev.print(png, file = "output/Sonora.png", width=600, height=600)
+
+#Chihuahua
+chi.df <- getData(hom, pop, chihuahua, popsize)
+chi.df$group <- 1
+chi.df$group[chi.df$Date < op.tria.dor] <- 0
+chi.df$group[chi.df$Date >= op.chi] <- 2
+p <- drawPlot(chi.df) + geom_vline(aes(xintercept = op.chi), alpha=.4)
+p <- addtext(p, op.chi, "Joint Operation Chihuahua")
+p <- addtext(p, op.tria.dor, "Jint Operation Triangulo Dorado")
+p + geom_vline(aes(xintercept = op.tria.dor), alpha=.4) + geom_smooth(aes(group = group), se = FALSE)
+dev.print(png, file = "output/Chihuahua.png", width=600, height=600)
+
+#Michoacán
+mich.df <- getData(hom, pop, michoacan, popsize)
+mich.df$group <- ifelse(mich.df$Date < op.mich, 1, 0)
+p <- drawPlot(mich.df) + geom_vline(aes(xintercept = op.mich), alpha=.4)
+addtext(p, op.mich, "Joint Operation Michoacan") + geom_smooth(aes(group = group), se = FALSE)
+dev.print(png, file = "output/Michoacan.png", width=600, height=600)
+
+#Sinadroga
+sin.df <- getData(hom, pop, sinaloa, popsize)
+sin.df$group <- 1
+sin.df$group[sin.df$Date < op.tria.dor] <- 0
+sin.df$group[sin.df$Date >= op.sin] <- 2
+p <- drawPlot(sin.df) + geom_vline(aes(xintercept = op.sin), alpha=.4)
+p <- addtext(p, op.sin, "Joint Operation Culiacan-Navolato")
+p <- addtext(p, op.tria.dor, "Jint Operation Triangulo Dorado")
+p + geom_vline(aes(xintercept = op.tria.dor), alpha=.4) + geom_smooth(aes(group = group), se = FALSE)
+dev.print(png, file = "output/Sinaloa.png", width=600, height=600)
+
+#Durango
+dur.df <- getData(hom, pop, durango, popsize)
+dur.df$group <- ifelse(dur.df$Date < op.tria.dor, 1, 0)
+p <- drawPlot(dur.df) + geom_vline(aes(xintercept = op.tria.dor), alpha=.4)
+addtext(p, op.tria.dor, "Joint Operation Triangulo Dorado") + geom_smooth(aes(group = group), se = FALSE)
+dev.print(png, file = "output/Durango.png", width=600, height=600)
+
+#The data for Oaxaca and Guerrero are in another file
+hom <- read.csv(bzfile("county-month-gue-oax.csv.bz2"))
+
+#Guerrero
+gue.df <- getData(hom, pop, guerrero, popsize)
+gue.df$group <- ifelse(gue.df$Date < op.gue, 1, 0)
+p <- drawPlot(gue.df) + geom_vline(aes(xintercept = op.gue), alpha=.4)
+addtext(p, op.gue, "Joint Operation Guerrero") + geom_smooth(aes(group = group), se = FALSE)
+dev.print(png, file = "output/Guerrero.png", width=600, height=600)
+
+#The data for Nuevo Leon and Tamaulipas are in yet another file
+hom <- read.csv(bzfile("county-month-nl-tam.csv.bz2"))
+
+#Tamaulipas
+tam.df <- getData(hom, pop, tamaulipas, popsize)
+tam.df$group <- ifelse(tam.df$Date < op.gue, 1, 0)
+p <- drawPlot(tam.df)
+p + geom_smooth(se = FALSE)
+dev.print(png, file = "output/Tamaulipas.png", width=600, height=600)
+
+#Nuevo Leon
+#Tamaulipas
+nl.df <- getData(hom, pop, nuevo.leon, popsize)
+nl.df$group <- ifelse(nl.df$Date < op.gue, 1, 0)
+p <- drawPlot(nl.df)
+p + geom_smooth(se = FALSE)
+dev.print(png, file = "output/Nuevo-Leon.png", width=600, height=600)
+
+########################################################
+#Variance estimates to see if there is cheating going on
+########################################################
+df <- hom[grep("02 004", hom$Code), ]
+  df <- subset(df, Year.of.Murder != "Total" &
+              Year.of.Murder != "No especificado" &
+              Month.of.Murder != "Total" &
+              Month.of.Murder != "No especificado" &
+              County != "No especificado")
+  df$Year.of.Murder <- as.numeric(gsub('[[:alpha:]]', '',
+                                        df$Year.of.Murder))
+  col2cvt <- 5:ncol(df)
+  df[is.na(df)] <- 0
+  df$Total.Murders <- apply(df[ , col2cvt], 1, sum)
+  df$Month.of.Murder <- factor(df$Month.of.Murder)
+  #The months are in a weird order, so 04=Abril, etc.
+  levels(df$Month.of.Murder) <- c("04","08","12","01","02","07","06","03","05","11","10","09")
+
+ df$Date <- as.Date(paste(df$Month.of.Murder,"/",
+                    "01", "/",
+                    df$Year.of.Murder, sep =""), "%m/%d/%Y")
+df$Month <- as.numeric(as.character(df$Month.of.Murder))
+  #The data for the last month of 2008 isn't complete
+  df <- subset(df, Year.of.Murder == 2008)
+lm_df <- function(df) {
+  df <- df[order(df$Month),]
+  lm(Month ~ Total.Murders, data = df)
+}
+dmodels <- dlply(df, .(County), lm_df)
+dcoefs <- ldply(dmodels, function(x) summary(x)$r.squared)
+dcoefs[order(dcoefs$V1),]
+ggplot(df, aes(Date, Total.Murders, group = County)) + geom_point() + facet_wrap(~ County, scales = "free_y") + geom_smooth()
+
+########################################################
+#Is the government hiding murders in Tijuana?
+########################################################
+#Two police agencies give different estimates for the number
+#of homicides in Tijuana in 2009
+#Data from:
+#http://www.la-ch.com/index.php?view=article&catid=42:general&id=113:desaparecen-267-muertos-de-cifras-oficiales&format=pdf&option=com_content&Itemid=62
+sspe <- c(30, 33, 48, 42, 21, 33, 28, 29, 32, 87, 123, 71) #577
+pgjep2 <- c(44, 37, 56, 61, 21, 38, 36, 33, 73, 147, 212, 86) #844
+#The INEGI vital statistics also give a different estimate of the number of homicides
+inegip1 <- c(39, 35, 47, 54, 20, 36, 33, 29, 51, 139, 191, 59) #733
+
+#http://www.johndcook.com/blog/2010/01/25/estimating-reporting-rates/#more-4309
+#The other town has n2 burglaries with a probability p2  of being reported. If the expected number of reported burglaries are equal, then n1p1 = n2p2 = r. The variance in the burglary reports from the two towns will be r(1 – p1) and r(1 – p2). If p1 is less than p2 there will be more variance in the data from the first city.
+#I only use the numbers from jan-oct because the inegi takes its time to record the statistics
+var(sspe[1:10])
+var(pgje[1:10])
+var(inegi[1:10])
+
+#The inegi commands more respect than the Tijuana police, so we would expect its variance to be lower
+var(inegi[1:10]) < var(pgje[1:10])
+
+np1  np1(1-p1) = v1  n=v1/p1(1-p1)
+np2  np2(1-p2) = v2  n=v2/p2(1-p2)
+
+p1 <- seq(.01,.99, by = .01);p2 <- p1 +.1;
+plot(100*p1*(1-p1))
+plot(100*p2*(1-p2))

@@ -1,0 +1,35 @@
+########################################################
+#####       Author: Diego Valle Jones
+#####       Website: www.diegovalle.net
+#####       Date Created: Fri Feb 05 20:34:20 2010
+########################################################
+#1. Time series of the different agencies that collect
+#homicide data in Mexico
+#2. Scatterplot of the INEGI homicide data vs the ICESI.
+#Chihuahua is a big outlier
+
+library(ggplot2)
+library(directlabels)
+
+homts <- read.csv("data/PAHO-UN-INEGI-ICESI.csv")
+ggplot(melt(homts, id="Year"), aes(Year, value, group = variable,
+                                   color = variable)) +
+       geom_line(size=1.5) +
+       ylab("Homicide rate") +
+      opts(title = "Different estimates of the homicide rate")
+dev.print(png, file = "output/PAHO-UN-INEGI-ICESI.png", width = 500, height = 300)
+
+ivsi <- read.csv("data/INEGIvsICESI.csv")
+#I can just imagine the conversation at the SNSP:
+#Hey José we disappeared 1,100 homicides in Chihuahua
+#and nobody noticed, in 2009 let's try for 2,500
+ggplot(ivsi, aes(INEGI, ICESI,
+                 label = paste(State," (",
+                       as.character(INEGI-ICESI), ")", sep = ""))) +
+       geom_text(aes(size = sqrt(abs(INEGI-ICESI))), hjust=-.1) +
+       geom_point() +
+       geom_abline(slope=1, linetype=2, color="blue") +
+       opts(title = "Who's hiding homicides? (INEGI - ICESI)") +
+       scale_x_continuous(limits = c(0, 4000)) +
+       opts(legend.position = "none")
+dev.print(png, file = "output/INEGIvsICES.png", width = 600, height = 480)

@@ -1,0 +1,40 @@
+#The homicide rate according to the INEGI
+#Author: Diego Valle www.diegovalle.net
+
+library(ggplot2)
+library(Hmisc)
+
+#Data file with all homicides *registered* in Mexico in a given year
+#data source: Estadísticas Vitales INEGI
+deaths<-read.csv("homicide.csv")
+deaths <- subset(deaths, deaths$Type.of.Death != "Total" &
+                 deaths$Type.of.Death != "Se Ignora" &
+                 deaths$Year.of.Death != "Total" &
+                 deaths$Year.of.Death != "No especificado" )
+deaths$Year.of.Death <- as.numeric(as.numeric(gsub('[[:alpha:]]', '',
+                     deaths$Year.of.Death)))
+deaths <- subset(deaths, deaths$Year.of.Death >= 1990)
+
+deaths[is.na(deaths)] <- 0
+deaths$Tot <- apply(deaths[,3:ncol(deaths)], 1, function(x) sum(x))
+
+#Population of Mexico 1990-2008
+#source: CONAPO
+pop.mex <- c(83971014, 85583336, 87184832, 88752014, 90265775,
+91724528, 93130089, 94478046, 95790135, 97114831, 98438557,
+99715527, 100909374, 101999555, 103001867, 103946866,
+104874282, 105790725, 106682518 )
+
+hom <- subset(deaths, Type.of.Death == "Homicidio")
+hom$pop.mex <- pop.mex
+hom$rate <- hom$Tot / hom$pop.mex * 100000
+qplot(1990:2008, hom$rate, geom="line")
+#writeClipboard(as.character(hom$rate))
+
+sui <- subset(deaths, Type.of.Death == "Suicidio")
+sui$pop.mex <- pop.mex
+sui$rate <- sui$Tot / sui$pop.mex * 100000
+
+acc <- subset(deaths, Type.of.Death == "Accidente")
+acc$pop.mex <- pop.mex
+acc$rate <- acc$Tot / acc$pop.mex * 100000
