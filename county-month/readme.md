@@ -17,14 +17,18 @@ county-month.csv-tam-nl.bz2: Tamaulipas and Nuevo Leon
 
 Sources:
 --------
-_Homicide Data 1990-2008_
+_Homicide Data 1990-2008:_
+
 [INEGI](http://www.inegi.org.mx/est/contenidos/espanol/proyectos/continuas/vitales/bd/mortalidad/MortalidadGeneral.asp?s=est&c=11144)
 
 _Military Deployment Dates:_
+
 Michoacan: [Wikipedia](http://en.wikipedia.org/wiki/Operation_Michoacan)
 
 [OPERATIVO CONJUNTO  TIJUANA](http://www.pgr.gob.mx/cmsocial/coms07/210107%20resultado%20de%20operaciones%20conjuntas.ppt)
+
 Operativo Conjunto Guerrero, Ibidem
+
 Operativo Conjunto Triángulo Dorado, Ibidem
 
 [Operativo Conjunto Chihuaha](www.el-mexicano.com.mx%2Fnoticias%2Fnacional%2F2009%2F03%2F02%2Fsitian-militares-ciudad-juarez.aspx&ei=OoZgS-nmA4XYtgOHwpGzCw&usg=AFQjCNH5AvHSTNwSpMPqT98OuiSYA8kbjg&sig2=rucCCB325xG_lYgmU_Rodw) Keep in mind that there were already 539 soldiers by the time it was anounced
@@ -35,8 +39,10 @@ Operativo Conjunto Triángulo Dorado, Ibidem
 [Operación Conjunta Tamaulipas-Nuevo León](http://www.elsiglodedurango.com.mx/descargas/pdf/2007/02/19/19dgo08a.pdf?v)
 
 _Population Data:_
+
 CONAPO [De la población de México 2005-2050](http://www.conapo.gob.mx/00cifras/proy/municipales.xls)
 
-_Ciudad Juarez Monthly Murder Rates in 2009_
+_Ciudad Juarez Monthly Murder Rates in 2009:_
+
 For the first half of the year [puntoporpunto](http://www.puntoporpunto.com/informacion-general/en_juarez_suman_mil_13_asesina.php),
-and for the second half[larednoticias](http://www.larednoticias.com/detalle.cfm?s=26)
+and for the second half [larednoticias](http://www.larednoticias.com/detalle.cfm?s=26)

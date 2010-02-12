@@ -6,8 +6,9 @@ Notes
 To run it on your machine you have to modify the path to the maps in the file "maps-locations.r" in the root directory
 
 Sources
-------
+-------
 _Mexican Homicide Data:_
+
 [INEGI](http://www.inegi.org.mx/est/contenidos/espanol/proyectos/continuas/vitales/bd/mortalidad/MortalidadGeneral.asp?s=est&c=11144)
 
 _Population Data (1990, 1995, and 2000):_
@@ -26,5 +27,6 @@ _Maps_
 
 [INEGI](http://mapserver.inegi.org.mx/data/mgm/). You'll need to register to do download them and they have to be version 3.1.1 or they won't work
 
-* Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)
-* Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)
+*  [Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=ESTADOS311)
+    
+*  [Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=MUNICIPIOS311)

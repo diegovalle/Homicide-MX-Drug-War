@@ -1,8 +1,8 @@
 Accidents, Homicides and Suicides
-=====================
-Official Mexican population at the state level for the years 1990-2030
+=================================
+The homicide rate in Mexico
 
-Source
+Sources
 ------
 Website of the [INEGI](http://www.inegi.org.mx/est/contenidos/espanol/proyectos/continuas/vitales/bd/mortalidad/MortalidadGeneral.asp?s=est&c=11144) for the homicide data
 
