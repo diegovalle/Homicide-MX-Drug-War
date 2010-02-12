@@ -1,17 +1,17 @@
-﻿Homicide in Mexico
+﻿Homicide in Mexico and the Drug War
 =========================================================
 Homicides in Mexico have increased greatly since the government sent in the military to fight drug cartels in December 2006. These series of scripts explore various statistics related to homicides in Mexico. You'll probably want to read the associated blog post at [blog.diegovalle.net](blog.diegovalle.net)
 
-![homicide rate in Mexico 1990-2009](http://github.com/diegovalle/Homicide-MX-Drug-War/blob/master/historic/output/homicide-mx-1990-2008.png)
-![Ciudad Juarez](http://github.com/diegovalle/Homicide-MX-Drug-War/blob/master/county-month/output/ciudad-juarez.png)
+![homicide rate in Mexico 1990-2009](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/ciudad-juarez.png)
+
+![Ciudad Juarez](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/ciudad-juarez.png)
 
 Requirements
 ------------
 * You'll need to download a map of Mexico from the [ICESI](http://www.icesi.org.mx/estadisticas/estadisticas_encuestasTablas.asp)
 * You'll also need to download two maps of Mexico at the state and county level from the [INEGI](http://mapserver.inegi.org.mx/data/mgm/). You'll need to register to download them. They have to be version 3.1.1 or they won't work
-[Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=ESTADOS311)
-
-[Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=MUNICIPIOS311)
+*[Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=ESTADOS311)
+*[Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=MUNICIPIOS311)
 * Edit the file maps-locations.r with the locations of the maps you downloaded
 * Imagemagick if you want to merge the state level homicide rate maps with the bar plots
 
@@ -33,9 +33,10 @@ Each directory contains its own readme so you may want to look at them
 Data Sources
 ------------
 Data Sources: Website of the [INEGI](http://www.inegi.org.mx/est/contenidos/espanol/proyectos/continuas/vitales/bd/mortalidad/MortalidadGeneral.asp?s=est&c=11144) for the
-murder rate and [census data](http://www.inegi.org.mx/inegi/default.aspx?c=9260&s=est) for the years 1990, 1995, 2000 at the county level
-[CONAPO](http://conapo.gob.mx/index.php?option=com_content&view=article&id=125&Itemid=203)
+murder rate and [census data](http://www.inegi.org.mx/inegi/default.aspx?c=9260&s=est) for the years 1990, 1995, 2000 at the county level. [CONAPO](http://conapo.gob.mx/index.php?option=com_content&view=article&id=125&Itemid=203)
 for population estimates at the national level (1990-2030), state level (1990-2030) and county level(2005-2030).
+
+Check the readmes of each subdirectory for detailed information.
 
 
 Output
@@ -62,7 +63,7 @@ states:
 
 * Maps and charts with the homicide rate at the state level
 * Maps and charts with the change in homicide rate from 2006 to 2008
-* If you run combine.bat you get a merged chart of the bar plots and maps
+* If you run merge.bat you get a merged chart of the bar plots and maps
 * A small multiples chart with the murder rate of each state from 1990 to 2008
 
 Notes
