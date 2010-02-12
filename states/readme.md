@@ -13,8 +13,10 @@ belonging to Michoacán which is ugly.
 
 Sources
 ------
-_Homicide Data:_
+__Homicide Data:__
+
 [INEGI](http://www.inegi.org.mx/est/contenidos/espanol/proyectos/continuas/vitales/bd/mortalidad/MortalidadGeneral.asp?s=est&c=11144)
 
-_Population Data:_
+__Population Data:__
+
 [Indicadores demográficos básicos 1990-2030](http://www.conapo.gob.mx/index.php?option=com_content&view=article&id=125&Itemid=203)

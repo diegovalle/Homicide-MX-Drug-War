@@ -3,7 +3,7 @@ Accidents, Homicides and Suicides
 The homicide rate in Mexico
 
 Sources
-------
+-------
 Website of the [INEGI](http://www.inegi.org.mx/est/contenidos/espanol/proyectos/continuas/vitales/bd/mortalidad/MortalidadGeneral.asp?s=est&c=11144) for the homicide data
 
 [CONAPO](http://conapo.gob.mx/index.php?option=com_content&view=article&id=125&Itemid=203)

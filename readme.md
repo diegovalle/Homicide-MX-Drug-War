@@ -6,6 +6,8 @@ Homicides in Mexico have increased greatly since the government sent in the mili
 
 ![Ciudad Juarez](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/ciudad-juarez.png)
 
+![Who's hiding homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/historic/output/INEGIvsICES.png "Chihuahua is missing 1153 homicides")
+
 Requirements
 ------------
 * You'll need to download a map of Mexico from the [ICESI](http://www.icesi.org.mx/estadisticas/estadisticas_encuestasTablas.asp)
