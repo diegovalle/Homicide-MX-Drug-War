@@ -1,4 +1,4 @@
-Homicide in Mexico 1990-2008 and ICESI vs INEGI
+ÔªøHomicide in Mexico 1990-2008 and ICESI vs INEGI
 ================================================
 
 * Chart of homicides rate according to the INEGI, ICESI, PAHO and the UN Crime Survey
@@ -19,9 +19,10 @@ From 1950-2005
 Source: [FBI, Uniform Crime Reports, 1950-2005](http://bjs.ojp.usdoj.gov/content/homicide/tables/totalstab.cfm)
 [and for 2006-2008 from](http://www.fbi.gov/ucr/cius2008/data/table_01.html)
 
-England and Wales
-[England and Wales 1967-2008](http://www.homeoffice.gov.uk/rds/pdfs09/hosb0209.pdf)
-Table 1.01 Offences 1 initially recorded by the police as homicide by current classification2: England and Wales, 1955 to 2007/08
+England and Wales:
+[Homicides, Firearm Offences and
+Intimate Violence 2007/08](http://www.homeoffice.gov.uk/rds/pdfs09/hosb0209.pdf)
+Table 1.01 Offences initially recorded by the police as homicide by current classification: England and Wales, 1955 to 2007/08
 
 Population Data:
-[Indicadores demogr·ficos b·sicos 1990-2030](http://www.conapo.gob.mx/index.php?option=com_content&view=article&id=125&Itemid=203)
+[Indicadores demogr√°ficos b√°sicos 1990-2030](http://www.conapo.gob.mx/index.php?option=com_content&view=article&id=125&Itemid=203)

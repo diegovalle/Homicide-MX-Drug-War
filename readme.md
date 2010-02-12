@@ -1,16 +1,17 @@
-Homicide in Mexico
+ÔªøHomicide in Mexico
 =========================================================
 Homicides in Mexico have increased greatly since the government sent in the military to fight drug cartels in December 2006. These series of scripts explore various statistics related to homicides in Mexico. You'll probably want to read the associated blog post at [blog.diegovalle.net](blog.diegovalle.net)
 
-![homicide rate in Mexico]()
-![homicide rate in Mexico]()
+![homicide rate in Mexico 1990-2009](http://github.com/diegovalle/Homicide-MX-Drug-War/blob/master/historic/output/homicide-mx-1990-2008.png)
+![Ciudad Juarez](http://github.com/diegovalle/Homicide-MX-Drug-War/blob/master/county-month/output/ciudad-juarez.png)
 
 Requirements
 ------------
 * You'll need to download a map of Mexico from the [ICESI](http://www.icesi.org.mx/estadisticas/estadisticas_encuestasTablas.asp)
 * You'll also need to download two maps of Mexico at the state and county level from the [INEGI](http://mapserver.inegi.org.mx/data/mgm/). You'll need to register to download them. They have to be version 3.1.1 or they won't work
-# ¡reas GeoestadÌsticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)
-# ¡reas GeoestadÌsticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)
+[√Åreas Geoestad√≠sticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=ESTADOS311)
+
+[√Åreas Geoestad√≠sticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=MUNICIPIOS311)
 * Edit the file maps-locations.r with the locations of the maps you downloaded
 * Imagemagick if you want to merge the state level homicide rate maps with the bar plots
 
