@@ -6,7 +6,7 @@
 #This program plots the murder rate in Ciudad Juarez
 #before and after the army took over.
 
-#The population data is from the CONAPO (2005)
+#The population data is from the CONAPO (2005-2030)
 #The murder data for 2007 and 2008 is from the INEGI
 #The murder data for 2009 is from:
 #http://www.puntoporpunto.com/informacion-general/en_juarez_suman_mil_13_asesina.php
@@ -14,7 +14,7 @@
 #http://www.larednoticias.com/detalle.cfm?s=26
 
 #I couldn't get this song out of my head
-#Numberr uan, Numberr uan, haha!
+#Nomberr uan, Nomberr uan, haha :'(
 
 #Aca en el norte la vida sigue,
 #a pesar de reinar la ley del oeste.
@@ -54,7 +54,7 @@ library(Cairo)
 
 source("constants.r")
 
-hom <- read.csv(bzfile("county-month.csv.bz2"))
+hom <- read.csv(bzfile("data/county-month.csv.bz2"))
 cdjuarez09 <- c(136, 240, 73, 90, 125, 247, 248, 337,
                 304, 290, 374, 317)
 cdjuarez0708 <- subset(hom,
@@ -73,12 +73,17 @@ cdj <- data.frame(Murders = c(cdjuarez0708$Tot, cdjuarez09),
            Date = dates)
 cdj$rate <- (cdj$Murders / rep(pop0709, each = 12)) * 100000 * 12
 cdj$group <- ifelse(cdj$Date < op.chi, 1, 0)
+cdj$group[cdj$Date >= ciud.jua] <- 2
 Cairo(file = "output/ciudad-juarez.png", width=600, height=400)
 ggplot(cdj, aes(Date,rate)) +
     geom_point(aes(size = Murders), color = "darkred") +
-    geom_vline(aes(xintercept = op.chi), alpha = .3) +
+    geom_vline(aes(xintercept = op.chi), alpha = .7) +
     geom_text(aes(x,y, label = "Joint Operation Chihuahua"),
-            data = data.frame(x = op.chi, y = 150),
+            data = data.frame(x = op.chi, y = 152),
+            size = 4, hjust = 1.01, vjust = 0) +
+    geom_vline(aes(xintercept = ciud.jua), alpha = .7) +
+    geom_text(aes(x,y, label = "Reinforcements sent"),
+            data = data.frame(x = ciud.jua, y = 252),
             size = 4, hjust = 1.01, vjust = 0) +
     geom_smooth(aes(group = group), se = FALSE) +
     ylab("Murder rate") + xlab("") +

@@ -1,10 +1,8 @@
-﻿Homicide in Mexico 1990-2008 and ICESI vs INEGI
-================================================
+﻿Homicide in Mexico 1990-2008
+============================
 
-* Chart of homicides rate according to the INEGI, ICESI, PAHO, and the UN Crime Survey
 * Chart of homicides rate in Mexico from 1990-2008 and an estimate for 2009
 * Chart comparing the US, Mexico, and England and Wales
-* Scatter plot of the different homicide data (INEGI vs ICESI). That is see if the police records (labeled ICESI) match those of the vital statistics system(labeled INEGI). The police records are missing over 1,100 homicides in Chihuahua alone.
 
 Sources
 ------
@@ -12,16 +10,10 @@ __Mexican Homicide Data:__
 
 [INEGI](http://www.inegi.org.mx/est/contenidos/espanol/proyectos/continuas/vitales/bd/mortalidad/MortalidadGeneral.asp?s=est&c=11144)
 
-[ICESI](http://www.icesi.org.mx/documentos/estadisticas/estadisticas/denuncias_homicidio_doloso_1997_2008.xls)
-
-[PAHO] (http://www.paho.org/English/SHA/coredata/tabulator/newTabulator.htm) Pan American Health Organization, Health Analysis and Statistics Unit. Regional Core Health Data Initiative; Technical Health Information System. Washington DC, 2007.
-
-UN Crime Survey: Eight and Seventh United Nations Survey of Crime Trends and Operations of Criminal Justice Systems
-
 __US:__
 
 From 1950-2005: [FBI, Uniform Crime Reports, 1950-2005](http://bjs.ojp.usdoj.gov/content/homicide/tables/totalstab.cfm)
-and for 2006-2008 from the [FBI](http://www.fbi.gov/ucr/cius2008/data/table_01.html)
+and for 2006-2008 also from the [FBI](http://www.fbi.gov/ucr/cius2008/data/table_01.html)
 
 __England and Wales:__
 

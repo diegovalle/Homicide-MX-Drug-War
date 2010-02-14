@@ -19,9 +19,10 @@ source("../maps-locations.r")
 
 #Clean data file with all homicides *registered* by county and sex
 cleanHomicide <- function(filename, sex) {
-  df <- read.csv(bzfile(filename))
+  df <- read.csv(bzfile(filename), skip = 4)
   names(df)[1:4] <- c("Code","County","Year.of.Murder","Sex")
   df <- df[-grep("=CONCATENAR", df$Code),]
+  #df <- df[-grep("FUENTE: INEGI. Estadísticas de mortalidad.", df$Code),]
   df <- df[-grep("Total", df$County),]
   df <- df[-grep("No especificado", df$County),]
   df <- df[-grep("Total", df$Year.of.Murder),]
@@ -81,7 +82,7 @@ cleanPopINEGI <- function(filename, year) {
 #################################################################
 #Read the files with the data and population, then merge them
 ################################################################
-hom <- cleanHomicide("data/homicide-mun-2008.pro.csv.bz2", "Total")
+hom <- cleanHomicide("../states/data/homicide-mun-2008.csv.bz2", "Total")
 #read the file with population data from 2006-2008
 popm <- cleanPopCONAPO("data/pop.csv.bz2")
 #read the files with population data from the censuses
@@ -132,8 +133,8 @@ drawMap <- function(vector, title) {
   plot(mexico.ct.shp, col = colcode, lty = 0, border = "gray")
   plot(mexico.st.shp, add = TRUE, lwd=1, border = "gray30")
   title(main = title)
-  colorlegend(zlim=c(0,70), col = clr.inc(70), zlevels=1)
   inter <- paste(names(attr(colcode, "table")),c("","",""))
+  inter[1] <- "0"
   legend(3500000,2200000, legend=inter, #use axes=T to find the pos!
       fill=attr(colcode, "palette"), cex=0.8, bty="n")
   par(bg='white')

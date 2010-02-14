@@ -14,7 +14,7 @@
 #http://www.larednoticias.com/detalle.cfm?s=26
 
 #I couldn't get this song out of my head
-#Nomberr uan, Nomberr uan, haha!
+#Nomberr uan, Nomberr uan, haha :'(
 
 #Aca en el norte la vida sigue,
 #a pesar de reinar la ley del oeste.
@@ -71,14 +71,21 @@ next.mon <- seq(start, length=36, by='1 month')
 dates <- next.mon - 1
 cdj <- data.frame(Murders = c(cdjuarez0708$Tot, cdjuarez09),
            Date = dates)
+#Anualized murder rate
 cdj$rate <- (cdj$Murders / rep(pop0709, each = 12)) * 100000 * 12
-cdj$group <- ifelse(cdj$Date < op.chi, 1, 0)
+
+cdj$group <- cutDates(cdj, c(op.chi, cdj.rein))
+
 Cairo(file = "output/ciudad-juarez.png", width=600, height=400)
 ggplot(cdj, aes(Date,rate)) +
     geom_point(aes(size = Murders), color = "darkred") +
     geom_vline(aes(xintercept = op.chi), alpha = .7) +
     geom_text(aes(x,y, label = "Joint Operation Chihuahua"),
-            data = data.frame(x = op.chi, y = 150),
+            data = data.frame(x = op.chi, y = 152),
+            size = 4, hjust = 1.01, vjust = 0) +
+    geom_vline(aes(xintercept = cdj.rein), alpha = .7) +
+    geom_text(aes(x,y, label = "Reinforcements sent"),
+            data = data.frame(x = cdj.rein, y = 252),
             size = 4, hjust = 1.01, vjust = 0) +
     geom_smooth(aes(group = group), se = FALSE) +
     ylab("Murder rate") + xlab("") +

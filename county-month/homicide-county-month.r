@@ -114,9 +114,9 @@ drawPlot <- function(df.pop) {
       xlab("") + ylab("Homicide rate")
 }
 
-#Todo: figure out why doesn't this work
+#ToDo: figure out why this doesn't work
 addvline <- function(op.date) {
-  geom_vline(aes(xintercept = op.date), alpha=.4)
+  geom_vline(xintercept = op.date, alpha=.4)
 }
 
 addtext <- function(p, date, opname){
@@ -125,6 +125,7 @@ addtext <- function(p, date, opname){
             size = 3, hjust = 1, vjust = 0)
 #  geom_vline(aes(xintercept = date), alpha=.4)
 }
+
 
 hom <- read.csv(bzfile("data/county-month.csv.bz2"))
 pop <- cleanPop("data/pop.csv.bz2")
@@ -136,72 +137,91 @@ popsize <- 100000
 #Finally, the plots
 ########################################################
 
+
 #Baja Califronia Norte! as the ICESI would say, hahahaha
 bcn.df <- getData(hom, pop, baja.california, popsize)
-bcn.df$group <- ifelse(bcn.df$Date < op.tij, 1, 0)
+bcn.df$group <- cutDates(bcn.df, c(op.tij))
 
 p <- drawPlot(bcn.df) + geom_vline(aes(xintercept = op.tij), alpha=.4)
 addtext(p, op.tij, "Joint Operation Tijuana") + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file="output/Baja California.png", width=600, height=600)
 
+
 #Sonora
 son.df <- getData(hom, pop, sonora, popsize)
-p <- drawPlot(son.df)
-p + geom_smooth(se = FALSE)
+son.df$group <- cutDates(son.df, c(op.son))
+
+p <- drawPlot(son.df) + geom_vline(aes(xintercept = op.son), alpha=.4)
+addtext(p, op.son, "Operation Sonora I") + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Sonora.png", width=600, height=600)
+
 
 #Chihuahua
 chi.df <- getData(hom, pop, chihuahua, popsize)
-chi.df$group <- 1
-chi.df$group[chi.df$Date < op.tria.dor] <- 0
-chi.df$group[chi.df$Date >= op.chi] <- 2
+chi.df$group <- cutDates(chi.df, c(op.tria.dor, op.chi))
+
 p <- drawPlot(chi.df) + geom_vline(aes(xintercept = op.chi), alpha=.4)
 p <- addtext(p, op.chi, "Joint Operation Chihuahua")
 p <- addtext(p, op.tria.dor, "Jint Operation Triangulo Dorado")
 p + geom_vline(aes(xintercept = op.tria.dor), alpha=.4) + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Chihuahua.png", width=600, height=600)
 
-#Michoacán (I hate trying to get emacs to understand utf!)
+
+#Michoacán (I hate trying to get emacs and R to understand utf!)
 mich.df <- getData(hom, pop, michoacan, popsize)
-mich.df$group <- ifelse(mich.df$Date < op.mich, 1, 0)
+mich.df$group <- cutDates(mich.df, c(op.mich))
+
 p <- drawPlot(mich.df) + geom_vline(aes(xintercept = op.mich), alpha=.4)
 addtext(p, op.mich, "Joint Operation Michoacan") + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Michoacan.png", width=600, height=600)
 
+
 #Sinadroga
 sin.df <- getData(hom, pop, sinaloa, popsize)
-sin.df$group <- 1
-sin.df$group[sin.df$Date < op.tria.dor] <- 0
-sin.df$group[sin.df$Date >= op.sin] <- 2
+sin.df$group <- cutDates(sin.df, c(op.tria.dor, op.sin))
+
 p <- drawPlot(sin.df) + geom_vline(aes(xintercept = op.sin), alpha=.4)
 p <- addtext(p, op.sin, "Joint Operation Culiacan-Navolato")
-p <- addtext(p, op.tria.dor, "Jint Operation Triangulo Dorado")
+p <- addtext(p, op.tria.dor, "Joint Operation Triangulo Dorado")
 p + geom_vline(aes(xintercept = op.tria.dor), alpha=.4) + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Sinaloa.png", width=700, height=600)
 
+
 #Durango
 dur.df <- getData(hom, pop, durango, popsize)
-dur.df$group <- ifelse(dur.df$Date < op.tria.dor, 1, 0)
+dur.df$group <- cutDates(dur.df, c(op.tria.dor, op.tria.dor.III))
+
 p <- drawPlot(dur.df) + geom_vline(aes(xintercept = op.tria.dor), alpha=.4)
-addtext(p, op.tria.dor, "Joint Operation Triangulo Dorado") + geom_smooth(aes(group = group), se = FALSE)
+p <- addtext(p, op.tria.dor, "Joint Operation Triangulo Dorado")
+p <- addtext(p, op.tria.dor.III, "Phase III")
+p + geom_vline(aes(xintercept = op.tria.dor.III), alpha=.4) + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Durango.png", width=600, height=600)
+
+
+
 
 #The data for Oaxaca and Guerrero are in another file
 hom <- read.csv(bzfile("data/county-month-gue-oax.csv.bz2"))
 
+
 #Guerrero
 gue.df <- getData(hom, pop, guerrero, popsize)
-gue.df$group <- ifelse(gue.df$Date < op.gue, 1, 0)
+gue.df$group <- cutDates(gue.df, c(op.gue))
+
 p <- drawPlot(gue.df) + geom_vline(aes(xintercept = op.gue), alpha=.4)
 addtext(p, op.gue, "Joint Operation Guerrero") + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Guerrero.png", width=600, height=600)
 
+
+
 #The data for Nuevo Leon and Tamaulipas are in yet another file
 hom <- read.csv(bzfile("data/county-month-nl-tam.csv.bz2"))
 
+
+
 #Tamaulipas
 tam.df <- getData(hom, pop, tamaulipas, popsize)
-tam.df$group <- ifelse(tam.df$Date < op.tam.nl, 1, 0)
+tam.df$group <- cutDates(tam.df, c(op.tam.nl))
 p <- drawPlot(tam.df) + geom_vline(aes(xintercept = op.tam.nl), alpha=.4)
 addtext(p, op.tam.nl, "Joint Operation Tamaulipas-Nuevo Leon") + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Tamaulipas.png", width=600, height=900)
@@ -209,7 +229,7 @@ dev.print(png, file = "output/Tamaulipas.png", width=600, height=900)
 #Nuevo Leon
 #Tamaulipas
 nl.df <- getData(hom, pop, nuevo.leon, popsize)
-nl.df$group <- ifelse(nl.df$Date < op.tam.nl, 1, 0)
+nl.df$group <- cutDates(nl.df, c(op.tam.nl))
 p <- drawPlot(nl.df)+ geom_vline(aes(xintercept = op.tam.nl), alpha=.4)
 addtext(p, op.tam.nl, "Joint Operation Tamaulipas-Nuevo Leon") + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Nuevo-Leon.png", width=600, height=900)

@@ -7,5 +7,5 @@
 map.of.mexico <- "../../../maps/Mexico.shp"
 
 #Change to the location of the INEGI maps
-mexico.map.ct.file <- "../../../maps/MUNICIPIOS.shp"
-mexico.map.st.file <- "../../../maps/ESTADOS.shp"
+mexico.map.ct.file <- "../../../maps/3.1.1/MUNICIPIOS.shp"
+mexico.map.st.file <- "../../../maps/3.1.1/ESTADOS.shp"
