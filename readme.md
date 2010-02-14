@@ -12,7 +12,7 @@ _While the drug war met with some success at first, the homicide rate increased 
 
 ------------------------------------------------------------------------------------------------------------------------
 
-![Who's hiding homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/historic/output/INEGIvsICES.png "Chihuahua is missing 1153 homicides")
+![Who's hiding homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/missing-homicides/output/INEGIvsICES.png "Chihuahua is missing 1153 homicides")
 
 _Scatter plot of the different homicide data (INEGI vs ICESI). That is, see if the police records (labeled ICESI) match those of the vital statistics system (labeled INEGI). The police records are missing over 1,100 homicides in Chihuahua alone! Note that the vital statistics are not much better missing almost 400 homicides in Sinaloa._
 
