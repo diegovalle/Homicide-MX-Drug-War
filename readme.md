@@ -14,13 +14,13 @@ _While the drug war met with some success at first, the homicide rate increased 
 
 ![Who's hiding homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/missing-homicides/output/INEGIvsICES.png "Chihuahua is missing 1153 homicides")
 
-_Scatter plot of the different homicide data (INEGI vs ICESI). That is, see if the police records (labeled ICESI) match those of the vital statistics system (labeled INEGI). The police records are missing over 1,100 homicides in Chihuahua alone! Note that the vital statistics are not much better missing almost 400 homicides in Sinaloa._
+_Scatter plot of the different homicide data (INEGI vs ICESI). That is, see if the police records (labeled ICESI) match those of the vital statistics system (labeled INEGI). The police records are missing over 1,100 homicides in Chihuahua alone! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024) alone, more than in the whole state according to police records. This is beyond ridiculous. Note that the vital statistics are not much better, missing almost 400 homicides in Sinaloa._
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
 ![Ciudad Juarez](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/ciudad-juarez.png)
 
-_Monthly homicide rates in Ciudad Juarez. The city turned into the most violent in the world after the army took control of it. Even rushing in reinforcements didn't return the murder rate to its former levels. After three months the bloodshed became even greater._
+_Monthly homicide rates in Ciudad Juarez. The city turned into the most violent in the world after the army took control of it. Even rushing in reinforcements didn't return the murder rate to its former levels and after three months the bloodshed became even greater._
 
 
 
