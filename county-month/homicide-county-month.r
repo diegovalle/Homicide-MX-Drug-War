@@ -126,6 +126,36 @@ addtext <- function(p, date, opname){
 #  geom_vline(aes(xintercept = date), alpha=.4)
 }
 
+#http://stackoverflow.com/questions/2270201/how-to-get-geom-vline-and-facet-wrap-from-ggplot2-to-work-inside-a-function
+drawTS <- function(df.pop, dates, text) {
+    date.df <- data.frame(d=dates,t=text)
+    p <- ggplot(df.pop, aes(Date, rate)) +
+      geom_point(aes(size=Total.Murders), color="darkred") +
+      facet_wrap(~ County.x, ncol = 1,
+                 scale="free_y") +
+      scale_x_date() +
+      geom_smooth(aes(group = group), se = FALSE) +
+      xlab("") + ylab("Homicide rate")
+    p <- p + geom_text(aes(x=d,label=t), y=0,
+                   data = date.df,
+                   size = 3, hjust = 1, vjust = 0)
+    p<-p+geom_vline(aes(xintercept=d), data=date.df, alpha=.4)
+    #for(i in 1:length(dates)) {
+      #If it's not a global variable I get an object not found error
+     # temp[i] <<- dates[i]
+     # p <- p + geom_text(aes(x,y), label = text[i],
+      #            data = data.frame(x = dates[i], y = -10),
+      #            size = 3, hjust = 1, vjust = 0) +
+      #     geom_vline(xintercept=temp[i], alpha=.4)
+    #}
+    p
+}
+
+createPlot <- function(df.pop, dates, text) {
+  df.pop$group <- cutDates(df.pop, dates)
+  drawTS(df.pop, dates,text)
+}
+
 
 hom <- read.csv(bzfile("data/county-month.csv.bz2"))
 pop <- cleanPop("data/pop.csv.bz2")
@@ -137,64 +167,45 @@ popsize <- 100000
 #Finally, the plots
 ########################################################
 
-
 #Baja Califronia Norte! as the ICESI would say, hahahaha
 bcn.df <- getData(hom, pop, baja.california, popsize)
-bcn.df$group <- cutDates(bcn.df, c(op.tij))
+createPlot(bcn.df, c(op.tij), c("Joint Operation Tijuana"))
 
-p <- drawPlot(bcn.df) + geom_vline(aes(xintercept = op.tij), alpha=.4)
-addtext(p, op.tij, "Joint Operation Tijuana") + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file="output/Baja California.png", width=600, height=600)
 
 
 #Sonora
 son.df <- getData(hom, pop, sonora, popsize)
-son.df$group <- cutDates(son.df, c(op.son))
+createPlot(son.df, c(op.son), c("Operation Sonora I"))
 
-p <- drawPlot(son.df) + geom_vline(aes(xintercept = op.son), alpha=.4)
-addtext(p, op.son, "Operation Sonora I") + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Sonora.png", width=600, height=600)
 
 
 #Chihuahua
 chi.df <- getData(hom, pop, chihuahua, popsize)
-chi.df$group <- cutDates(chi.df, c(op.tria.dor, op.chi))
+createPlot(chi.df, c(op.tria.dor, op.chi), c("Joint Operation Triangulo Dorado", "Joint Operation Chihuahua"))
 
-p <- drawPlot(chi.df) + geom_vline(aes(xintercept = op.chi), alpha=.4)
-p <- addtext(p, op.chi, "Joint Operation Chihuahua")
-p <- addtext(p, op.tria.dor, "Jint Operation Triangulo Dorado")
-p + geom_vline(aes(xintercept = op.tria.dor), alpha=.4) + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Chihuahua.png", width=600, height=600)
 
 
 #Michoacán (I hate trying to get emacs and R to understand utf!)
 mich.df <- getData(hom, pop, michoacan, popsize)
-mich.df$group <- cutDates(mich.df, c(op.mich))
+createPlot(mich.df, c(op.mich), c("Joint Operation Michoacan"))
 
-p <- drawPlot(mich.df) + geom_vline(aes(xintercept = op.mich), alpha=.4)
-addtext(p, op.mich, "Joint Operation Michoacan") + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Michoacan.png", width=600, height=600)
 
 
 #Sinadroga
 sin.df <- getData(hom, pop, sinaloa, popsize)
-sin.df$group <- cutDates(sin.df, c(op.tria.dor, op.sin))
+createPlot(sin.df, c(op.tria.dor, op.sin), c("Joint Operation Triangulo Dorado", "Joint Operation Culiacan-Navolato"))
 
-p <- drawPlot(sin.df) + geom_vline(aes(xintercept = op.sin), alpha=.4)
-p <- addtext(p, op.sin, "Joint Operation Culiacan-Navolato")
-p <- addtext(p, op.tria.dor, "Joint Operation Triangulo Dorado")
-p + geom_vline(aes(xintercept = op.tria.dor), alpha=.4) + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Sinaloa.png", width=700, height=600)
 
 
 #Durango
 dur.df <- getData(hom, pop, durango, popsize)
-dur.df$group <- cutDates(dur.df, c(op.tria.dor, op.tria.dor.III))
+createPlot(dur.df, c(op.tria.dor, op.tria.dor.III), c("Joint Operation Triangulo Dorado", "Phase III" ))
 
-p <- drawPlot(dur.df) + geom_vline(aes(xintercept = op.tria.dor), alpha=.4)
-p <- addtext(p, op.tria.dor, "Joint Operation Triangulo Dorado")
-p <- addtext(p, op.tria.dor.III, "Phase III")
-p + geom_vline(aes(xintercept = op.tria.dor.III), alpha=.4) + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Durango.png", width=600, height=600)
 
 
@@ -206,10 +217,8 @@ hom <- read.csv(bzfile("data/county-month-gue-oax.csv.bz2"))
 
 #Guerrero
 gue.df <- getData(hom, pop, guerrero, popsize)
-gue.df$group <- cutDates(gue.df, c(op.gue))
+createPlot(gue.df, c(op.gue), c("Joint Operation Guerrero"))
 
-p <- drawPlot(gue.df) + geom_vline(aes(xintercept = op.gue), alpha=.4)
-addtext(p, op.gue, "Joint Operation Guerrero") + geom_smooth(aes(group = group), se = FALSE)
 dev.print(png, file = "output/Guerrero.png", width=600, height=600)
 
 
@@ -221,16 +230,13 @@ hom <- read.csv(bzfile("data/county-month-nl-tam.csv.bz2"))
 
 #Tamaulipas
 tam.df <- getData(hom, pop, tamaulipas, popsize)
-tam.df$group <- cutDates(tam.df, c(op.tam.nl))
-p <- drawPlot(tam.df) + geom_vline(aes(xintercept = op.tam.nl), alpha=.4)
-addtext(p, op.tam.nl, "Joint Operation Tamaulipas-Nuevo Leon") + geom_smooth(aes(group = group), se = FALSE)
+createPlot(tam.df, c(op.tam.nl), c("Joint Operation Tamaulipas-Nuevo Leon"))
+
 dev.print(png, file = "output/Tamaulipas.png", width=600, height=900)
 
 #Nuevo Leon
-#Tamaulipas
 nl.df <- getData(hom, pop, nuevo.leon, popsize)
-nl.df$group <- cutDates(nl.df, c(op.tam.nl))
-p <- drawPlot(nl.df)+ geom_vline(aes(xintercept = op.tam.nl), alpha=.4)
-addtext(p, op.tam.nl, "Joint Operation Tamaulipas-Nuevo Leon") + geom_smooth(aes(group = group), se = FALSE)
+createPlot(nl.df, c(op.tam.nl), c("Joint Operation Tamaulipas-Nuevo Leon"))
+
 dev.print(png, file = "output/Nuevo-Leon.png", width=600, height=900)
 
