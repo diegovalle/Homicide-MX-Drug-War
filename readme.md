@@ -12,9 +12,11 @@ _While the drug war met with some success at first, the homicide rate increased 
 
 ------------------------------------------------------------------------------------------------------------------------
 
-![Who's hiding homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/missing-homicides/output/INEGIvsICES.png "Chihuahua is missing 1153 homicides")
+![Who's missing homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/missing-homicides/output/INEGIvsICESI.png "Chihuahua is missing 1153 homicides")
 
-_Scatter plot of the different homicide data (INEGI vs ICESI). That is, see if the police records (labeled ICESI) match those of the vital statistics system (labeled INEGI). The police records are missing over 1,100 homicides in Chihuahua alone! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024) alone, more than in the whole state according to police records. This is beyond ridiculous. Note that the vital statistics are not much better, missing almost 400 homicides in Sinaloa._
+_Bar plot of the different homicide data. That is, see if the police records (labeled ICESI and filled with blue) match those of the vital statistics system (labeled INEGI and filled with red). The police records are missing 1,153 homicides in Chihuahua alone! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024) alone, more than the 1,414 reported in the whole state according to police records. Note that the vital statistics are not much better, missing almost 400 homicides in Sinaloa._
+
+_read the file readme.md in the directory to see why this [missing-homicides](http://github.com/diegovalle/Homicide-MX-Drug-War/tree/master/missing-homicides/) happened_
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -41,24 +43,36 @@ Contents
 In the directories you'll find:
 
 * accidents-homicides-suicides: Estimates the homicide rate for all of Mexico based on accidental and violent death data from the INEGI. As a bonus it includes the suicide and accident rates.
-* conapo-pop-estimates: Estimates done by the CONAPO of the population of Mexico at the state level for the period 1990-2030
-* county-maps: Choropleths of the murder rate by county in Mexico for the years 1990, 1995, 2000, 2006-2008
-* drugs: Some regressions to see if drug consumption is correlated with the homicide rate
-* county-months: Pretty graphics of the effect on the murder rate of sending the army to fight drug dealers
-* historic: Plot of the Mexican homicide rate from 1990 to 2009, a
-  comparison with that of the US, and England and Wales
-* no-pasa-nada: A correlation plot of the different homicde data to figure out how thrust-worthy the Mexican statistics are.
+* conapo-pop-estimates: Estimates of the population of Mexico, done by the CONAPO, at the state level for the period 1990-2030
+* county-maps: Choropleths of the murder rate by county in Mexico for the years 1990, 1995, 2000, and 2006-2008
+* drugs: Some regressions to see if drug consumption is correlated with the homicide rate. (It is, except for 420)
+* county-months: Pretty graphics of the effect on the murder rate of sending the army to fight drug cartels
+* historic: Plot of the Mexican homicide rate from 1990 to 2009, and a
+  comparison with the homicide rate of the US, and England and Wales
+* missing-homicides: A correlation plot of the different homicide data to figure out how thrust-worthy the Mexican statistics are.
 * states: Pretty plots and choropleths of the homicide rate at the state level
 
 Each directory contains its own readme so you may want to look at them
 
 Data Sources
 ------------
-Data Sources: Website of the [INEGI](http://www.inegi.org.mx/est/contenidos/espanol/proyectos/continuas/vitales/bd/mortalidad/MortalidadGeneral.asp?s=est&c=11144) for the
-murder rate and [census data](http://www.inegi.org.mx/inegi/default.aspx?c=9260&s=est) for the years 1990, 1995, 2000 at the county level. [CONAPO](http://conapo.gob.mx/index.php?option=com_content&view=article&id=125&Itemid=203)
+Homicide data:
+
+Website of the INEGI:  [INEGI](http://www.inegi.org.mx/est/contenidos/espanol/proyectos/continuas/vitales/bd/mortalidad/MortalidadGeneral.asp?s=est&c=11144) for the
+murder rate according to vital statistics
+
+Website of the ICESI: [ICESI](http://www.icesi.org.mx) for the murder rate according to the Mexican police (which turns out not be a murder rate, and only an poor estimate of the final tally)
+
+Website of the INEGI: [Statistical Yearbooks](http://www.inegi.org.mx/est/contenidos/espanol/sistemas/sisnav/selproy.aspx) that contain the final (over 90% reported) number of reports filed by the police for the crime of murder.
+
+Population:
+
+[census data](http://www.inegi.org.mx/inegi/default.aspx?c=9260&s=est) for the years 1990, 1995, 2000 at the county level. 
+
+[CONAPO](http://conapo.gob.mx/index.php?option=com_content&view=article&id=125&Itemid=203)
 for population estimates at the national level (1990-2030), state level (1990-2030) and county level(2005-2030).
 
-Check the readmes of each subdirectory for detailed information.
+__Check the readmes of each subdirectory for detailed information.__
 
 
 Output
@@ -94,4 +108,4 @@ Where possible I tried using the official population estimates from the CONAPO, 
 
 Author
 -----
-[Diego Valle](www.diegovalle.net)
+[Diego Valle](http://www.diegovalle.net)
