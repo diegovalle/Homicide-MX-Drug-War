@@ -104,31 +104,11 @@ cleanPop <- function(filename) {
   popm
 }
 
-drawPlot <- function(df.pop) {
-    ggplot(df.pop, aes(Date, rate)) +
-      geom_point(aes(size=Total.Murders), color="darkred") +
-      facet_wrap(~ County.x, as.table = FALSE, ncol = 1,
-                 scale="free_y") +
-      scale_x_date() +
-      #geom_smooth(se = FALSE) +
-      xlab("") + ylab("Homicide rate")
-}
-
-#ToDo: figure out why this doesn't work
-addvline <- function(op.date) {
-  geom_vline(xintercept = op.date, alpha=.4)
-}
-
-addtext <- function(p, date, opname){
-  p + geom_text(aes(x,y), label = opname,
-            data = data.frame(x = date, y = -10),
-            size = 3, hjust = 1, vjust = 0)
-#  geom_vline(aes(xintercept = date), alpha=.4)
-}
-
 #http://stackoverflow.com/questions/2270201/how-to-get-geom-vline-and-facet-wrap-from-ggplot2-to-work-inside-a-function
-drawTS <- function(df.pop, dates, text) {
-    date.df <- data.frame(d=dates,t=text)
+drawTS <- function(df.pop, operations) {
+    date.df <- data.frame(d = as.Date(unlist(operations),
+                                      origin = "1970-01-01"),
+                          t = names(operations))
     p <- ggplot(df.pop, aes(Date, rate)) +
       geom_point(aes(size=Total.Murders), color="darkred") +
       facet_wrap(~ County.x, ncol = 1,
@@ -136,24 +116,17 @@ drawTS <- function(df.pop, dates, text) {
       scale_x_date() +
       geom_smooth(aes(group = group), se = FALSE) +
       xlab("") + ylab("Homicide rate")
-    p <- p + geom_text(aes(x=d,label=t), y=0,
+    p <- p + geom_text(aes(x = d, label = t), y=0,
                    data = date.df,
                    size = 3, hjust = 1, vjust = 0)
-    p<-p+geom_vline(aes(xintercept=d), data=date.df, alpha=.4)
-    #for(i in 1:length(dates)) {
-      #If it's not a global variable I get an object not found error
-     # temp[i] <<- dates[i]
-     # p <- p + geom_text(aes(x,y), label = text[i],
-      #            data = data.frame(x = dates[i], y = -10),
-      #            size = 3, hjust = 1, vjust = 0) +
-      #     geom_vline(xintercept=temp[i], alpha=.4)
-    #}
+    p <- p + geom_vline(aes(xintercept = d), data = date.df,
+                        alpha = .4)
     p
 }
 
-createPlot <- function(df.pop, dates, text) {
-  df.pop$group <- cutDates(df.pop, dates)
-  drawTS(df.pop, dates,text)
+createPlot <- function(df.pop, operations) {
+  df.pop$group <- cutDates(df.pop, unlist(operations))
+  drawTS(df.pop, operations)
 }
 
 
@@ -169,42 +142,51 @@ popsize <- 100000
 
 #Baja Califronia Norte! as the ICESI would say, hahahaha
 bcn.df <- getData(hom, pop, baja.california, popsize)
-createPlot(bcn.df, c(op.tij), c("Joint Operation Tijuana"))
+ll <- list("Joint Operation Tijuana" = op.tij)
+createPlot(bcn.df, ll)
 
 dev.print(png, file="output/Baja California.png", width=600, height=600)
 
 
 #Sonora
 son.df <- getData(hom, pop, sonora, popsize)
-createPlot(son.df, c(op.son), c("Operation Sonora I"))
+ll <- list("Operation Sonora I" = op.son)
+createPlot(son.df, ll)
 
 dev.print(png, file = "output/Sonora.png", width=600, height=600)
 
 
 #Chihuahua
 chi.df <- getData(hom, pop, chihuahua, popsize)
-createPlot(chi.df, c(op.tria.dor, op.chi), c("Joint Operation Triangulo Dorado", "Joint Operation Chihuahua"))
+ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
+           "Joint Operation Chihuahua" = op.chi)
+createPlot(chi.df, ll)
 
 dev.print(png, file = "output/Chihuahua.png", width=600, height=600)
 
 
 #Michoacán (I hate trying to get emacs and R to understand utf!)
 mich.df <- getData(hom, pop, michoacan, popsize)
-createPlot(mich.df, c(op.mich), c("Joint Operation Michoacan"))
+ll <- list("Joint Operation Michoacan" = op.mich)
+createPlot(mich.df, ll)
 
 dev.print(png, file = "output/Michoacan.png", width=600, height=600)
 
 
 #Sinadroga
 sin.df <- getData(hom, pop, sinaloa, popsize)
-createPlot(sin.df, c(op.tria.dor, op.sin), c("Joint Operation Triangulo Dorado", "Joint Operation Culiacan-Navolato"))
+ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
+           "Joint Operation Culiacan-Navolato" = op.sin)
+createPlot(sin.df, ll)
 
 dev.print(png, file = "output/Sinaloa.png", width=700, height=600)
 
 
 #Durango
 dur.df <- getData(hom, pop, durango, popsize)
-createPlot(dur.df, c(op.tria.dor, op.tria.dor.III), c("Joint Operation Triangulo Dorado", "Phase III" ))
+ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
+           "Phase III"=op.tria.dor.III)
+createPlot(dur.df, ll)
 
 dev.print(png, file = "output/Durango.png", width=600, height=600)
 
@@ -214,29 +196,30 @@ dev.print(png, file = "output/Durango.png", width=600, height=600)
 #The data for Oaxaca and Guerrero are in another file
 hom <- read.csv(bzfile("data/county-month-gue-oax.csv.bz2"))
 
-
 #Guerrero
 gue.df <- getData(hom, pop, guerrero, popsize)
-createPlot(gue.df, c(op.gue), c("Joint Operation Guerrero"))
+ll <- list("Joint Operation Guerrero" = op.gue)
+createPlot(gue.df, ll)
 
 dev.print(png, file = "output/Guerrero.png", width=600, height=600)
 
 
 
-#The data for Nuevo Leon and Tamaulipas are in yet another file
+
+#The data for Nuevo Leon and Tamaulipas is in yet another file
 hom <- read.csv(bzfile("data/county-month-nl-tam.csv.bz2"))
-
-
 
 #Tamaulipas
 tam.df <- getData(hom, pop, tamaulipas, popsize)
-createPlot(tam.df, c(op.tam.nl), c("Joint Operation Tamaulipas-Nuevo Leon"))
+ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
+createPlot(tam.df, ll)
 
 dev.print(png, file = "output/Tamaulipas.png", width=600, height=900)
 
 #Nuevo Leon
 nl.df <- getData(hom, pop, nuevo.leon, popsize)
-createPlot(nl.df, c(op.tam.nl), c("Joint Operation Tamaulipas-Nuevo Leon"))
+ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
+createPlot(nl.df, ll)
 
 dev.print(png, file = "output/Nuevo-Leon.png", width=600, height=900)
 
