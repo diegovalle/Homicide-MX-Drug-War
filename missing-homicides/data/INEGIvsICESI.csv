@@ -1,33 +1,33 @@
-State,INEGI,ICESI
-Aguascalientes,58,63
-Baja California,1027,853
-Baja California Sur,38,28
-Campeche,50,45
-Chiapas,258,364
-Chihuahua,2567,1414
-Coahuila de Zaragoza,171,179
-Colima,55,33
-Distrito Federal,912,713
-Durango,408,430
-Guanajuato,292,257
-Guerrero,941,951
-Hidalgo,72,139
-Jalisco,541,462
-México,1559,1261
-Michoacán de Ocampo,624,565
-Morelos,209,135
-Nayarit,147,147
-Nuevo León,231,263
-Oaxaca,578,733
-Puebla,344,429
-Querétaro,71,58
-Quintana Roo,143,192
-San Luis Potosí,193,218
-Sinaloa,782,1156
-Sonora,428,393
-Tabasco,150,148
-Tamaulipas,257,308
-Tlaxcala,54,42
-Veracruz de Ignacio de la Llave,327,477
-Yucatán,49,47
-Zacatecas,92,74
+State,INEGI,ICESI,Abbrv,Anuario,Stat.Yrbks
+Aguascalientes,58,63,Ags,64,64
+Baja California,1027,853,BC,862,862
+Baja California Sur,38,28,BCS,28,28
+Campeche,50,45,Camp,45,45
+Chiapas,258,364,Chis,326,326
+Chihuahua,2567,1414,Chih,2101,2101
+Coahuila de Zaragoza,171,179,Coah,179,179
+Colima,55,33,Col,44,44
+Distrito Federal,912,713,DF,724,724
+Durango,408,430,Dgo,,430
+Guanajuato,292,257,Gto,304,304
+Guerrero,941,951,Gro,962,962
+Hidalgo,72,139,Hgo,139,139
+Jalisco,541,462,Jal,463,463
+México,1559,1261,Méx,1196,1196
+Michoacán de Ocampo,624,565,Mich,542,542
+Morelos,209,135,Mor,194,194
+Nayarit,147,147,Nay,,147
+Nuevo León,231,263,NL,263,263
+Oaxaca,578,733,Oax,956,956
+Puebla,344,429,Pue,429,429
+Querétaro,71,58,Qro,186,58
+Quintana Roo,143,192,QR,192,192
+San Luis Potosí,193,218,SLP,271,271
+Sinaloa,782,1156,Sin,1159,1159
+Sonora,428,393,Son,393,393
+Tabasco,150,148,Tab,152,152
+Tamaulipas,257,308,Tamps,345,345
+Tlaxcala,54,42,Tlax,,42
+Veracruz de Ignacio de la Llave,327,477,Ver,515,515
+Yucatán,49,47,Yuc,,47
+Zacatecas,92,74,Zac,74,74
