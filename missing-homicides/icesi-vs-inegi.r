@@ -109,7 +109,7 @@ ggplot(ivsi, aes(INEGI, ICESI,
        opts(legend.position = "none") +
        annotate("text", 1400, 1400, label = "Data ara equal ->",
                 color ="blue", hjust = 1)
-dev.print(png, file = "output/INEGIvsICES.png", width = 600, height = 480)
+dev.print(png, file = "output/scatter-inegi-icesi.png", width = 600, height = 480)
 
 
 
