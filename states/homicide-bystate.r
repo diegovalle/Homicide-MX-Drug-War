@@ -116,7 +116,7 @@ mapOrder <- function(df, varname = "County.x"){
   df.merge
 }
 
-mexico.shp <- readShapePoly(map.of.mexico,
+mexico.shp <- readShapePoly(map.icesi,
                             IDvar = "NAME",
                             proj4string = CRS("+proj=longlat"))
 
