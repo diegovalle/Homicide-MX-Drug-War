@@ -135,8 +135,8 @@ drawMap <- function(vector, title) {
   title(main = title)
   inter <- paste(names(attr(colcode, "table")),c("","",""))
   inter[1] <- "0"
-  legend(3500000,2200000, legend=inter, #use axes=T to find the pos!
-      fill=attr(colcode, "palette"), cex=0.8, bty="n")
+  legend(3600000,2200000, legend=inter, #use axes=T to find the pos!
+      fill=attr(colcode, "palette"), cex=1, bty="n")
   par(bg='white')
 }
 

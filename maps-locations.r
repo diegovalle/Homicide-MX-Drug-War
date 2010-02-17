@@ -5,8 +5,8 @@
 # Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)
 
 #Change to were you downloaded the map from the ICESI
-map.of.mexico <- "../../../maps/Mexico.shp"
+map.icesi <- "../../../maps/Mexico.shp"
 
 #Change to the location of the INEGI maps
-mexico.map.ct.file <- "../../../maps/3.1.1/MUNICIPIOS.shp"
-mexico.map.st.file <- "../../../maps/3.1.1/ESTADOS.shp"
+map.inegi.ct <- "../../../maps/3.1.1/MUNICIPIOS.shp"
+map.inegi.st <- "../../../maps/3.1.1/ESTADOS.shp"

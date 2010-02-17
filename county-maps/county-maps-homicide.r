@@ -105,11 +105,11 @@ hom.popm <- hom.popm[order(-hom.popm$rate),]
 
 #For memory reasons these are global variables
 #County map
-mexico.ct.shp <- readShapePoly(mexico.map.ct.file,
+mexico.ct.shp <- readShapePoly(map.inegi.ct,
                                IDvar = "CLAVE",
                                proj4string = CRS("+proj=aea"))
 #State map
-mexico.st.shp <- readShapePoly(mexico.map.st.file,
+mexico.st.shp <- readShapePoly(map.inegi.st,
                                proj4string = CRS("+proj=aea"))
 
 #Plot a map of the murder rate
@@ -136,7 +136,7 @@ drawMap <- function(vector, title) {
   inter <- paste(names(attr(colcode, "table")),c("","",""))
   inter[1] <- "0"
   legend(3600000,2200000, legend=inter, #use axes=T to find the pos!
-      fill=attr(colcode, "palette"), cex=1.2, bty="n")
+      fill=attr(colcode, "palette"), cex=1, bty="n")
   par(bg='white')
 }
 
