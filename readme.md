@@ -16,7 +16,7 @@ _While the drug war met with some success at first, the homicide rate increased 
 
 _Bar plot of the different homicide data. That is, see if the police records (labeled ICESI and filled with blue) match those of the vital statistics system (labeled INEGI and filled with red). The police records are missing 1,153 homicides in Chihuahua alone! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024) alone, more than the 1,414 reported in the whole state according to police records. Note that the vital statistics are not much better, missing almost 400 homicides in Sinaloa._
 
-_read the file readme.md in the directory to see why this [missing-homicides](http://github.com/diegovalle/Homicide-MX-Drug-War/tree/master/missing-homicides/) happened_
+_read the file readme.md in the directory [missing-homicides](http://github.com/diegovalle/Homicide-MX-Drug-War/tree/master/missing-homicides/) to see why this happened_
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
