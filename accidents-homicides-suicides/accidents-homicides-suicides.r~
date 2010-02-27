@@ -15,7 +15,7 @@ library(Cairo)
 #Note: If you don't break down the deaths by place of occurence you'll
 #end up counting deaths that took place in foreign countries but
 #were registered in Mexico. Yeah, the INEGI database is hard to use.
-deaths <- read.csv("accidents-homicides-suicides-bystate.csv", skip=3)
+deaths <- read.csv(bzfile("data/accidents-homicides-suicides-bystate.csv.bz2"), skip=3)
 names(deaths)[1:4] <- c("Code","State","Year","Type.of.Death")
 deaths <- subset(deaths, Type.of.Death != "Se ignora" &
                  State != "Extranjero" & State != "Total" &

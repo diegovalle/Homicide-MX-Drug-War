@@ -22,11 +22,17 @@ deaths <- subset(deaths, Type.of.Death != "Se ignora" &
                  Year != "No especificado" & Year !="Total")
 deaths$Year <- as.numeric(as.numeric(gsub('[[:alpha:]]', '',
                      deaths$Year)))
-deaths <- subset(deaths, deaths$Year >= 1990)
+deaths <- subset(deaths, Year >= 1990 & Year)
 deaths[is.na(deaths)] <- 0
 deaths$Tot <- apply(deaths[,5:ncol(deaths)], 1, function(x) sum(x))
+
+#write the total murders by state to a file
+st <- cast(subset(deaths, Type.of.Death == "Homicidio"), State ~ Year)
+write.csv(st, "output/states.csv", row.names = FALSE)
+
 deaths <- ddply(deaths, .(Year, Type.of.Death), function(df) sum(df$Tot))
 names(deaths) <- c("Year","Type.of.Death","Tot")
+
 
 #Population of Mexico 1990-2008
 #source: CONAPO

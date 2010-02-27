@@ -1,4 +1,4 @@
-Accidents, Homicides and Suicides
+ï»¿Accidents, Homicides and Suicides
 =================================
 The homicide rate in Mexico
 
@@ -15,7 +15,7 @@ Variables used to download the data from the INEGI:
 
 Mortalidad general												
 
-Consulta de: Defunciones accidentales y violentas   Por: Ent y mun de ocurrencia, Año de ocurrencia y Tipo de defunción   Según: Año de registro			
+Consulta de: Defunciones accidentales y violentas Â  Por: Ent y mun de ocurrencia, AÃ±o de ocurrencia y Tipo de defunciÃ³n Â  SegÃºn: AÃ±o de registro			
 
 The first four columns of the database are nameless but correspond to:
 
