@@ -28,7 +28,7 @@ Tipo de defunción : Homicidio
 
 Consulta de: Defunciones accidentales y violentas   Por: Ent y mun de ocurrencia, Año de ocurrencia y Mes de ocurrencia   Según: Año de registro												
 
-The first four columns of the database are nameless but correspond to:
+The columns of the database correspond to:
 
 Code - Numeric code for each state and county
 
@@ -71,7 +71,9 @@ __Military Deployment Dates:__
 
 __Other Dates:__
 
-[Alfredo Beltrán Leyva, "el Mochomo"](http://www.sedena.gob.mx/index.php?id_art=1169) captured: 01/21/2008
+[Alfredo Beltrán Leyva, "El Mochomo"](http://www.sedena.gob.mx/index.php?id_art=1169) captured: 01/21/2008
+
+[Eduardo Arellano Félix, "El Doctor"](http://www.elfinanciero.com.mx/ElFinanciero/Portal/cfpages/contentmgr.cfm?docId=152259&docTipo=1&orderby=docid&sortby=ASC) arrested: 10/26/2008
 
 __Population Data:__
 

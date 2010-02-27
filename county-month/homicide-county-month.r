@@ -19,7 +19,6 @@ source("constants.r")
 #;;;;to prove that Global Warming is happening
 #;;;;Oh wait, wrong file
 
-#Draw a multiple lines plot of each narco-state
 cleanHom <-  function(df, state) {
   df <- df[grep(state, df$Code), ]
   df <- subset(df, Year.of.Murder != "Total" &
@@ -33,7 +32,7 @@ cleanHom <-  function(df, state) {
   df[is.na(df)] <- 0
   df$Total.Murders <- apply(df[ , col2cvt], 1, sum)
   df$Month.of.Murder <- factor(df$Month.of.Murder)
-  #The months are in a weird order, so 04=Abril, etc.
+  #The months are in alphabetical order, so 04=Abril, etc.
   levels(df$Month.of.Murder) <- c("04","08","12","01","02","07","06","03","05","11","10","09")
 
   df$Date <- as.Date(paste(df$Month.of.Murder,"/",
@@ -83,6 +82,8 @@ mergeHomPop <- function(df, pop, cutoff) {
   #An NA means there were no murders, so we have to change it to 0
   df.pop$rate[is.na(df.pop$rate)] <- 0
   df.pop$Total.Murders[is.na(df.pop$Total.Murders)] <- 0
+  df.pop$County.x <- with(df.pop, reorder(factor(County.x),
+                                          rate))
   df.pop
 }
 
@@ -111,16 +112,16 @@ drawTS <- function(df.pop, operations) {
                           t = names(operations))
     p <- ggplot(df.pop, aes(Date, rate)) +
       geom_point(aes(size=Total.Murders), color="darkred") +
-      facet_wrap(~ County.x, ncol = 1,
-                 scale="free_y") +
       scale_x_date() +
       geom_smooth(aes(group = group), se = FALSE) +
-      xlab("") + ylab("Homicide rate")
-    p <- p + geom_text(aes(x = d, label = t), y=0,
+      xlab("") + ylab("Homicide rate") +
+      geom_text(aes(x = d, label = t, y = -9),
                    data = date.df,
-                   size = 3, hjust = 1, vjust = 0)
-    p <- p + geom_vline(aes(xintercept = d), data = date.df,
-                        alpha = .4)
+                   size = 3, hjust = 1, vjust = 0) +
+      geom_vline(aes(xintercept = d), data = date.df,
+                        alpha = .4) +
+      facet_wrap(~ County.x, ncol = 1,
+                 scale="free_y")
     p
 }
 
@@ -162,7 +163,7 @@ ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Joint Operation Chihuahua" = op.chi)
 createPlot(chi.df, ll)
 
-dev.print(png, file = "output/Chihuahua.png", width=600, height=600)
+dev.print(png, file = "output/Chihuahua.png", width=600, height=700)
 
 
 #Michoacán (I hate trying to get emacs and R to understand utf!)
