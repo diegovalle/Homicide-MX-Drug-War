@@ -65,15 +65,20 @@ cleanPopCONAPO <- function(filename) {
 }
 
 #population from the inegi
-cleanPopINEGI <- function(filename, year) {
+cleanPopINEGI <- function(filename, year, type = "Total") {
   pop <- read.csv(filename)
   pop <- na.omit(pop)
   pop <- subset(pop, County != "Total" &
                      Code != "#NAME?")
   pop$Clave <- as.numeric(gsub(" ", "", pop$Code))
   pop$Code <- NULL
-  pop$Hombres <- NULL
-  pop$Mujeres <- NULL
+  if (type == "Total") {
+    pop$Hombres <- NULL
+    pop$Mujeres <- NULL
+  } else if (type == "Mujer"){
+    pop$Total <- NULL
+    pop$Hombres <- NULL
+  }
   pop$Year <- year
   names(pop)[2] <- "Population"
   pop
@@ -82,13 +87,19 @@ cleanPopINEGI <- function(filename, year) {
 #################################################################
 #Read the files with the data and population, then merge them
 ################################################################
-hom <- cleanHomicide("../states/data/homicide-mun-2008.csv.bz2", "Total")
+type = "Total" #Change this to Mujer to get femicides
+#                          c(0,0.05,1,2,3,4,5,10,20,Inf))
+hom <- cleanHomicide("../states/data/homicide-mun-2008.csv.bz2", type)
 #read the file with population data from 2006-2008
-popm <- cleanPopCONAPO("data/pop.csv.bz2")
+if(type=="Total") {
+  popm <- cleanPopCONAPO("data/pop.csv.bz2")
+} else{
+  popm <- cleanPopCONAPO("data/pop-w.csv.bz2")
+}
 #read the files with population data from the censuses
-pop90 <- cleanPopINEGI("data/inegi1990.csv", 1990)
-pop95 <- cleanPopINEGI("data/inegi1995.csv", 1995)
-pop00 <- cleanPopINEGI("data/inegi2000.csv", 2000)
+pop90 <- cleanPopINEGI("data/inegi1990.csv", 1990, type)
+pop95 <- cleanPopINEGI("data/inegi1995.csv", 1995, type)
+pop00 <- cleanPopINEGI("data/inegi2000.csv", 2000, type)
 #combine them in a single data.frame
 popm <- rbind(popm, pop90, pop95, pop00)
 
@@ -113,22 +124,12 @@ mexico.st.shp <- readShapePoly(map.inegi.st,
                                proj4string = CRS("+proj=aea"))
 
 #Plot a map of the murder rate
-drawMap <- function(vector, title) {
+drawMap <- function(vector, title, breaks) {
   plotvar<- unlist(vector)
   nclr <- 9
   plotclr <- brewer.pal(nclr,"Reds")
-
-  #doesn't look as good with continuous colors
-  #clr.inc <- colorRampPalette(brewer.pal(9, "Reds"))
-  #obs <- 60
-  #index <- round(vector) + 1
-  #colcode <- ifelse(vector > 60,
-  #                  clr.inc(obs)[60],
-  #                  clr.inc(obs)[index])
-
   class <- classIntervals(plotvar, nclr, style="fixed",
-                          fixedBreaks =
-                          c(0,0.1,3,6,12,20,40,60,80,Inf))
+                          fixedBreaks = breaks)
   colcode <- findColours(class, plotclr)
   plot(mexico.ct.shp, col = colcode, lty = 0, border = "gray")
   plot(mexico.st.shp, add = TRUE, lwd=1, border = "gray30")
@@ -151,11 +152,18 @@ mergeMap <- function(df, year){
   map
 }
 
+if(type == "Mujer") {
+  breaks <- c(0,0.05,1,2,3,4,5,10,20,Inf)
+} else {
+  breaks <- c(0,0.1,3,6,12,20,40,60,80,Inf)
+}
+
+
 #From 2006 to 2008, and 1990, 1995, 2000
 #CairoSVG(file = "output/Homicide rate by county, 2008.svg", dpi = 50)
 Cairo(file = "output/Homicide rate by county, 2008.png", width=960, height=600)
 map <- mergeMap(hom.popm, 2008)
-drawMap(map$rate, "Homicide rate by county, 2008")
+drawMap(map$rate, "Homicide rate by county, 2008", breaks)
 dev.off()
 
 Cairo(file = "output/Homicide rate by county, 2007.png", width=960, height=600)

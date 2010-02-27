@@ -65,15 +65,20 @@ cleanPopCONAPO <- function(filename) {
 }
 
 #population from the inegi
-cleanPopINEGI <- function(filename, year) {
+cleanPopINEGI <- function(filename, year, type = "Total") {
   pop <- read.csv(filename)
   pop <- na.omit(pop)
   pop <- subset(pop, County != "Total" &
                      Code != "#NAME?")
   pop$Clave <- as.numeric(gsub(" ", "", pop$Code))
   pop$Code <- NULL
-  pop$Hombres <- NULL
-  pop$Mujeres <- NULL
+  if (type == "Total") {
+    pop$Hombres <- NULL
+    pop$Mujeres <- NULL
+  } else if (type == "Mujer"){
+    pop$Total <- NULL
+    pop$Hombres <- NULL
+  }
   pop$Year <- year
   names(pop)[2] <- "Population"
   pop
@@ -82,13 +87,19 @@ cleanPopINEGI <- function(filename, year) {
 #################################################################
 #Read the files with the data and population, then merge them
 ################################################################
-hom <- cleanHomicide("../states/data/homicide-mun-2008.csv.bz2", "Total")
+type = "Mujer" #Change this to Mujer to get femicides
+
+hom <- cleanHomicide("../states/data/homicide-mun-2008.csv.bz2", type)
 #read the file with population data from 2006-2008
-popm <- cleanPopCONAPO("data/pop.csv.bz2")
+if(type=="Total") {
+  popm <- cleanPopCONAPO("data/pop.csv.bz2")
+} else{
+  popm <- cleanPopCONAPO("data/pop-w.csv.bz2")
+}
 #read the files with population data from the censuses
-pop90 <- cleanPopINEGI("data/inegi1990.csv", 1990)
-pop95 <- cleanPopINEGI("data/inegi1995.csv", 1995)
-pop00 <- cleanPopINEGI("data/inegi2000.csv", 2000)
+pop90 <- cleanPopINEGI("data/inegi1990.csv", 1990, type)
+pop95 <- cleanPopINEGI("data/inegi1995.csv", 1995, type)
+pop00 <- cleanPopINEGI("data/inegi2000.csv", 2000, type)
 #combine them in a single data.frame
 popm <- rbind(popm, pop90, pop95, pop00)
 
@@ -105,11 +116,11 @@ hom.popm <- hom.popm[order(-hom.popm$rate),]
 
 #For memory reasons these are global variables
 #County map
-mexico.ct.shp <- readShapePoly(mexico.map.ct.file,
+mexico.ct.shp <- readShapePoly(map.inegi.ct,
                                IDvar = "CLAVE",
                                proj4string = CRS("+proj=aea"))
 #State map
-mexico.st.shp <- readShapePoly(mexico.map.st.file,
+mexico.st.shp <- readShapePoly(map.inegi.st,
                                proj4string = CRS("+proj=aea"))
 
 #Plot a map of the murder rate
