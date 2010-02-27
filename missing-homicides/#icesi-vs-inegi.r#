@@ -153,19 +153,19 @@ dev.print(png, file = "output/INEGIvsYearbook.png", width = 480, height = 600)
 ########################################################
 # Percentage Difference
 ########################################################
-ggplot(ivsi, aes(INEGI, abs(INEGI - Stat.Yrbks) /
-                 (Stat.Yrbks + INEGI) / 2, label = Abbrv)) +
+ggplot(ivsi, aes(INEGI, abs(INEGI - ICESI) /
+                 (ICESI + INEGI) / 2, label = Abbrv)) +
     geom_text(alpha = .6)+
     #Not significant
     geom_smooth(method=lm, se = FALSE, color ="red") +
     scale_y_continuous(formatter = "percent") +
     xlab("Number of Homicides according to INEGI") +
     ylab("Percentage difference")
-dev.print(png, file = "output/INEGIvsICESIprop.png", width = 480, height = 480)
+dev.print(png, file = "output/INEGIvsStatYrbksprop.png", width = 480, height = 480)
 
 with(ivsi, {
-     dep <- abs((INEGI - Stat.Yrbks) /
-                 ((Stat.Yrbks + INEGI) / 2)  )
+     dep <- abs((INEGI - ICESI) /
+                 ((ICESI + INEGI) / 2)  )
      summary(lm(INEGI ~ dep, data = ivsi))
  })
 

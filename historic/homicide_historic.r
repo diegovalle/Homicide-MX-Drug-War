@@ -113,7 +113,7 @@ Cairo(file = "output/homicide-mx-1990-2008.png")
 ggplot(hom[hom$year >= 1990, ], aes(year, MX),
        ylab = "Homicide rate")   +
   geom_line(size = 1) +
-  opts(title = "Mexican homicide rate, 1990-2008 and 2009 (estimate)") +
+  opts(title = "Homicide rate in Mexico, 1990-2008 and 2009 (estimate)") +
   labs(y = "Homicide rate", x = "") +
   #Estimate for 2009. According to the Justice in Mexico project
   #executions were 30% higher from jan-2009 to oct-2009 than

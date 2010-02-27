@@ -11,8 +11,6 @@ still, you can download the final numbers from the Statistical Yearbooks of
 each state. Since both data sources are available at the state level you can
 compare them and see if there are any differences.
 
-The vital statistics from the INEGI, follow the [International Classification of Diseases](http://www.who.int/classifications/icd/en/) and so it is valid to do international comparisons with them.
-
 The plot gets thicker: it turns out the data from the ICESI for 2008 are only
 estimates (missing over 1,100 homicides in Chihuahua, looks like it was a mid-year
 "estimate"). The INEGI releases a series of statistical yearkbooks for each state
@@ -25,7 +23,7 @@ homicides, but police reports. So if 18 kids are killed in a massacre at the sam
 time, and there's only one police report, they are recorded as one. The statistical
 yearbooks do have the data available by number of victims, but they combine "homicidios
 dolosos" (homicide) with "homicidios culposos" (manslaughter). I wonder, wonder why
-they would do this.
+they would do this?
 
 Data are also available from PAHO and the UN, but only at the national level.
 
@@ -69,5 +67,5 @@ ICESI - Number of homicides according to the ICESI (which takes the data from SN
 
 Anuario - The raw values according to the Statistical Yearbooks
 
-Stat.Yrbks - The values from the Statistical Yearbook if available, if not, the data is from the ICESI
+Stat.Yrbks - The values from the Statistical Yearbooks if available, if not, the data is from the ICESI
 
