@@ -3,7 +3,7 @@
 
 Homicide in Mexico and the Drug War
 =========================================================
-Homicides in Mexico have increased greatly since the government sent in the military to fight drug cartels in December 2006. These series of scripts explore various statistics related to homicides in Mexico. You'll probably want to read the associated blog post at [blog.diegovalle.net](http://blog.diegovalle.net)(hehe, when done!)
+Homicides in Mexico have increased greatly since the government sent in the military to fight drug cartels in December 2006. These series of scripts explore various statistics related to homicides in Mexico.
 
 
 ![homicide rate in Mexico 1990-2009](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/historic/output/homicide-mx-1990-2008.png)
@@ -14,7 +14,7 @@ _While the drug war met with some success at first, the homicide rate increased 
 
 ![Who's missing homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/missing-homicides/output/INEGIvsICESI.png "Chihuahua is missing 1153 homicides")
 
-_Bar plot of the different homicide data. That is, see if the police records (labeled ICESI and filled with blue) match those of the vital statistics system (labeled INEGI and filled with red). The police records are missing 1,153 homicides in Chihuahua alone! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024) alone, more than the 1,414 reported in the whole state according to police records. Note that the vital statistics are not much better, missing almost 400 homicides in Sinaloa._
+_Bar plot of the different homicide data. That is, see if the police records (labeled ICESI and filled with blue) match those of the vital statistics system (labeled INEGI and filled with red). The police records are missing 1,153 homicides in Chihuahua alone! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024), more than the 1,414 reported in the whole state according to police records._
 
 _read the file readme.md in the directory [missing-homicides](http://github.com/diegovalle/Homicide-MX-Drug-War/tree/master/missing-homicides/) to see why this happened_
 
@@ -22,7 +22,7 @@ _read the file readme.md in the directory [missing-homicides](http://github.com/
 
 ![Ciudad Juarez](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/ciudad-juarez.png)
 
-_Monthly homicide rates in Ciudad Juarez. The city turned into the most violent in the world after the army took control of it. Even rushing in reinforcements didn't return the murder rate to its former levels and after three months the bloodshed became even greater._
+_Annualized monthly homicide rates in Ciudad Juarez. The city turned into the most violent in the world after the army took control of it. Even rushing in reinforcements didn't return the murder rate to its former levels and after three months the bloodshed became even greater._
 
 
 
@@ -101,6 +101,18 @@ states:
 * Maps and charts with the change in homicide rate from 2006 to 2008
 * If you run merge.bat you get a merged chart of the bar plots and maps
 * A small multiples chart with the murder rate of each state from 1990 to 2008
+
+Benford:
+
+* Do the homicide data follow Benford's law?
+
+missing-homicides
+
+* Why is there such a big difference between the two sources (police records and vital statistics) of homicide data
+
+drugs:
+
+* Correlation between drug use and homicides
 
 Notes
 -----
