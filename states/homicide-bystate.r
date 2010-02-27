@@ -10,6 +10,7 @@
 #5. Small multiples of the evolution of the murder rate 1990-2008
 
 library(ggplot2)
+library(Hmisc)
 library(RColorBrewer)
 library(maptools)
 library(classInt)
@@ -20,7 +21,7 @@ library(plotrix)
 source("../maps-locations.r")
 
 #############################################
-#String Constansts
+#String Constants
 kyears <- 1990:2008
 #############################################3
 
@@ -31,84 +32,85 @@ cleanNames <- function(df, varname = "County"){
   df[[varname]]
 }
 
-#Read the data and clean it up
-hom <- read.csv(bzfile("data/homicide-mun-2008.csv.bz2"), skip=4)
-names(hom)[1:4] <- c("Code", "County", "Year.of.Murder", "Sex")
-hom <- hom[grep("=CONCATENAR", hom$Code),]
-hom <- hom[-grep("Extranjero", hom$County),]
-hom <- hom[grep("Total", hom$Sex),]
-hom$Year.of.Murder <- as.numeric(as.numeric(gsub('[[:alpha:]]', '',
+cleanHom <- function(type="Total") {
+  hom <- read.csv(bzfile("data/homicide-mun-2008.csv.bz2"), skip=4)
+  names(hom)[1:4] <- c("Code", "County", "Year.of.Murder", "Sex")
+  hom <- hom[grep("=CONCATENAR", hom$Code),]
+  hom <- hom[-grep("Extranjero", hom$County),]
+  hom <- hom[grep(type, hom$Sex),]
+  hom$Year.of.Murder <- as.numeric(as.numeric(gsub('[[:alpha:]]', '',
                                  hom$Year.of.Murder)))
-hom <- subset(hom, Year.of.Murder >= 1990)
-#Get rid of the commas in the numbers: 155,000 to 155000
-col2cvt <- 5:ncol(hom)
-hom[ ,col2cvt] <- lapply(hom[ ,col2cvt],
-                        function(x){as.numeric(gsub(",", "", x))})
-hom[is.na(hom)] <- 0
-hom$Tot <- apply(hom[ , col2cvt], 1, sum)
+  hom <- subset(hom, Year.of.Murder >= 1990)
+  #Get rid of the commas in the numbers: 155,000 to 155000
+  col2cvt <- 5:ncol(hom)
+  hom[ ,col2cvt] <- lapply(hom[ ,col2cvt],
+                          function(x){as.numeric(gsub(",", "", x))})
+  hom[is.na(hom)] <- 0
+  hom$Tot <- apply(hom[ , col2cvt], 1, sum)
+  hom$Code <- as.numeric(gsub(".*,([[:digit:]]+).", "\\1", hom$Code))
+  hom
+}
 
-#Read the population data and merge it with the homice data to calculate the murder rate per 100,000
-pop <- read.csv("../conapo-pop-estimates/conapo-states.csv")
-pop$Code <- c(1:33)
-hom$Code <- rep(1:32, each=19)
-hom2008 <- merge(subset(hom, Year.of.Murder == 2008),
-                 pop, by="Code", all.x=T)
-#The per 100,000  murder rate
-hom2008$Rate <- hom2008$X2008.x / hom2008$X2008.y * 100000
-hom2008$County <- cleanNames(hom2008)
-hom2008$County <- factor(hom2008$County)
+cleanPop <- function(type = "Total") {
+  if(type == "Mujer")
+    pop <- read.csv("../conapo-pop-estimates/conapo-states-f.csv")
+  else
+    pop <- read.csv("../conapo-pop-estimates/conapo-states.csv")
+  pop$Code <- c(1:33)
+  pop
+}
 
+mergeHomPopYear <- function(hom, pop, year = 2008) {
+  hom2008 <- merge(subset(hom, Year.of.Murder == year),
+                   pop[ ,c(1,year-1990+2,ncol(pop))],
+                   by="Code", all.x = TRUE)
+  names(hom2008)[ncol(hom) + 2] <- "popyear"
+  #The per 100,000  murder rate
+  hom2008$Rate <- hom2008$Tot / hom2008$popyear * 100000
+  hom2008$County <- cleanNames(hom2008)
+  hom2008$County <- factor(hom2008$County)
+  hom2008
+}
 
-
-
-
-########################################################
-#Bar plot of the murder rate in 2008 by state and a map
-########################################################
-#Orange-Red Colors for the bars
-nclr <- 4
-palette <- "OrRd"
-plotclr <- brewer.pal(nclr,palette)
-hom2008$color <- NA
-
-obs <- 34
-index <- round(hom2008$Rate) + 1
-clr.inc <- colorRampPalette(brewer.pal(8, "Reds"))
-hom2008$color <- clr.inc(obs)[index]
-hom2008[hom2008$Rate > 70,]$color <- "#410101"
-
-hom2008$County <- reorder(hom2008$County, hom2008$Rate)
-ggplot(data = hom2008, aes(County, Rate)) +
-  geom_bar(stat = "identity", aes(fill = color)) +
-  scale_y_continuous(limits = c(0, 85)) +
-  coord_flip() +
-  labs(x = "", y = "Homicides per 100,000") +
-  opts(title = "Homicide Rate in Mexico (2008)") +
-  opts(legend.position = "none") +
-  scale_fill_identity(breaks = plotclr) +
-  geom_text(aes(label=round(Rate, digits = 1)), hjust = -.05,
-            color = "gray50") +
-  geom_hline(yintercept = 12.77435165, alpha=.1, linetype=2)
-dev.print(png, file = "output/2008-homicide-bars.png", width = 480, height = 480)
-
-#########################################
-#plot a map of mexico with different colors according to the homicide rate
-#########################################
-plotMap <- function(mexico.shp, colors, plotclr, legend="", title="") {
-  plot(mexico.shp, col = colors, border="black", lwd=2)
-  title(main = title)
-  if (legend !="") {
-    legend("topright", legend = legend,
-      fill = plotclr, cex=0.8, bty="n")
+redScale <- function(rate) {
+  #the second highest value (Sinaloa)
+  obs <- round(range(rate)[2]) + 1
+  if(obs > 70) {
+    obs <- round(-sort(-rate)[2]) + 1
   }
+  index <- round(rate) + 1
+  clr.inc <- colorRampPalette(brewer.pal(8, "Reds"))
+  vec <- clr.inc(obs)[index]
+  #special color for Chihuahua since it resembles a war zone,
+  #otherwise the colors for the rest of the country would be
+  #too light
+  vec[rate > 70] <- "#410101"
+  vec
+}
 
-  par(bg = "white")
+barPlot <- function(hom2008, year="") {
+  hom2008$color <- redScale(hom2008$Rate)
+  hom2008$County <- reorder(hom2008$County, hom2008$Rate)
+  xmax <- range(hom2008$Rate)[2] + 5
+  hom.mean <- wtd.mean(hom2008$Rate, hom2008$popyear)
+  ggplot(data = hom2008, aes(County, Rate)) +
+    geom_bar(stat = "identity", aes(fill = color)) +
+    scale_y_continuous(limits = c(0, xmax)) +
+    coord_flip() +
+    labs(x = "", y = "Homicides per 100,000") +
+    opts(title = paste("Homicide Rates in Mexico -", year)) +
+    opts(legend.position = "none") +
+    scale_fill_identity(aes(breaks = color)) +
+    geom_text(aes(label=round(Rate, digits = 1)), hjust = -.05,
+            color = "gray50") +
+    geom_hline(yintercept = hom.mean, alpha=.1, linetype=2)
 }
 
 #We need to order the variables by name to match them with the map
 mapOrder <- function(df, varname = "County.x"){
   df$County <- iconv(df[[varname]], "", "ASCII")
-  #Why doesnt it work for Michoacán, I cheated and used the state
+  df$County <- cleanNames(df)
+  #Why doesnt this work for Michoac!An, I cheated and used the state
   #number as the no.match value. rrrrrrrgh!!!!!!!!!!!!!!
   df$Code <- pmatch(df$County, mexico.shp$NAME, 16)
   df.merge <- merge(data.frame(mexico.shp$NAME, Code = 1:32),
@@ -116,130 +118,202 @@ mapOrder <- function(df, varname = "County.x"){
   df.merge
 }
 
+plotMap <- function(mexico.shp, colors, plotclr, legend="", title="") {
+  plot(mexico.shp, col = colors, border="black", lwd=2)
+  title(main = title)
+  if (legend !="") {
+    legend("topright", legend = legend,
+      fill = plotclr, cex=0.8, bty="n")
+  }
+  par(bg = "white")
+}
+
+#return a data frame with the change in homicide rates
+getDiff <- function(hom, pop, year1, year2) {
+  if(year1>year2){
+        temp <- year2
+        year2 <- year1
+        year1 <- temp
+     }
+  hom2008 <- merge(subset(hom, Year.of.Murder == year2),
+                   pop[ ,c(1,year2-1990+2,ncol(pop))],
+                   by="Code", all.x=T)
+  names(hom2008)[ncol(hom)+2] <- "popyear2"
+  hom2008$Rate2008 <- hom2008$Tot / hom2008[[ncol(hom)+2]] * 100000
+  hom2006 <- merge(subset(hom, Year.of.Murder == year1),
+                   pop[ ,c(1,year1-1990+2,ncol(pop))],
+                   by="Code", all.x=T)
+  names(hom2006)[ncol(hom)+2] <- "popyear1"
+  hom2006$Rate2006 <- hom2006$Tot / hom2006[[ncol(hom)+2]] * 100000
+  hom.diff <- merge(hom2008,hom2006, by ="Code")
+  hom.diff$Diff <- hom.diff$Rate2008 - hom.diff$Rate2006
+  hom.diff$County.x <- factor(hom.diff$County.x)
+  hom.diff
+}
+
+#red green scale for the difference barplot
+greenReds <- function(difference){
+  clr.inc <- colorRampPalette(brewer.pal(5, "Oranges"))
+  clr.dec <- colorRampPalette(brewer.pal(5, "Greens"))
+  #I (heart) R
+  colors <- difference
+  obs <- abs(round(range(difference)[2])) + 1
+  index <- abs(round(difference[difference >= 0])) + 1
+  colors[difference >= 0] <- clr.inc(obs)[index]
+
+  index <- abs(round(difference[difference < 0])) + 1
+  colors[difference < 0] <- clr.dec(obs)[index]
+
+  colors
+}
+
+#Based on code from:
+#http://learnr.wordpress.com/2009/06/01/ggplot2-positioning-of-barplot-category-labels/
+barDiff <- function(hom.diff, year1="", year2="") {
+  hom.diff$color <- greenReds(hom.diff$Diff)
+  hom.diff$hjust <- ifelse(hom.diff$Diff > 0, 1.1, -.1)
+  hom.diff$text.pos <- ifelse(hom.diff$Diff > 0, -.05, 1)
+  hom.diff$County.x <- cleanNames(hom.diff, "County.x")
+  hom.diff$County.x <- factor(hom.diff$County.x)
+  hom.diff$County.x <- reorder(hom.diff$County.x, hom.diff$Diff)
+  xmin <- range(hom.diff$Diff)[1] - 2
+  xmax <- range(hom.diff$Diff)[2] + 2
+  hom.mean08 <- wtd.mean(hom.diff$Rate2008, hom.diff$popyear2)
+  hom.mean06 <- wtd.mean(hom.diff$Rate2006, hom.diff$popyear1)
+  ggplot(hom.diff, aes(x=County.x, y=Diff, label=County.x,
+                        hjust = hjust)) +
+    geom_text(aes(y = 0, size=3)) +
+    geom_bar(stat = "identity",aes(fill = color)) +
+    scale_y_continuous(limits = c(xmin, xmax)) +
+    coord_flip() +
+    labs(x = "", y = "Change in Rate per 100,000") +
+    scale_x_discrete(breaks = NA) +
+    opts(legend.position = "none") +
+    opts(title = paste("Change in Mexican Homicide Rates (",
+                       year1, "-", year2, ")", sep = "")) +
+    scale_fill_identity(aes(breaks = color)) +
+    geom_text(aes(label=round(Diff, digits = 1), hjust = text.pos),
+              color="gray50") +
+    geom_hline(yintercept = hom.mean08 - hom.mean06, alpha=.1, , linetype=2)
+}
+
+
+
+
+
+########################################################
+#Read the data
+########################################################
+type = "Total"  #Change this to "Mujer" to get homicide data for women
+hom <- cleanHom(type)
+pop <- cleanPop(type)
+
+########################################################
+#Barplot with the homicide rate in 2008
+########################################################
+year <- 2008
+hom.year <- mergeHomPopYear(hom, pop, year)
+barPlot(hom.year, year)
+dev.print(png, file = "output/2008-homicide-bars.png",
+          width = 480, height = 480)
+
+########################################################
+#Map with the homicide rate in 2008
+########################################################
 mexico.shp <- readShapePoly(map.icesi,
                             IDvar = "NAME",
                             proj4string = CRS("+proj=longlat"))
 
-hom2008.map <- mapOrder(hom2008, "County")
+hom.year.map <- mapOrder(hom.year, "County")
+
 Cairo(file="output/2008-homicide-map.png", width=480, height=480)
-plotMap(mexico.shp, hom2008.map$color)
+plotMap(mexico.shp, redScale(hom.year.map$Rate))
 dev.off()
 
-
-
-
-
-
-
-################################################
+###################################################################
 #Bar plot of the change in homicide rate from the start of the
 #drug war at the end of 2006 till 2008 and a map
-###############################################
-#http://learnr.wordpress.com/2009/06/01/ggplot2-positioning-of-barplot-category-labels/
+###################################################################
+year1 <- 2006
+year2 <- 2008
+hom.diff <- getDiff(hom, pop, year1, year2)
+barDiff(hom.diff, year1, year2)
+dev.print(png, file="output/2006-2008-change-homicide.png",
+          width=480, height=480)
 
-hom2008 <- merge(subset(hom, Year.of.Murder == 2008),
-                 pop, by="Code", all.x=T)
-hom2008$Rate2008 <- hom2008$X2008.x / hom2008$X2008.y * 100000
-hom2006 <- merge(subset(hom, Year.of.Murder == 2006),
-                 pop, by="Code", all.x=T)
-hom2006$Rate2006 <- hom2006$X2006.x / hom2006$X2006.y * 100000
-hom.diff <- merge(hom2008,hom2006, by ="Code")
-hom.diff$Diff <- hom.diff$Rate2008 - hom.diff$Rate2006
-
-clr.inc <- colorRampPalette(brewer.pal(5, "Oranges"))
-clr.dec <- colorRampPalette(brewer.pal(5, "Greens"))
-hom.diff$color <- NA
-#I (heart) R
-obs <- abs(round(range(hom.diff$Diff)[2])) + 1
-index <- abs(round(hom.diff[hom.diff$Diff >= 0, ]$Diff)) + 1
-hom.diff[hom.diff$Diff >= 0, ]$color <- clr.inc(obs)[index]
-index <- abs(round(hom.diff[hom.diff$Diff < 0, ]$Diff)) + 1
-hom.diff[hom.diff$Diff < 0, ]$color <- clr.dec(obs)[index]
-
-hom.diff$hjust <- ifelse(hom.diff$Diff > 0, 1.1, -.1)
-hom.diff$text.pos <- ifelse(hom.diff$Diff > 0, -.05, 1)
-hom.diff$County.x <- cleanNames(hom.diff, "County.x")
-hom.diff$County.x <- factor(hom.diff$County.x)
-hom.diff$County.x <- reorder(hom.diff$County.x, hom.diff$Diff)
-ggplot(hom.diff, aes(x=County.x, y=Diff, label=County.x,
-                      hjust = hjust)) +
-  geom_text(aes(y = 0, size=3)) +
-  geom_bar(stat = "identity",aes(fill = color)) +
-  scale_y_continuous(limits = c(-18, 65)) +
-  coord_flip() +
-  labs(x = "", y = "Change in Rate per 100,000") +
-  scale_x_discrete(breaks = NA) +
-  opts(legend.position = "none")+
-  opts(title="Change in Mexican Homicide Rates (2006-2008)")+
-  scale_fill_identity(breaks=plotclr) +
-  geom_text(aes(label=round(Diff, digits = 1), hjust = text.pos),
-            color="gray50") +
-  geom_hline(yintercept = 12.77435165- 9.919495802, alpha=.1, , linetype=2)
-
-dev.print(png, file="output/2006-2008-change-homicide.png", width=480, height=480)
-
-#plot a map of mexico with different colors according to the
-#change in homicide rate
-#We need to order the variables by name to match them with the map
-hom.diff.map <- mapOrder(hom.diff)
+########################################################
+#Map of the change in homicide rates
+########################################################
+hom.diff.map <- mapOrder(hom.diff, "County.x")
 Cairo(file="output/2006-2008-change-homicide-map.png", width=480, height=480)
-plotMap(mexico.shp, hom.diff.map$color)
+plotMap(mexico.shp, greenReds(hom.diff.map$Diff))
 dev.off()
-
-
-
-
-
-
 
 ####################################################
 #Small Multiples Plot of Murders by State
 ####################################################
-#The yearly homicide rate in Mexico
-historic <- read.csv("../accidents-homicides-suicides/output/homicide.csv")
-homicideMX <- historic$rate
-total.hom <- data.frame(rate=homicideMX, years=kyears)
+totalHom <- function(hom){
+  total.hom <- ddply(hom, .(Year.of.Murder), function(df) sum(df$Tot))
+  total.hom$pop <- unlist(pop[33, 2:(ncol(pop)-1)])
+  total.hom$Rate <- (total.hom$V1 / total.hom$pop) * 100000
+  total.hom
+}
 
-mpop <- melt(pop, id=c("Code", "State"))
-mpop$variable <- as.numeric(substring(mpop$variable, 2))
-mpop$Year.of.Murder <- mpop$variable
-hom.mpop <- merge(hom, mpop, by=c("Code","Year.of.Murder"))
-hom.mpop$Rate <- hom.mpop$Tot / hom.mpop$value * 100000
-hom.mpop$County <- cleanNames(hom.mpop,)
-hom.mpop$County <- factor(hom.mpop$County)
+mergeHomPopS <- function(hom){
+  mpop <- melt(subset(pop, State != "Nacional"), id=c("Code", "State"))
+  mpop$variable <- as.numeric(substring(mpop$variable, 2))
+  mpop$Year.of.Murder <- mpop$variable
+  hom.mpop <- merge(hom, mpop, by=c("Code","Year.of.Murder"),
+                    all.y = TRUE)
+  if(any(is.na(hom.mpop$Tot)))
+    hom.mpop[is.na(hom.mpop$Tot), ]$Tot <- 0
+  hom.mpop$Rate <- hom.mpop$Tot / hom.mpop$value * 100000
+  hom.mpop$State <- cleanNames(hom.mpop, "State")
+  hom.mpop$State <- factor(hom.mpop$State)
+  hom.mpop
+}
 
-#k-means clustering to order the plot
-t <- cast(hom.mpop[,c(26:27,29)], State ~ variable)
-nclusters <- 8
-cl <- kmeans(t[,2:ncol(t)], nclusters)
-t$Cluster <- cl$cluster
-t <- merge(ddply(t, .(Cluster), function(df) mean(df$"2008")),
-      t, by = "Cluster")
-t <- t[,c(1,2,3)]
-hom.mpop <- merge(hom.mpop, t, by = "State")
-hom.mpop$County <- reorder(hom.mpop$County, -hom.mpop$V1)
+cluster <- function(hom.mpop, nclusters){
+  #k-means clustering to order the plot
+  t <- cast(hom.mpop[,c(26:27,29)], State ~ variable, value = "Rate")
+  t[is.na(t)] <- 0
+  cl <- kmeans(t[,2:ncol(t)], nclusters)
+  t$Cluster <- cl$cluster
+  t <- merge(ddply(t, .(Cluster), function(df) mean(df$"2008")),
+        t, by = "Cluster")
+  t <- t[,c(1,2,3)]
+  hom.mpop <- merge(hom.mpop, t, by = "State")
+  hom.mpop$State <- reorder(hom.mpop$State, -hom.mpop$V1)
+  hom.mpop
+}
+
+smallMultiples <- function(hom, pop, nclusters = 8){
+  total.hom <- totalHom(hom)
+  hom.mpop <- mergeHomPopS(hom)
+  hom.mpop <- cluster(hom.mpop, nclusters)
+  p <- ggplot(hom.mpop, aes(Year.of.Murder, Rate)) +
+      geom_line(aes(color = factor(Cluster)), size = 1)
+  p + facet_wrap(~ State, as.table = TRUE,
+                 scale="free_y") +
+      labs(x = "", y = "Homicide Rate") +
+      opts(title = "Mexican homicide rates 1990-2008, compared to the national average and grouped by similarity") +
+      scale_x_continuous(breaks = c(1990, 2000, 2008),
+                         labels = c("90", "00", "08")) +
+      theme_bw() +
+      geom_line(data = total.hom, aes(Year.of.Murder, Rate),
+                color="gray70", linetype = 2, size =.5) +
+      opts(legend.position = "none")
+
+}
 
 #This is how you get anti-aliasing in R
-#Cairo(file="output/1990-2008-homicide-small-multiples.png", type="png", width=960, height=600)
-p <- qplot(hom.mpop$Year.of.Murder, hom.mpop$Rate,
-           geom = "line", size = 1,
-           color = factor(hom.mpop$Cluster)) +
-     opts(legend.position = "none")
-p + facet_wrap(~ hom.mpop$County, as.table = TRUE,
-               scale="free_y") +
-    labs(x = "", y = "Homicide Rate") +
-    opts(title = "Mexican homicide rates 1990-2008, compared to the national average and grouped by similarity") +
-    scale_x_continuous(breaks = c(1990, 2000, 2008),
-                       labels = c("90", "00", "08")) +
-    theme_bw() +
-    geom_line(data = total.hom, aes(years, rate),
-              color="gray70", linetype = 2, size =.5) +
-    opts(legend.position = "none")
-    #scale_colour_manual(values = rep(c("#c76353","#a42c1e"),
-     #                   nclusters))
-     #    strip.background = theme_rect(fill = c("red", "blue")))
+#Cairo(file="output/1990-2008-homicide-small-multiples-w.png",
+#      type="png", width=960, height=600)
+smallMultiples(hom, pop, 4)
 #dev.off()
+
 
 #The graph for Chihuahua looks similar to the hockey stick
 #of global temperatures
-#Coincidence? or is it a goverment conspiracy
+#Coincidence? or is global warming to blame
+

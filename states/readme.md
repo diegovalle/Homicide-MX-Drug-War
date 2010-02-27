@@ -5,7 +5,7 @@
 * If you run combine.bat you get a merged chart of the bar plots and maps
 * A small multiples chart with the murder rate of each state from 1990 to 2008
 
-ToDo
+ToDo:
 ----
 fix the iconv function which for some reason converts Michoacán into
 Michoac!}n, maybe it's Emacs or whatever. I harcoded the state number
@@ -28,7 +28,9 @@ Variables used to download the data from the INEGI:
 
 Mortalidad general												
 
-Consulta de: Defunciones accidentales y violentas   Por: Ent y mun de ocurrencia, Año de ocurrencia y Tipo de defunción   Según: Año de registro			
+Consulta de: Defunciones accidentales y violentas   Por: Ent y mun de ocurrencia, Año de ocurrencia y Sexo   Según: Año de registro											
+									
+
 
 The first four columns of the database are nameless but correspond to:
 
@@ -42,4 +44,9 @@ Sex	- Sex of the deceased
 
 1990 ... 2008 - The rest of the columns correspond to the year in which the murder was _registered_
 
-The weird order of the database is because the website of the INEGI is a steaming pile of broccoli an only lets you download the data ordered by the year in which the murder was registered.									
+The weird order of the database is because the website of the INEGI is a steaming pile of broccoli an only lets you download the data ordered by the year in which the murder was registered.				
+
+
+Notes:
+------
+If you want charts of femicides set type = "Mujer"					
