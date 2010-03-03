@@ -88,6 +88,6 @@ ggplot(cdj, aes(Date,rate)) +
             data = data.frame(x = cdj.rein, y = 252),
             size = 4, hjust = 1.01, vjust = 0) +
     geom_smooth(aes(group = group), se = FALSE) +
-    ylab("Murder rate") + xlab("") +
+    ylab("Annualized murder rate") + xlab("") +
     opts(title = "Murder rates in Ciudad Juarez before and after the army took control")
 dev.off()

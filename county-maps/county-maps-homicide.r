@@ -87,7 +87,7 @@ cleanPopINEGI <- function(filename, year, type = "Total") {
 #################################################################
 #Read the files with the data and population, then merge them
 ################################################################
-type = "Total" #Change this to Mujer to get femicides
+type = "Mujer" #Change this to Mujer to get femicides
 #                          c(0,0.05,1,2,3,4,5,10,20,Inf))
 hom <- cleanHomicide("../states/data/homicide-mun-2008.csv.bz2", type)
 #read the file with population data from 2006-2008
@@ -100,7 +100,7 @@ if(type=="Total") {
 pop90 <- cleanPopINEGI("data/inegi1990.csv", 1990, type)
 pop95 <- cleanPopINEGI("data/inegi1995.csv", 1995, type)
 pop00 <- cleanPopINEGI("data/inegi2000.csv", 2000, type)
-#combine them in a single data.frame
+#combine them into a single data.frame
 popm <- rbind(popm, pop90, pop95, pop00)
 
 hom.popm <- merge(hom, popm, by.x = c("CLAVE", "Year.of.Murder"),
@@ -108,6 +108,23 @@ hom.popm <- merge(hom, popm, by.x = c("CLAVE", "Year.of.Murder"),
 hom.popm$rate<- (hom.popm$tot / hom.popm$Population) *
                         100000
 hom.popm <- hom.popm[order(-hom.popm$rate),]
+
+#The municpalities in Oaxaca have changed since the CONAPO
+#released its population database, we have to merge them
+#by name. Hopefully their boundaries haven't changed much
+changed <- setdiff(hom$CLAVE, popm$Clave)
+hom.ch <- subset(hom, CLAVE %in% changed)
+
+hom.popm.ch <- merge(hom.ch, popm, by.x = c("County",
+                                           "Year.of.Murder"),
+                  by.y = c("County", "Year"))
+hom.popm.ch$CLAVE <- NULL
+hom.popm.ch$rate<- (hom.popm.ch$tot / hom.popm.ch$Population) *
+                        100000
+hom.popm.ch$County.y <- hom.popm.ch$County
+names(hom.popm.ch)[1] <- "County.x"
+names(hom.popm.ch)[25] <- "CLAVE"
+hom.popm <- rbind(hom.popm, hom.popm.ch)
 #plot(hom.popm$rate)
 
 ########################################################

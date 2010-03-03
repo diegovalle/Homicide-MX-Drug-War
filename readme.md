@@ -3,7 +3,7 @@
 
 Homicide in Mexico and the Drug War
 =========================================================
-Homicides in Mexico have increased greatly since the government sent in the military to fight drug cartels in December 2006. These series of scripts explore various statistics related to homicides in Mexico.
+Homicides in Mexico have increased greatly since the government sent in the military to fight drug cartels in December 2006. These series of scripts explore various statistics related to the increase in violence
 
 
 ![homicide rate in Mexico 1990-2009](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/historic/output/homicide-mx-1990-2008.png)
@@ -56,7 +56,7 @@ Each directory contains its own readme so you may want to look at them
 
 Data Sources
 ------------
-Homicide data:
+__Homicide data:__
 
 Website of the INEGI:  [INEGI](http://www.inegi.org.mx/est/contenidos/espanol/proyectos/continuas/vitales/bd/mortalidad/MortalidadGeneral.asp?s=est&c=11144) for the
 murder rate according to vital statistics
@@ -65,7 +65,7 @@ Website of the ICESI: [ICESI](http://www.icesi.org.mx) for the murder rate accor
 
 Website of the INEGI: [Statistical Yearbooks](http://www.inegi.org.mx/est/contenidos/espanol/sistemas/sisnav/selproy.aspx) that contain the final (over 90% reported) number of reports filed by the police for the crime of murder.
 
-Population:
+__Population:__
 
 [census data](http://www.inegi.org.mx/inegi/default.aspx?c=9260&s=est) for the years 1990, 1995, 2000 at the county level. 
 

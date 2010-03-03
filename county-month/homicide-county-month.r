@@ -73,7 +73,7 @@ mergeHomPop <- function(df, pop, cutoff) {
   dates.df <- data.frame(Date = rep(period,
                                     each = length(states)),
                          County.x = rep(states,
-                                        length(states) *
+                                        #length(states) *
                                         length(period))
                          )
   df.pop <- merge(dates.df, df.pop,
@@ -82,8 +82,6 @@ mergeHomPop <- function(df, pop, cutoff) {
   #An NA means there were no murders, so we have to change it to 0
   df.pop$rate[is.na(df.pop$rate)] <- 0
   df.pop$Total.Murders[is.na(df.pop$Total.Murders)] <- 0
-  df.pop$County.x <- with(df.pop, reorder(factor(County.x),
-                                          rate))
   df.pop
 }
 
@@ -110,18 +108,21 @@ drawTS <- function(df.pop, operations) {
     date.df <- data.frame(d = as.Date(unlist(operations),
                                       origin = "1970-01-01"),
                           t = names(operations))
+    df.pop$County.x <- reorder(factor(df.pop$County.x), -df.pop$rate)
     p <- ggplot(df.pop, aes(Date, rate)) +
-      geom_point(aes(size=Total.Murders), color="darkred") +
+      geom_point(aes(size=Total.Murders), color="darkred", alpha =.5) +
       scale_x_date() +
       geom_smooth(aes(group = group), se = FALSE) +
-      xlab("") + ylab("Homicide rate") +
+      xlab("") + ylab("Annualized Homicide Rate") +
       geom_text(aes(x = d, label = t, y = -9),
                    data = date.df,
                    size = 3, hjust = 1, vjust = 0) +
       geom_vline(aes(xintercept = d), data = date.df,
                         alpha = .4) +
       facet_wrap(~ County.x, ncol = 1,
-                 scale="free_y")
+                 scale="free_y") +
+      #theme_bw()+
+      opts(legend.position = "none")
     p
 }
 
@@ -202,6 +203,10 @@ gue.df <- getData(hom, pop, guerrero, popsize)
 ll <- list("Joint Operation Guerrero" = op.gue)
 createPlot(gue.df, ll)
 
+#There were some changes in the municipalities of Oaxaxa and
+#their populations don't match the ones in the CONAPO data
+#so I'm excluding them
+
 dev.print(png, file = "output/Guerrero.png", width=600, height=600)
 
 
@@ -223,4 +228,3 @@ ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
 createPlot(nl.df, ll)
 
 dev.print(png, file = "output/Nuevo-Leon.png", width=600, height=900)
-
