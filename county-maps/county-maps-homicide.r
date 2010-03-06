@@ -87,7 +87,7 @@ cleanPopINEGI <- function(filename, year, type = "Total") {
 #################################################################
 #Read the files with the data and population, then merge them
 ################################################################
-type = "Mujer" #Change this to Mujer to get femicides
+type = "Total" #Change this to Mujer to get femicides
 #                          c(0,0.05,1,2,3,4,5,10,20,Inf))
 hom <- cleanHomicide("../states/data/homicide-mun-2008.csv.bz2", type)
 #read the file with population data from 2006-2008
