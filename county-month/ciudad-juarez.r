@@ -51,6 +51,7 @@
 
 library(ggplot2)
 library(Cairo)
+library(strucchange)
 
 source("constants.r")
 
@@ -63,7 +64,13 @@ cdjuarez0708 <- subset(hom,
                         Year.of.Murder =="2007") &
                        Month.of.Murder != "Total")
 cdjuarez0708$Tot <- apply(cdjuarez0708[ , 5:ncol(cdjuarez0708)], 1, sum, na.rm = T)
+
+#Estimate the monthly population
 pop0709 <- c(1359787, 1384102, 1407849)
+pop <- data.frame(month=rep(1:12,3), year=rep(2007:2009, each=12))
+pop$Monthly[pop$month == 6] <- pop0709
+pop$MonthlyEst <- na.spline(pop$Monthly, na.rm=TRUE)
+
 
 #A sequence of dates starting at the end of the month
 start <- as.Date(as.Date("2007/2/01"))
@@ -72,7 +79,7 @@ dates <- next.mon - 1
 cdj <- data.frame(Murders = c(cdjuarez0708$Tot, cdjuarez09),
            Date = dates)
 #Anualized murder rate
-cdj$rate <- (cdj$Murders / rep(pop0709, each = 12)) * 100000 * 12
+cdj$rate <- (cdj$Murders / pop$MonthlyEst) * 100000 * 12
 
 cdj$group <- cutDates(cdj, c(op.chi, cdj.rein))
 
@@ -91,3 +98,8 @@ ggplot(cdj, aes(Date,rate)) +
     ylab("Annualized murder rate") + xlab("") +
     opts(title = "Murder rates in Ciudad Juarez before and after the army took control")
 dev.off()
+
+rate <- ts(cdj$rate, start=2007, freq=12)
+fd <- Fstats(rate ~ 1)
+(breakpoints(fd))
+confint(breakpoints(rate~1))

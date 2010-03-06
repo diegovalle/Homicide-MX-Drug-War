@@ -43,6 +43,7 @@ Contents
 In the directories you'll find:
 
 * accidents-homicides-suicides: Estimates the homicide rate for all of Mexico based on accidental and violent death data from the INEGI. As a bonus it includes the suicide and accident rates.
+* Benford: See of the homicide data from the INEGI and ICESI follow Bendford's law
 * conapo-pop-estimates: Estimates of the population of Mexico, done by the CONAPO, at the state level for the period 1990-2030
 * county-maps: Choropleths of the murder rate by county in Mexico for the years 1990, 1995, 2000, and 2006-2008
 * drugs: Some regressions to see if drug consumption is correlated with the homicide rate. (It is, except for 420)
@@ -50,6 +51,7 @@ In the directories you'll find:
 * historic: Plot of the Mexican homicide rate from 1990 to 2009, and a
   comparison with the homicide rate of the US, and England and Wales
 * missing-homicides: A correlation plot of the different homicide data to figure out how thrust-worthy the Mexican statistics are.
+* most-violent-counties: A small multiple plot of the least and most violent municipalities for men and women
 * states: Pretty plots and choropleths of the homicide rate at the state level
 
 Each directory contains its own readme so you may want to look at them

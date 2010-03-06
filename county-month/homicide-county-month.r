@@ -12,6 +12,8 @@
 #######################################################
 library(ggplot2)
 library(Cairo)
+library(zoo)
+library(strucchange)
 
 source("constants.r")
 
@@ -52,8 +54,10 @@ cleanHom <-  function(df, state) {
 }
 
 mergeHomPop <- function(df, pop, cutoff) {
-  df.pop <- merge(df, pop, by.x=c("Code", "Year.of.Murder"),
-        by.y=c("Code", "Year"))
+  df$Month.of.Murder <- as.numeric(df$Month.of.Murder)
+  df.pop <- merge(df, pop, by.x=c("Code", "Year.of.Murder",
+                                  "Month.of.Murder"),
+        by.y=c("Code", "Year", "Month"), all.x=TRUE)
   #Only big counties!
   #Subseting by size doesn't work because populations change
   #over time, so
@@ -63,7 +67,7 @@ mergeHomPop <- function(df, pop, cutoff) {
   states <- unique(factor(counties100$County.x))
   df.pop <- subset(df.pop, County.x %in% states)
 
-  df.pop$rate <- (df.pop$Total.Murders / df.pop$Population * 100000) * 12
+  df.pop$rate <- (df.pop$Total.Murders / df.pop$value * 100000) * 12
   #since the INEGI in all its wisdom decided to simply delete
   #the rows with no monthly homicides we have to recreate the
   #database to include them
@@ -90,6 +94,23 @@ getData <- function(df, pop, state, cutoff){
   mergeHomPop(hom.clean, pop, cutoff)
 }
 
+addMonths <- function(pop){
+  allmonths <- seq(2005, 2008.9999, by = 1/12)
+  pop2 <- data.frame(time=allmonths, Year=floor(allmonths),
+                     month = 1:12)
+  pop2 <- merge(pop, pop2, by = "Year", all.y = TRUE)
+  pop2$Monthly.Pop[pop2$month == 6] <-
+      pop2[pop2$month == 6,]$Population
+
+  estimates <- ddply(pop2, .(Code),
+             function(df) na.spline(df$Monthly.Pop, na.rm=FALSE))
+  estimates <- melt(estimates, id="Code")
+  estimates$Month <- rep(1:12, each=2454)
+  estimates$Year <- rep(2005:2008, each=2454*12)
+  pop <- merge(pop, estimates, by = c("Year", "Code"))
+  pop
+}
+
 cleanPop <- function(filename) {
   pop <- read.csv(bzfile(filename))
   pop <- na.omit(pop)
@@ -100,7 +121,7 @@ cleanPop <- function(filename) {
   #remove the space before the county code
   popm$variable <- as.numeric(substring(popm$variable, 2))
   names(popm) <- c("Code", "County", "Year","Population")
-  popm
+  addMonths(popm)
 }
 
 #http://stackoverflow.com/questions/2270201/how-to-get-geom-vline-and-facet-wrap-from-ggplot2-to-work-inside-a-function
@@ -131,9 +152,23 @@ createPlot <- function(df.pop, operations) {
   drawTS(df.pop, operations)
 }
 
+breaks <- function(df){
+  rate <- ts(df$rate, start=2005, freq=12)
+  fd <- Fstats(rate ~ 1)
+  print(df$County.x[1])
+  print(breakpoints(fd))
+  fd
+}
+
+findbreaks <- function(df){
+  ddply(df, .(Code), breaks)
+}
+
+
 
 hom <- read.csv(bzfile("data/county-month.csv.bz2"))
 pop <- cleanPop("data/pop.csv.bz2")
+
 
 #the county must be this big to enter the chart
 popsize <- 100000
@@ -148,7 +183,7 @@ ll <- list("Joint Operation Tijuana" = op.tij)
 createPlot(bcn.df, ll)
 
 dev.print(png, file="output/Baja California.png", width=600, height=600)
-
+findbreaks(bcn.df)
 
 #Sonora
 son.df <- getData(hom, pop, sonora, popsize)
@@ -156,7 +191,7 @@ ll <- list("Operation Sonora I" = op.son)
 createPlot(son.df, ll)
 
 dev.print(png, file = "output/Sonora.png", width=600, height=600)
-
+findbreaks(son.df)
 
 #Chihuahua
 chi.df <- getData(hom, pop, chihuahua, popsize)
@@ -165,7 +200,7 @@ ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
 createPlot(chi.df, ll)
 
 dev.print(png, file = "output/Chihuahua.png", width=600, height=700)
-
+findbreaks(chi.df)
 
 #Michoacán (I hate trying to get emacs and R to understand utf!)
 mich.df <- getData(hom, pop, michoacan, popsize)
@@ -173,7 +208,7 @@ ll <- list("Joint Operation Michoacan" = op.mich)
 createPlot(mich.df, ll)
 
 dev.print(png, file = "output/Michoacan.png", width=600, height=600)
-
+findbreaks(mich.df)
 
 #Sinadroga
 sin.df <- getData(hom, pop, sinaloa, popsize)
@@ -182,7 +217,7 @@ ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
 createPlot(sin.df, ll)
 
 dev.print(png, file = "output/Sinaloa.png", width=700, height=600)
-
+findbreaks(sin.df)
 
 #Durango
 dur.df <- getData(hom, pop, durango, popsize)
@@ -191,7 +226,7 @@ ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
 createPlot(dur.df, ll)
 
 dev.print(png, file = "output/Durango.png", width=600, height=600)
-
+findbreaks(dur.df)
 
 
 
@@ -208,7 +243,7 @@ createPlot(gue.df, ll)
 #so I'm excluding them
 
 dev.print(png, file = "output/Guerrero.png", width=600, height=600)
-
+findbreaks(gue.df)
 
 
 
@@ -221,6 +256,7 @@ ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
 createPlot(tam.df, ll)
 
 dev.print(png, file = "output/Tamaulipas.png", width=600, height=900)
+findbreaks(tam.df)
 
 #Nuevo Leon
 nl.df <- getData(hom, pop, nuevo.leon, popsize)
@@ -228,3 +264,4 @@ ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
 createPlot(nl.df, ll)
 
 dev.print(png, file = "output/Nuevo-Leon.png", width=600, height=900)
+findbreaks(nl.df)
