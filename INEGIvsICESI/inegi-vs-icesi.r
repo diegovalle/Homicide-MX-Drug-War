@@ -10,7 +10,7 @@ icesi <- read.csv("data/states-icesi.csv")
 inegi <- read.csv("../accidents-homicides-suicides/output/states.csv")
 
 icesi <- melt(icesi, id = "State")
-icesi$org <- "ICESI"
+icesi$org <- "SNSP"
 
 #Remove the years 1990:1996
 inegi <- inegi[,-(2:8)]
@@ -38,3 +38,21 @@ ggplot(ii.pop, aes(variable, rate, group = org, color = org)) +
 
 dev.print(png, file = "output/INEGI-ICESI.png", width = 960, height = 600)
 
+
+dif <- cast(ii.pop[order(ii.pop$org),], State ~ variable,
+            value = "rate",
+            fun.aggregate = function(x) x[1] - x[2])
+difm <- melt(dif, id=c("State"))
+difm <- ddply(difm, .(State), transform, var = var(value))
+difm$State <- reorder(difm$State, -difm$var)
+ggplot(difm, aes(as.numeric(as.character(variable)), value)) +
+    geom_line(size = 1.2, color = "darkred") +
+    facet_wrap(~ State) +
+    geom_hline(yintercept = 0, color = "gray40") +
+    opts(title = "Differences in homicide rates (INEGI - SNSP)") +
+    xlab("Year") + ylab("Difference in Homicide Rate") +
+    scale_x_continuous(breaks = c(1998, 2003, 2008),
+                         labels = c("98", "03", "08")) +
+    #scale_y_continuous(formatter="percent") +
+    theme_bw()
+dev.print(png, file = "output/INEGI-SNSP-dif.png", width = 960, height = 600)
