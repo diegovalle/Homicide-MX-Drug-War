@@ -5,6 +5,17 @@ Homicide in Mexico and the Drug War
 =========================================================
 Homicides in Mexico have increased greatly since the government sent in the military to fight drug cartels in December 2006. These series of scripts explore various statistics related to the increase in violence
 
+Summary
+--------
+
+* From 2007 to 2008 there was a 65% increase in the homicide rate
+* While homicides have increased greatly, most of the increase has been concentrated in the states controlled by drug cartels, the overall homicide rate in Mexico is about half that of Brazil
+* The homicide data is not very reliable and if fails Benford's law. There were 1,157 homicides missing from the official police records in the state of Chihuahua. If the police data is to be believed, there were less homicides in the whole state of Chihuahua than in Ciudad of Juarez (which is located in Chihuahua).
+* There’s evidence that sending the army to fight the drug cartels has increased the homicide rate.
+* Since the army took control of Ciudad Juarez it has become the most violent city in the world.
+
+The Story in Charts
+--------------------
 
 ![homicide rate in Mexico 1990-2009](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/historic/output/homicide-mx-1990-2008.png)
 
@@ -12,11 +23,36 @@ _While the drug war met with some success at first, the homicide rate increased 
 
 ------------------------------------------------------------------------------------------------------------------------
 
+![Choropleth of homicide rates in 2009](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/states/output/montage2008.png)
+
+_Most of the violence is concentrated in the states controlled by the drug cartels. Chihuahua looks like a war zone_
+
+------------------------------------------------------------------------------------------------------------------------
+
+![Differences in homicide rates](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/INEGIvsICESI/INEGI-SNSP-dif.png)
+
+_In Mexico there are two ways to measure the number of homicides: 1) Police Data (SNSP) and 2) Vital Statistics (INEGI) . They are some big differences in the reported homicides.
+
+------------------------------------------------------------------------------------------------------------------------
+
 ![Who's missing homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/missing-homicides/output/INEGIvsICESI.png "Chihuahua is missing 1153 homicides")
 
-_Bar plot of the different homicide data. That is, see if the police records (labeled ICESI and filled with blue) match those of the vital statistics system (labeled INEGI and filled with red). The police records are missing 1,153 homicides in Chihuahua alone! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024), more than the 1,414 reported in the whole state according to police records._
+_Bar plot of the different homicide data in 2008. That is, see if the police records (labeled SNSP and filled with blue) match those of the vital statistics system (labeled INEGI and filled with red). The police records are missing 1,153 homicides in Chihuahua alone! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024), more than the 1,414 reported in the whole state according to police records._
 
 _read the file readme.md in the directory [missing-homicides](http://github.com/diegovalle/Homicide-MX-Drug-War/tree/master/missing-homicides/) to see why this happened_
+
+------------------------------------------------------------------------------------------------------------------------------------
+__With the exception of Michoacan and Guerrero, if the army moves in there's an increase in homicides__
+
+![Chihuahua](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/Chihuahua.png)
+
+_Chihuahua didn't fare too well_
+
+![Chihuahua](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/Durango.png)
+
+_Durango didn't fare too well_
+
+_A similar thing happened in the rest of the states where the government sent in the army_
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
