@@ -141,9 +141,9 @@ drawTS <- function(df.pop, operations) {
       geom_vline(aes(xintercept = d), data = date.df,
                         alpha = .4) +
       facet_wrap(~ County.x, ncol = 1,
-                 scale="free_y") +
+                 scale="free_y")
       #theme_bw()+
-      opts(legend.position = "none")
+      #opts(legend.position = "none")
     p
 }
 
