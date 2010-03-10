@@ -18,6 +18,7 @@ library(directlabels)
 # Line plot of PAHO, UN, INEGI and ICESI homicide rates
 ########################################################
 homts <- read.csv("data/PAHO-UN-INEGI-ICESI.csv")
+names(homts)[4] <- "SNSP"
 ggplot(melt(homts, id="Year"), aes(Year, value, group = variable,
                                    color = variable)) +
        geom_line(size=1.5) +
@@ -104,7 +105,7 @@ ggplot(ivsi, aes(INEGI, ICESI,
        geom_text(aes(size = sqrt(abs(INEGI-ICESI))), hjust=-.1) +
        geom_point() +
        geom_abline(slope=1, linetype=2, color="blue") +
-       opts(title = "Differences in ‘homicide’ reporting rates (INEGI - ICESI)") +
+       opts(title = "Differences in ‘homicide’ reporting rates (INEGI - SNSP)") + ylab("SNSP") +
        scale_x_continuous(limits = c(0, 4000)) +
        opts(legend.position = "none") +
        annotate("text", 1400, 1400, label = "Data ara equal ->",
@@ -142,6 +143,7 @@ drawBars <- function(df) {
          coord_flip()
 }
 #ICESI data
+names(ivsi)[3] <- "SNSP"
 drawBars(melt(ivsi[ , c(1:2,3)], id="State"))
 dev.print(png, file = "output/INEGIvsICESI.png", width = 480, height = 600)
 
@@ -160,7 +162,8 @@ ggplot(ivsi, aes(INEGI, abs(INEGI - Stat.Yrbks) /
     geom_smooth(method=lm, se = FALSE, color ="red") +
     scale_y_continuous(formatter = "percent") +
     xlab("Number of Homicides according to INEGI") +
-    ylab("Percentage difference")
+    ylab("Percentage difference") +
+    opts(title = "Statistical Yearbook and INEGI")
 dev.print(png, file = "output/INEGIvsStatYrbksprop.png", width = 480, height = 480)
 
 with(ivsi, {
@@ -169,12 +172,15 @@ with(ivsi, {
      summary(lm(INEGI ~ dep, data = ivsi))
  })
 
-ggplot(ivsi, aes(ICESI,
-                 Stat.Yrbks / ICESI, label = Abbrv)) +
+#How much did the number of homicide change. Compare the data from
+#the SNSP witht that of the statistical yearbooks
+ggplot(ivsi, aes(SNSP,
+                 Stat.Yrbks / SNSP, label = Abbrv)) +
     geom_text(alpha = .6)+
     scale_y_continuous(formatter = "percent") +
     xlab("Number of Homicides according to ICESI") +
-    ylab("Percentage extra according to Statistical Yearbooks")
+    ylab("Percentage extra according to the Statistical Yearbooks") +
+    opts(title="SNSP and Statistical Yearbooks")
 
 
 ########################################################
