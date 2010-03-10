@@ -309,7 +309,7 @@ smallMultiples <- function(hom, pop, nclusters = 8){
 #This is how you get anti-aliasing in R
 #Cairo(file="output/1990-2008-homicide-small-multiples-w.png",
 #      type="png", width=960, height=600)
-smallMultiples(hom, pop, 4)
+smallMultiples(hom, pop, 8)
 #dev.off()
 
 
