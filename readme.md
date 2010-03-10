@@ -29,7 +29,11 @@ _Most of the violence is concentrated in the states controlled by the drug carte
 
 ------------------------------------------------------------------------------------------------------------------------
 
-![Differences in homicide rates](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/INEGIvsICESI/INEGI-SNSP-dif.png)
+![Homicide by State](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/states/output/1990-2008-homicide-small-multiples.png)
+_The top row is composed of the states controlled by drug cartels, though I would have preferred it if the kmeans clustering algorithm had classified Sonora instead of Nayarit with the narco-states. There were some big decreases in the homicide rates of the State of Mexico, Morelos, Oaxaca and Michoacan_
+-------------------------------------------------------------------------------------------------------------------------
+
+![Differences in homicide rates](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/INEGIvsICESI/output/INEGI-SNSP-dif.png)
 
 _In Mexico there are two ways to measure the number of homicides: 1) Police Data (SNSP) and 2) Vital Statistics (INEGI) . They are some big differences in the reported homicides.
 
@@ -42,7 +46,7 @@ _Bar plot of the different homicide data in 2008. That is, see if the police rec
 _read the file readme.md in the directory [missing-homicides](http://github.com/diegovalle/Homicide-MX-Drug-War/tree/master/missing-homicides/) to see why this happened_
 
 ------------------------------------------------------------------------------------------------------------------------------------
-__With the exception of Michoacan and Guerrero, if the army moves in there's an increase in homicides__
+__With the exception of Michoacan and Guerrero, when the army moved in, there was an increase in homicides__
 
 ![Chihuahua](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/Chihuahua.png)
 
