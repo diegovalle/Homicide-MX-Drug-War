@@ -1,7 +1,4 @@
-﻿_----Work in Progress: I'm still gathering information on the military operations, some info may change----_
-
-
-Homicide in Mexico and the Drug War
+﻿Homicide in Mexico and the Drug War
 =========================================================
 Homicides in Mexico have increased greatly since the government sent in the military to fight drug cartels in December 2006. These series of scripts explore various statistics related to the increase in violence
 
@@ -27,6 +24,12 @@ _Most of the violence is concentrated in the states controlled by the drug carte
 
 ![Choropleth of homicide rates in 2009](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/states/output/montage2008.png)
 
+-------------------------------------------------------------------------------------------------------------------------
+
+_Here's what it looks like at the municipality level. Keep in mind that the big muncipalities tend to draw more attention because of their size, but they also tend to have low population densities_
+
+![Choropleth of homicide rates by municipality](http://imgur.com/eX8cK.png)
+
 ------------------------------------------------------------------------------------------------------------------------
 
 _The top row is composed of the states controlled by drug cartels, though I would have preferred it if the kmeans clustering algorithm had classified Sonora instead of Nayarit with the narco-states. There were some big decreases in the homicide rates of the State of Mexico, Morelos, Oaxaca and Michoacan._
@@ -47,14 +50,21 @@ _read the file readme.md in the directory [missing-homicides](http://github.com/
 
 ![Who's missing homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/missing-homicides/output/INEGIvsICESI.png "Chihuahua is missing 1153 homicides")
 
+-----------------------------------------------------------------------------------------------------------------------------------
+
+_Benford’s Law was used as the expected distribution for the first digit of reported homicide rates. Both homicide series failed the test_
+
+![Benford's law](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/Benford/output/INEGI.png)
+
+
 ------------------------------------------------------------------------------------------------------------------------------------
 __With the exception of Michoacan and Guerrero, when the army moved in, there was an increase in homicides__
 
-_Chihuahua didn't fare too well_
+_Chihuahua didn't fare well_
 
 ![Chihuahua](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/Chihuahua.png)
 
-_Durango didn't fare too well_
+_Durango also didn't fare well_
 
 ![Chihuahua](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/Durango.png)
 
