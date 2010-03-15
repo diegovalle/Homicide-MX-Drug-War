@@ -6,9 +6,8 @@
 
 #######################################################
 #Time series of the monthly homicide rate by county in
-#the Mexican states with the highest homicide rates,
-#plus Michoacan which had the biggest decrease in
-#homicides from 2006-2008
+#the Mexican states where joint military operations
+#took place from 2006-2008
 #######################################################
 library(ggplot2)
 library(Cairo)
@@ -125,15 +124,15 @@ cleanPop <- function(filename) {
 }
 
 #http://stackoverflow.com/questions/2270201/how-to-get-geom-vline-and-facet-wrap-from-ggplot2-to-work-inside-a-function
-drawTS <- function(df.pop, operations) {
+drawTS <- function(df.pop, operations, title) {
     date.df <- data.frame(d = as.Date(unlist(operations),
                                       origin = "1970-01-01"),
                           t = names(operations))
     df.pop$County.x <- reorder(factor(df.pop$County.x), -df.pop$rate)
-    p <- ggplot(df.pop, aes(Date, rate)) +
+    ggplot(df.pop, aes(Date, rate)) +
       geom_point(aes(size=Total.Murders), color="darkred", alpha =.5) +
       scale_x_date() +
-      geom_smooth(aes(group = group), se = FALSE) +
+      geom_smooth(aes(group = group), se = FALSE, method = lm) +
       xlab("") + ylab("Annualized Homicide Rate") +
       geom_text(aes(x = d, label = t, y = -9),
                    data = date.df,
@@ -141,29 +140,37 @@ drawTS <- function(df.pop, operations) {
       geom_vline(aes(xintercept = d), data = date.df,
                         alpha = .4) +
       facet_wrap(~ County.x, ncol = 1,
-                 scale="free_y")
-      #theme_bw()+
+                 scale="free_y") +
+      scale_size("Number of\nHomicides") +
+      opts(title = title)
+      #theme_bw()
       #opts(legend.position = "none")
-    p
 }
 
-createPlot <- function(df.pop, operations) {
+createPlot <- function(df.pop, operations, title = "") {
   df.pop$group <- cutDates(df.pop, unlist(operations))
-  drawTS(df.pop, operations)
+  drawTS(df.pop, operations, title)
 }
 
-breaks <- function(df){
+breaks <- function(df, brks){
   rate <- ts(df$rate, start=2005, freq=12)
   fd <- Fstats(rate ~ 1)
   print(df$County.x[1])
-  print(breakpoints(fd))
-  fd
+  print(pts <- breakpoints(fd, breaks = brks))
+  print(breakdates(pts, breaks = brks))
+  #fd
 }
 
-findbreaks <- function(df){
-  ddply(df, .(Code), breaks)
+findbreaks <- function(df, brks=2){
+  ddply(df, .(Code), breaks, brks)
 }
 
+savePlot <- function(df, ll, title = "", width = 700, height = 600,
+                      file) {
+    Cairo(width, height, file=file, type="png", bg="white")
+    print(createPlot(df, ll, title))
+    dev.off()
+}
 
 
 hom <- read.csv(bzfile("data/county-month.csv.bz2"))
@@ -179,53 +186,47 @@ popsize <- 100000
 
 #Baja Califronia Norte! as the ICESI would say, hahahaha
 bcn.df <- getData(hom, pop, baja.california, popsize)
-ll <- list("Joint Operation Tijuana" = op.tij)
-createPlot(bcn.df, ll)
-
-dev.print(png, file="output/Baja California.png", width=600, height=600)
-findbreaks(bcn.df)
+ll <- list("Joint Operation Tijuana" = op.tij,
+           "E.A.F. Captured" = doctor)
+savePlot(bcn.df, ll, "Baja California",
+          file = "output/Baja California.png")
+findbreaks(bcn.df, 3)
 
 #Sonora
 son.df <- getData(hom, pop, sonora, popsize)
 ll <- list("Operation Sonora I" = op.son)
-createPlot(son.df, ll)
-
-dev.print(png, file = "output/Sonora.png", width=600, height=600)
+savePlot(son.df, ll, "Sonora", file = "output/Sonora.png")
 findbreaks(son.df)
 
 #Chihuahua
 chi.df <- getData(hom, pop, chihuahua, popsize)
 ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Joint Operation Chihuahua" = op.chi)
-createPlot(chi.df, ll)
-
-dev.print(png, file = "output/Chihuahua.png", width=600, height=700)
+savePlot(chi.df, ll, "Chihuahua",
+         file = "output/Chihuahua.png", height=700)
 findbreaks(chi.df)
 
 #Michoacán (I hate trying to get emacs and R to understand utf!)
 mich.df <- getData(hom, pop, michoacan, popsize)
 ll <- list("Joint Operation Michoacan" = op.mich)
-createPlot(mich.df, ll)
-
-dev.print(png, file = "output/Michoacan.png", width=600, height=600)
+savePlot(mich.df, ll, "Michoacan",
+         file = "output/Michoacan.png", height=700)
 findbreaks(mich.df)
 
 #Sinadroga
 sin.df <- getData(hom, pop, sinaloa, popsize)
 ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Joint Operation Culiacan-Navolato" = op.sin)
-createPlot(sin.df, ll)
-
-dev.print(png, file = "output/Sinaloa.png", width=700, height=600)
+savePlot(sin.df, ll, "Sinaloa",
+         file = "output/Sinaloa.png", height=700)
 findbreaks(sin.df)
 
 #Durango
 dur.df <- getData(hom, pop, durango, popsize)
 ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Phase III"=op.tria.dor.III)
-createPlot(dur.df, ll)
-
-dev.print(png, file = "output/Durango.png", width=600, height=600)
+savePlot(dur.df, ll, "Durango",
+         file = "output/Durango.png")
 findbreaks(dur.df)
 
 
@@ -235,15 +236,17 @@ hom <- read.csv(bzfile("data/county-month-gue-oax.csv.bz2"))
 
 #Guerrero
 gue.df <- getData(hom, pop, guerrero, popsize)
-ll <- list("Joint Operation Guerrero" = op.gue)
-createPlot(gue.df, ll)
+ll <- list("Joint Operation Guerrero" = op.gue,
+           "A.B.L. Captured" = bel.ley)
+savePlot(gue.df, ll, "Guerrero",
+         file = "output/Guerrero.png", height=700)
+findbreaks(gue.df, 3)
 
-#There were some changes in the municipalities of Oaxaxa and
+
+#There were some changes in the municipalities of Oaxaca and
 #their populations don't match the ones in the CONAPO data
 #so I'm excluding them
 
-dev.print(png, file = "output/Guerrero.png", width=600, height=600)
-findbreaks(gue.df)
 
 
 
@@ -253,15 +256,13 @@ hom <- read.csv(bzfile("data/county-month-nl-tam.csv.bz2"))
 #Tamaulipas
 tam.df <- getData(hom, pop, tamaulipas, popsize)
 ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
-createPlot(tam.df, ll)
-
-dev.print(png, file = "output/Tamaulipas.png", width=600, height=900)
+savePlot(tam.df, ll, "Tamaulipas",
+         file = "output/Tamaulipas.png", height=900)
 findbreaks(tam.df)
 
 #Nuevo Leon
 nl.df <- getData(hom, pop, nuevo.leon, popsize)
 ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
-createPlot(nl.df, ll)
-
-dev.print(png, file = "output/Nuevo-Leon.png", width=600, height=900)
+savePlot(nl.df, ll, "Nuevo Leon",
+         file = "output/Nuevo-Leon.png", height=900)
 findbreaks(nl.df)

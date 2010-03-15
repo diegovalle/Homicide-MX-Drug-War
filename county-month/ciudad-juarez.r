@@ -94,9 +94,10 @@ ggplot(cdj, aes(Date,rate)) +
     geom_text(aes(x,y, label = "Reinforcements sent"),
             data = data.frame(x = cdj.rein, y = 252),
             size = 4, hjust = 1.01, vjust = 0) +
-    geom_smooth(aes(group = group), se = FALSE) +
-    ylab("Annualized murder rate") + xlab("") +
-    opts(title = "Murder rates in Ciudad Juarez before and after the army took control")
+    geom_smooth(aes(group = group), se = FALSE, method = lm) +
+    scale_size("Number of\nHomicides") +
+    ylab("Annualized homicide rate") + xlab("") +
+    opts(title = "Homicide rates in Ciudad Juarez before and after the army took control")
 dev.off()
 
 rate <- ts(cdj$rate, start=2007, freq=12)
