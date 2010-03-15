@@ -36,23 +36,23 @@ _The top row is composed of the states controlled by drug cartels, though I woul
 
 ![Homicide by State](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/states/output/1990-2008-homicide-small-multiples.png)
 
--------------------------------------------------------------------------------------------------------------------------
-
-_In Mexico there are two ways to measure the number of homicides: 1) Police Data (SNSP) and 2) Vital Statistics (INEGI) . They are some big differences in the reported homicides._
-
-![Differences in homicide rates](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/INEGIvsICESI/output/INEGI-SNSP-dif.png)
-
 ------------------------------------------------------------------------------------------------------------------------
 
-_Bar plot of the different homicide data in 2008. That is, see if the police records (labeled SNSP and filled with blue) match those of the vital statistics system (labeled INEGI and filled with red). The police records are missing 1,153 homicides in Chihuahua alone! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024), more than the 1,414 reported in the whole state according to police records._
+_In Mexico there are two ways to measure the number of homicides: 1) Police Data (SNSP) and 2) Vital Statistics (INEGI). The bar plot compares them to see if the police records (labeled SNSP and filled with blue) match those of the vital statistics system (labeled INEGI and filled with red). The police records are missing 1,153 homicides in Chihuahua alone! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024), more than the 1,414 reported in the whole state according to police records._
 
 _read the file readme.md in the directory [missing-homicides](http://github.com/diegovalle/Homicide-MX-Drug-War/tree/master/missing-homicides/) to see why this happened_
 
 ![Who's missing homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/missing-homicides/output/INEGIvsICESI.png "Chihuahua is missing 1153 homicides")
 
+-------------------------------------------------------------------------------------------------------------------------
+
+_More generally there are some big differences in the reported homicides. But not enough to make them useless_
+
+![Differences in homicide rates](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/INEGIvsICESI/output/INEGI-SNSP-dif.png)
+
 -----------------------------------------------------------------------------------------------------------------------------------
 
-_Benford’s Law was used as the expected distribution for the first digit of reported homicide rates. Both homicide series failed the test_
+_Benford’s Law was used as the expected distribution for the first digit of reported homicide rates. Not surprisingly, for a corrupt country like Mexico, both homicide series failed the test_
 
 ![Benford's law](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/Benford/output/INEGI.png)
 
@@ -62,19 +62,20 @@ __With the exception of Michoacan and Guerrero, when the army moved in, there wa
 
 _Chihuahua didn't fare well_
 
-![Chihuahua](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/Chihuahua.png)
+![Chihuahua](http://imgur.com/oaKOY.png)
 
 _Durango also didn't fare well_
 
-![Chihuahua](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/Durango.png)
+![Durango](http://imgur.com/G9Wh3.png)
 
 _A similar thing happened in the rest of the states where the government sent in the army_
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
-![Ciudad Juarez](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/county-month/output/ciudad-juarez.png)
-
 _Annualized monthly homicide rates in Ciudad Juarez. The city turned into the most violent in the world after the army took control of it. Even rushing in reinforcements didn't return the murder rate to its former levels and after three months the bloodshed became even greater._
+
+![Ciudad Juarez](http://imgur.com/gPN45.png)
+
 
 
 
