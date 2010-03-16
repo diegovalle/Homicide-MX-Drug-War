@@ -130,7 +130,7 @@ drawTS <- function(df.pop, operations, title) {
                           t = names(operations))
     df.pop$County.x <- reorder(factor(df.pop$County.x), -df.pop$rate)
     ggplot(df.pop, aes(Date, rate)) +
-      geom_point(aes(size=Total.Murders), color="darkred", alpha =.5) +
+      geom_point(aes(size=Total.Murders), color="darkred", alpha =.9) +
       scale_x_date() +
       geom_smooth(aes(group = group), se = FALSE, method = lm) +
       xlab("") + ylab("Annualized Homicide Rate") +
