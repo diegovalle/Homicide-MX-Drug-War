@@ -84,62 +84,6 @@ cleanPopINEGI <- function(filename, year, type = "Total") {
   pop
 }
 
-#################################################################
-#Read the files with the data and population, then merge them
-################################################################
-type = "Total" #Change this to Mujer to get femicides
-#                          c(0,0.05,1,2,3,4,5,10,20,Inf))
-hom <- cleanHomicide("../states/data/homicide-mun-2008.csv.bz2", type)
-#read the file with population data from 2006-2008
-if(type=="Total") {
-  popm <- cleanPopCONAPO("data/pop.csv.bz2")
-} else{
-  popm <- cleanPopCONAPO("data/pop-w.csv.bz2")
-}
-#read the files with population data from the censuses
-pop90 <- cleanPopINEGI("data/inegi1990.csv", 1990, type)
-pop95 <- cleanPopINEGI("data/inegi1995.csv", 1995, type)
-pop00 <- cleanPopINEGI("data/inegi2000.csv", 2000, type)
-#combine them into a single data.frame
-popm <- rbind(popm, pop90, pop95, pop00)
-
-hom.popm <- merge(hom, popm, by.x = c("CLAVE", "Year.of.Murder"),
-                  by.y = c("Clave", "Year"))
-hom.popm$rate<- (hom.popm$tot / hom.popm$Population) *
-                        100000
-hom.popm <- hom.popm[order(-hom.popm$rate),]
-
-#The municpalities in Oaxaca have changed since the CONAPO
-#released its population database, we have to merge them
-#by name. Hopefully their boundaries haven't changed much
-changed <- setdiff(hom$CLAVE, popm$Clave)
-hom.ch <- subset(hom, CLAVE %in% changed)
-
-hom.popm.ch <- merge(hom.ch, popm, by.x = c("County",
-                                           "Year.of.Murder"),
-                  by.y = c("County", "Year"))
-hom.popm.ch$CLAVE <- NULL
-hom.popm.ch$rate<- (hom.popm.ch$tot / hom.popm.ch$Population) *
-                        100000
-hom.popm.ch$County.y <- hom.popm.ch$County
-names(hom.popm.ch)[1] <- "County.x"
-names(hom.popm.ch)[25] <- "CLAVE"
-hom.popm <- rbind(hom.popm, hom.popm.ch)
-#plot(hom.popm$rate)
-
-########################################################
-#Draw a map of Mexico
-########################################################
-
-#For memory reasons these are global variables
-#County map
-mexico.ct.shp <- readShapePoly(map.inegi.ct,
-                               IDvar = "CLAVE",
-                               proj4string = CRS("+proj=aea"))
-#State map
-mexico.st.shp <- readShapePoly(map.inegi.st,
-                               proj4string = CRS("+proj=aea"))
-
 #Plot a map of the murder rate
 drawMap <- function(vector, title, breaks) {
   plotvar<- unlist(vector)
@@ -153,7 +97,7 @@ drawMap <- function(vector, title, breaks) {
   title(main = title)
   inter <- paste(names(attr(colcode, "table")),c("","",""))
   inter[1] <- "0"
-  legend(3600000,2200000, legend=inter, #use axes=T to find the pos!
+  legend(3600000,2300000, legend=inter, #use axes=T to find the pos!
       fill=attr(colcode, "palette"), cex=1, bty="n")
   par(bg='white')
 }
@@ -169,42 +113,92 @@ mergeMap <- function(df, year){
   map
 }
 
+savePlot <- function(df, year, breaks, name){
+    map <- mergeMap(df, year)
+    filename <- paste("output/", name, ".png", sep ="")
+    Cairo(file = filename,
+          width=960, height=600, type="png", bg="white")
+    print(drawMap(map$rate, name, breaks))
+    dev.off()
+    TRUE
+}
+
+#read the file with population data from 2006-2008
+#read the files with population data from the censuses
+readPop <- function(type){
+  if(type=="Total") {
+    popm <- cleanPopCONAPO("data/pop.csv.bz2")
+  } else{
+    popm <- cleanPopCONAPO("data/pop-w.csv.bz2")
+  }
+  pop90 <- cleanPopINEGI("data/inegi1990.csv", 1990, type)
+  pop95 <- cleanPopINEGI("data/inegi1995.csv", 1995, type)
+  pop00 <- cleanPopINEGI("data/inegi2000.csv", 2000, type)
+
+  rbind(popm, pop90, pop95, pop00)
+}
+
+mergeHomPop <- function(hom, popm){
+  hom.popm <- merge(hom, popm, by.x = c("CLAVE", "Year.of.Murder"),
+                    by.y = c("Clave", "Year"))
+  hom.popm$rate<- (hom.popm$tot / hom.popm$Population) *
+                          100000
+  hom.popm <- hom.popm[order(-hom.popm$rate),]
+  #The municpalities in Oaxaca have changed since the CONAPO
+  #released its population database, we have to merge them
+  #by name. Hopefully their boundaries haven't changed much
+  changed <- setdiff(hom$CLAVE, popm$Clave)
+  hom.ch <- subset(hom, CLAVE %in% changed)
+  hom.popm.ch <- merge(hom.ch, popm, by.x = c("County",
+                                             "Year.of.Murder"),
+                    by.y = c("County", "Year"))
+  hom.popm.ch$CLAVE <- NULL
+  hom.popm.ch$rate<- (hom.popm.ch$tot / hom.popm.ch$Population) *
+                          100000
+  hom.popm.ch$County.y <- hom.popm.ch$County
+  names(hom.popm.ch)[1] <- "County.x"
+  names(hom.popm.ch)[25] <- "CLAVE"
+  rbind(hom.popm, hom.popm.ch)
+}
+
+#For memory reasons these are global variables
+#County map
+mexico.ct.shp <- readShapePoly(map.inegi.ct,
+                               IDvar = "CLAVE",
+                               proj4string = CRS("+proj=aea"))
+#State map
+mexico.st.shp <- readShapePoly(map.inegi.st,
+                               proj4string = CRS("+proj=aea"))
+
+#################################################################
+#Read the files with the data and population, then merge them
+################################################################
+type = "Total" #Change this to Mujer to get femicides
+
+hom <- cleanHomicide("../states/data/homicide-mun-2008.csv.bz2", type)
+popm <- readPop(type)
+hom.popm <- mergeHomPop(hom, popm)
 if(type == "Mujer") {
   breaks <- c(0,0.05,1,2,3,4,5,10,20,Inf)
 } else {
   breaks <- c(0,0.1,3,6,12,20,40,60,80,Inf)
 }
 
+########################################################
+#Draw a map of Mexico
+########################################################
+savePlot(hom.popm, 2008, breaks, "Homicide rate by municipality, 2008")
+savePlot(hom.popm, 2007, breaks, "Homicide rate by municipality, 2007")
+savePlot(hom.popm, 2006, breaks, "Homicide rate by municipality, 2006")
 
-#From 2006 to 2008, and 1990, 1995, 2000
-#CairoSVG(file = "output/Homicide rate by county, 2008.svg", dpi = 50)
-Cairo(file = "output/Homicide rate by county, 2008.png", width=960, height=600)
-map <- mergeMap(hom.popm, 2008)
-drawMap(map$rate, "Homicide rate by county, 2008", breaks)
-dev.off()
+savePlot(hom.popm, 1990, breaks, "Homicide rate by municipality, 1990")
+savePlot(hom.popm, 1995, breaks, "Homicide rate by municipality, 1995")
+savePlot(hom.popm, 2000, breaks, "Homicide rate by municipality, 2000")
 
-Cairo(file = "output/Homicide rate by county, 2007.png", width=960, height=600)
-map <- mergeMap(hom.popm, 2007)
-drawMap(map$rate, "Homicide rate by county, 2007")
-dev.off()
+#savePlot(hom.popm, 2008, breaks, "Femicide rate by municipality, 2008")
+#savePlot(hom.popm, 2007, breaks, "Femicide rate by municipality, 2007")
+#savePlot(hom.popm, 2006, breaks, "Femicide rate by municipality, 2006")
 
-Cairo(file = "output/Homicide rate by county, 2006.png", width=960, height=600)
-map <- mergeMap(hom.popm, 2006)
-drawMap(map$rate, "Homicide rate by county, 2006")
-dev.off()
-
-
-Cairo(file = "output/Homicide rate by county, 1990.png", width=960, height=600)
-map <- mergeMap(hom.popm, 1990)
-drawMap(map$rate, "Homicide rate by county, 1990")
-dev.off()
-
-Cairo(file = "output/Homicide rate by county, 1995.png", width=960, height=600)
-map <- mergeMap(hom.popm, 1995)
-drawMap(map$rate, "Homicide rate by county, 1995")
-dev.off()
-
-Cairo(file = "output/Homicide rate by county, 2000.png", width=960, height=600)
-map <- mergeMap(hom.popm, 2000)
-drawMap(map$rate, "Homicide rate by county, 2000")
-dev.off()
+#savePlot(hom.popm, 1990, breaks, "Femicide rate by municipality, 1990")
+#savePlot(hom.popm, 1995, breaks, "Femicide rate by municipality, 1995")
+#savePlot(hom.popm, 2000, breaks, "Femicide rate by municipality, 2000")
