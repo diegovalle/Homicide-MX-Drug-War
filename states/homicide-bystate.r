@@ -197,58 +197,6 @@ barDiff <- function(hom.diff, year1="", year2="") {
     geom_hline(yintercept = hom.mean08 - hom.mean06, alpha=.1, , linetype=2)
 }
 
-
-
-
-
-########################################################
-#Read the data
-########################################################
-type = "Total"  #Change this to "Mujer" to get homicide data for women
-hom <- cleanHom(type)
-pop <- cleanPop(type)
-
-########################################################
-#Barplot with the homicide rate in 2008
-########################################################
-year <- 2008
-hom.year <- mergeHomPopYear(hom, pop, year)
-barPlot(hom.year, year)
-dev.print(png, file = "output/2008-homicide-bars.png",
-          width = 480, height = 480)
-
-########################################################
-#Map with the homicide rate in 2008
-########################################################
-mexico.shp <- readShapePoly(map.icesi,
-                            IDvar = "NAME",
-                            proj4string = CRS("+proj=longlat"))
-
-hom.year.map <- mapOrder(hom.year, "County")
-
-Cairo(file="output/2008-homicide-map.png", width=480, height=480)
-plotMap(mexico.shp, redScale(hom.year.map$Rate))
-dev.off()
-
-###################################################################
-#Bar plot of the change in homicide rate from the start of the
-#drug war at the end of 2006 till 2008 and a map
-###################################################################
-year1 <- 2006
-year2 <- 2008
-hom.diff <- getDiff(hom, pop, year1, year2)
-barDiff(hom.diff, year1, year2)
-dev.print(png, file="output/2006-2008-change-homicide.png",
-          width=480, height=480)
-
-########################################################
-#Map of the change in homicide rates
-########################################################
-hom.diff.map <- mapOrder(hom.diff, "County.x")
-Cairo(file="output/2006-2008-change-homicide-map.png", width=480, height=480)
-plotMap(mexico.shp, greenReds(hom.diff.map$Diff))
-dev.off()
-
 ####################################################
 #Small Multiples Plot of Murders by State
 ####################################################
@@ -303,9 +251,62 @@ smallMultiples <- function(hom, pop, nclusters = 8){
       geom_line(data = total.hom, aes(Year.of.Murder, Rate),
                 color="gray70", linetype = 2, size =.5) +
       opts(legend.position = "none")
-
 }
 
+
+
+
+##########################################################
+#Read the data
+##########################################################
+type = "Total"  #Change this to "Mujer" to chart femicides
+hom <- cleanHom(type)
+pop <- cleanPop(type)
+
+########################################################
+#Barplot with the homicide rate in 2008
+########################################################
+year <- 2008
+hom.year <- mergeHomPopYear(hom, pop, year)
+barPlot(hom.year, year)
+dev.print(png, file = "output/2008-homicide-bars.png",
+          width = 480, height = 480)
+
+########################################################
+#Map with the homicide rate in 2008
+########################################################
+mexico.shp <- readShapePoly(map.icesi,
+                            IDvar = "NAME",
+                            proj4string = CRS("+proj=longlat"))
+
+hom.year.map <- mapOrder(hom.year, "County")
+
+Cairo(file="output/2008-homicide-map.png", width=480, height=480)
+plotMap(mexico.shp, redScale(hom.year.map$Rate))
+dev.off()
+
+###################################################################
+#Bar plot of the change in homicide rate from the start of the
+#drug war at the end of 2006 till 2008
+###################################################################
+year1 <- 2006
+year2 <- 2008
+hom.diff <- getDiff(hom, pop, year1, year2)
+barDiff(hom.diff, year1, year2)
+dev.print(png, file="output/2006-2008-change-homicide.png",
+          width=480, height=480)
+
+########################################################
+#Map of the change in homicide rates
+########################################################
+hom.diff.map <- mapOrder(hom.diff, "County.x")
+Cairo(file="output/2006-2008-change-homicide-map.png", width=480, height=480)
+plotMap(mexico.shp, greenReds(hom.diff.map$Diff))
+dev.off()
+
+########################################################
+#Small Multiples of each state
+########################################################
 #This is how you get anti-aliasing in R
 #Cairo(file="output/1990-2008-homicide-small-multiples-w.png",
 #      type="png", width=960, height=600)
