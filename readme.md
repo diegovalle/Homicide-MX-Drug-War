@@ -32,11 +32,17 @@ _Most of the violence is concentrated in the states controlled by the drug carte
 
 -------------------------------------------------------------------------------------------------------------------------
 
-_Here's what it looks like at the municipality level. Keep in mind that the big muncipalities tend to draw more attention because of their size, but they also tend to have low population densities_
+_Here's what it looks like at the municipality level. Keep in mind that the big municipalities tend to draw more attention because of their size, but they also tend to have low population densities_
 
 ![Choropleth of homicide rates by municipality](http://imgur.com/eX8cK.png)
 
 ------------------------------------------------------------------------------------------------------------------------
+
+_There have been some big changes in homicide rates since the goverment declared war on the drug cartels at the end of 2006_
+
+![Change in homicide rates](http://imgur.com/AhM8c.png)
+
+-----------------------------------------------------------------------------------------------------------------------------
 
 _The top row is composed of the states controlled by drug cartels, though I would have preferred it if the kmeans clustering algorithm had classified Sonora instead of Nayarit with the narco-states. There were some big decreases in the homicide rates of the State of Mexico, Morelos, Oaxaca and Michoacan._
 
@@ -58,7 +64,7 @@ _More generally there are some big differences in the reported homicides. But no
 
 -----------------------------------------------------------------------------------------------------------------------------------
 
-_Benford’s Law was used as the expected distribution for the first digit of reported homicide rates. Not surprisingly, for a corrupt country like Mexico, both homicide series failed the test_
+_Benford’s Law was used as the expected distribution for the first digit of reported homicide rates. Not surprisingly, in a corrupt country like Mexico, both homicide series failed the test_
 
 ![Benford's law](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/Benford/output/INEGI.png)
 
@@ -104,12 +110,13 @@ In the directories you'll find:
 * accidents-homicides-suicides: Estimates the homicide rate for all of Mexico based on accidental and violent death data from the INEGI. As a bonus it includes the suicide and accident rates.
 * Benford: See of the homicide data from the INEGI and ICESI follow Bendford's law
 * conapo-pop-estimates: Estimates of the population of Mexico, done by the CONAPO, at the state level for the period 1990-2030
-* county-maps: Choropleths of the murder rate by county in Mexico for the years 1990, 1995, 2000, and 2006-2008
+* choropleths: Choropleths of the murder rate by county in Mexico for the years 1990, 1995, 2000, and 2006-2008
 * drugs: Some regressions to see if drug consumption is correlated with the homicide rate. (It is, except for 420)
-* county-months: Pretty graphics of the effect on the murder rate of sending the army to fight drug cartels
-* historic: Plot of the Mexican homicide rate from 1990 to 2009, and a
-  comparison with the homicide rate of the US, and England and Wales
-* missing-homicides: A correlation plot of the different homicide data to figure out how thrust-worthy the Mexican statistics are.
+* timelines: Pretty timelines of the effect on the murder rate of sending the army to fight the drug cartels
+* historic: Plot of the Mexican homicide rate from 1990 to 2009, a
+  comparison with that of the US, Brazil, and England and Wales
+* missing-homicides:¨Plots of the different homicide data to figure out how thrust-worthy the Mexican statistics are.
+* Benford: Check to see if the homicide rates follow Benford's law
 * most-violent-counties: A small multiple plot of the least and most violent municipalities for men and women
 * states: Pretty plots and choropleths of the homicide rate at the state level
 
@@ -133,7 +140,7 @@ __Population:__
 [CONAPO](http://conapo.gob.mx/index.php?option=com_content&view=article&id=125&Itemid=203)
 for population estimates at the national level (1990-2030), state level (1990-2030) and county level(2005-2030).
 
-__Check the readmes of each subdirectory for detailed information.__
+__Check the readme files in each subdirectory for detailed information.__
 
 
 Output
@@ -143,14 +150,18 @@ historic:
 * A png chart of the homicide rate in Mexico
 * A png chart of the homicide rate in Mexico, the US, and England and Wales
 
-county-month:
+timelines:
 
 * Time series divided into before and after military operations for high crime states or states where the military has been sent
 * Chart of the murder rate in Ciudad Juarez before and after the military took over since it is the most violent city in the world
 
-county-maps:
+most-violent-counties:
 
-* Choropleths of Mexican Homicide Rates 1990, 1995, 2000, 2006-2008
+* Small multiples chart of the most and least violent counties for men and women
+
+choropleths:
+
+* Choropleths of Mexican Homicide Rates 1990, 1995, 2000, and 2006-2008
 
 accidents-homicides-suicides:
 
@@ -173,11 +184,11 @@ missing-homicides
 
 drugs:
 
-* Correlation between drug use and homicides
+* Correlations between drug use and homicides
 
 Notes
 -----
-Where possible I tried using the official population estimates from the CONAPO, but for some of the choropleths (1990, 1995 and 2000) I used census data at the county level.
+Where possible I tried using the official mid-year population estimates from the CONAPO, but for some of the choropleths (1990, 1995 and 2000) I used census data at the county level.
 
 Author
 -----
