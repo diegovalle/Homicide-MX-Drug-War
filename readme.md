@@ -22,7 +22,7 @@ _While the drug war met with some success at first, the homicide rate increased 
 
 _As you can see Mexico is pretty violent, but not as violent as Brazil_
 
-![International Comparison](http://imgur.com/QemAM.png)
+![International Comparison](http://imgur.com/gxWQ3.png)
 
 --------------------------------------------------------------------------------------------------------------------------
 

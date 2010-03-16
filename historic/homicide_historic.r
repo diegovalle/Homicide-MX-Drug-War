@@ -93,6 +93,9 @@ homicideBZ <- c(18.6, 17.5, 15.6, 16.7, 17.5, 19.3, 24, 25, 26, 25,
 
 
 library(ggplot2)
+library(directlabels)
+library(Cairo)
+
 kyears <- 1950:2008
 hom <- data.frame(year = c(kyears),
                   EW = c(rep(NA, length(kyears) -
@@ -106,16 +109,23 @@ hom <- data.frame(year = c(kyears),
                   )
 mhom <- melt(hom, id = c("year"))
 
-#plot of the homicide rates in England, Mexico and the US since 1857
-library(Cairo)
-Cairo(file = "output/ew-mx-us-homicide.png", height = 600)
-ggplot(data = mhom, aes(year, value, group = variable, color = variable))  +
+
+#International comparison
+Cairo(file = "output/ew-mx-us-homicide.png")
+p <- ggplot(data = mhom, aes(year, value, group = variable,
+            color = variable))  +
   geom_line(size = 1) +
-#  theme_bw() +
   labs(y = "Homicide rate",x="") +
   opts (title = "Homicide rates in Brazil, Mexico, England and Wales, and the US (1950-2008)")
+get.means <-
+  dl.indep(unique(transform(d,x = 2005, y = mean(y, na.rm = TRUE))))
+direct.label(p, get.means)
 dev.off()
-#dev.print(png, file = "output/ew-mx-us-homicide.png", width = 600, height = 400)
+
+
+
+
+
 
 #line plot of the mexican homicide rate 1990-2008
 Cairo(file = "output/homicide-mx-1990-2008.png")
@@ -136,7 +146,5 @@ ggplot(hom[hom$year >= 1990, ], aes(year, MX),
             aes(x, y), color = "gray40", size=1, linetype=2) +
   geom_rect(xmin = 2006, xmax = 2009,
             ymin=0, ymax=Inf, alpha = .01, fill = "blue") +
-#  theme_bw() +
   annotate("text", x = 2007.5, y = 16.9, label = "Drug War")
 dev.off()
-#dev.print(png, file = "output/homicide-mx-1990-2008.png", width = 600, height = 400)
