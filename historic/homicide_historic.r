@@ -84,6 +84,12 @@ homicideMX <- hom$rate
 #From the World Bank: Mexico 1980-1990
 #c(11866,12485	12258	11819	14453	15497	15358	14810	14934)
 
+#brazil 1990-1999
+#http://www.paho.org/english/hcp/hcn/vio/violence-graphs.htm
+#2000-2006 Wikipedia
+#http://en.wikipedia.org/wiki/Homicide_rate
+homicideBZ <- c(18.6, 17.5, 15.6, 16.7, 17.5, 19.3, 24, 25, 26, 25,
+        26.7,27.8,28.4,28.9,27.4,26.6,25.7)
 
 
 library(ggplot2)
@@ -93,18 +99,21 @@ hom <- data.frame(year = c(kyears),
                                  length(homicideEW)), homicideEW),
                   MX = c(rep(NA, length(kyears) -
                                  length(homicideMX)), homicideMX),
-                  US = c(homicideUS)
+                  US = c(homicideUS),
+                  BZ = c(rep(NA, length(kyears) -
+                                 length(homicideBZ) - 2), homicideBZ,
+                                 NA, NA)
                   )
 mhom <- melt(hom, id = c("year"))
 
 #plot of the homicide rates in England, Mexico and the US since 1857
 library(Cairo)
-Cairo(file = "output/ew-mx-us-homicide.png")
+Cairo(file = "output/ew-mx-us-homicide.png", height = 600)
 ggplot(data = mhom, aes(year, value, group = variable, color = variable))  +
   geom_line(size = 1) +
 #  theme_bw() +
   labs(y = "Homicide rate",x="") +
-  opts (title = "Homicide rates in Mexico, England and Wales, and the US (1950-2008)")
+  opts (title = "Homicide rates in Brazil, Mexico, England and Wales, and the US (1950-2008)")
 dev.off()
 #dev.print(png, file = "output/ew-mx-us-homicide.png", width = 600, height = 400)
 

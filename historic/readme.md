@@ -10,10 +10,17 @@ __Mexican Homicide Data:__
 
 [INEGI](http://www.inegi.org.mx/est/contenidos/espanol/proyectos/continuas/vitales/bd/mortalidad/MortalidadGeneral.asp?s=est&c=11144)
 
+__Brazil:__
+
+1990-1999: [PAHO](http://www.paho.org/english/hcp/hcn/vio/violence-graphs.htm) Source: Minister of Justice, National Secretary of Public Security 
+
+2000-2006: [Wikipedia](http://en.wikipedia.org/wiki/Homicide_rate)
+
 __US:__
 
-From 1950-2005: [FBI, Uniform Crime Reports, 1950-2005](http://bjs.ojp.usdoj.gov/content/homicide/tables/totalstab.cfm)
-and for 2006-2008 also from the [FBI](http://www.fbi.gov/ucr/cius2008/data/table_01.html)
+1950-2005: [FBI, Uniform Crime Reports, 1950-2005](http://bjs.ojp.usdoj.gov/content/homicide/tables/totalstab.cfm)
+
+2006-2008: Also from the [FBI](http://www.fbi.gov/ucr/cius2008/data/table_01.html)
 
 __England and Wales:__
 

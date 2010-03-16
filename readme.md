@@ -16,9 +16,15 @@ The Story in Charts
 
 _While the drug war met with some success at first, the homicide rate increased 65% between 2007 and 2008_
 
-![homicide rate in Mexico 1990-2009](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/historic/output/homicide-mx-1990-2008.png)
+![homicide rate in Mexico 1990-2009](http://imgur.com/nhrhy.png)
 
 ------------------------------------------------------------------------------------------------------------------------
+
+_As you can see Mexico is pretty violent, but not as violent as Brazil_
+
+![International Comparison](http://imgur.com/QemAM.png)
+
+--------------------------------------------------------------------------------------------------------------------------
 
 _Most of the violence is concentrated in the states controlled by the drug cartels. Chihuahua looks like a war zone_
 
