@@ -111,7 +111,7 @@ In the directories you'll find:
 * Benford: See of the homicide data from the INEGI and ICESI follow Bendford's law
 * conapo-pop-estimates: Estimates of the population of Mexico, done by the CONAPO, at the state level for the period 1990-2030
 * choropleths: Choropleths of the murder rate by county in Mexico for the years 1990, 1995, 2000, and 2006-2008
-* drugs: Some regressions to see if drug consumption is correlated with the homicide rate. (It is, except for 420)
+* drugs: Some regressions to see if drug consumption is correlated with the homicide rate. (It is, except for mariguana)
 * timelines: Pretty timelines of the effect on the murder rate of sending the army to fight the drug cartels
 * historic: Plot of the Mexican homicide rate from 1990 to 2009, a
   comparison with that of the US, Brazil, and England and Wales
