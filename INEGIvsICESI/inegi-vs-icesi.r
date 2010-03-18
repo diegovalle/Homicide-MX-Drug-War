@@ -6,8 +6,8 @@
 #Small multiples plot to compare the INEGI and ICESI data
 
 library(ggplot2)
-icesi <- read.csv("data/states-icesi.csv")
-inegi <- read.csv("../accidents-homicides-suicides/output/states.csv")
+icesi <- read.csv("INEGIvsICESI/data/states-icesi.csv")
+inegi <- read.csv("accidents-homicides-suicides/output/states.csv")
 
 icesi <- melt(icesi, id = "State")
 icesi$org <- "SNSP"
@@ -22,7 +22,7 @@ ii$variable <- rep(1997:2008, each=32)
 
 #Population of Mexico 1997-2008
 #source: CONAPO
-pop <- read.csv("../conapo-pop-estimates/conapo-states.csv")
+pop <- read.csv("conapo-pop-estimates/conapo-states.csv")
 pop <- pop[-(33) ,-(2:8)]
 pop <- melt(pop, id = "State")
 pop$variable <- rep(1997:2008, each=32)
@@ -32,11 +32,11 @@ ii.pop <- merge(ii, pop, by = c("State", "variable"), all.x = TRUE)
 
 ii.pop$rate <- ii.pop$value.x / ii.pop$value.y * 100000
 
-ggplot(ii.pop, aes(variable, rate, group = org, color = org)) +
+print(ggplot(ii.pop, aes(variable, rate, group = org, color = org)) +
     geom_line(size = 2) +
-    facet_wrap(~ State, scales = "free_y")
+    facet_wrap(~ State, scales = "free_y"))
 
-dev.print(png, file = "output/INEGI-ICESI.png", width = 960, height = 600)
+dev.print(png, file = "INEGIvsICESI/output/INEGI-ICESI.png", width = 960, height = 600)
 
 
 dif <- cast(ii.pop[order(ii.pop$org),], State ~ variable,
@@ -45,7 +45,7 @@ dif <- cast(ii.pop[order(ii.pop$org),], State ~ variable,
 difm <- melt(dif, id=c("State"))
 difm <- ddply(difm, .(State), transform, var = var(value))
 difm$State <- reorder(difm$State, -difm$var)
-ggplot(difm, aes(as.numeric(as.character(variable)), value)) +
+print(ggplot(difm, aes(as.numeric(as.character(variable)), value)) +
     geom_line(size = 1.2, color = "darkred") +
     facet_wrap(~ State) +
     geom_hline(yintercept = 0, color = "gray40") +
@@ -54,5 +54,5 @@ ggplot(difm, aes(as.numeric(as.character(variable)), value)) +
     scale_x_continuous(breaks = c(1998, 2003, 2008),
                          labels = c("98", "03", "08")) +
     #scale_y_continuous(formatter="percent") +
-    theme_bw()
-dev.print(png, file = "output/INEGI-SNSP-dif.png", width = 960, height = 600)
+    theme_bw())
+dev.print(png, file = "INEGIvsICESI/output/INEGI-SNSP-dif.png", width = 960, height = 600)

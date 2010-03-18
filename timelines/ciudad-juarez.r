@@ -53,9 +53,9 @@ library(ggplot2)
 library(Cairo)
 library(strucchange)
 
-source("constants.r")
+source("timelines/constants.r")
 
-hom <- read.csv(bzfile("data/county-month.csv.bz2"))
+hom <- read.csv(bzfile("timelines/data/county-month.csv.bz2"))
 cdjuarez09 <- c(136, 240, 73, 90, 125, 247, 248, 337,
                 304, 290, 374, 317)
 cdjuarez0708 <- subset(hom,
@@ -83,8 +83,8 @@ cdj$rate <- (cdj$Murders / pop$MonthlyEst) * 100000 * 12
 
 cdj$group <- cutDates(cdj, c(op.chi, cdj.rein))
 
-Cairo(file = "output/ciudad-juarez.png", width=600, height=400)
-ggplot(cdj, aes(Date,rate)) +
+Cairo(file = "timelines/output/ciudad-juarez.png", width=600, height=400)
+print(ggplot(cdj, aes(Date,rate)) +
     geom_point(aes(size = Murders), color = "darkred") +
     geom_vline(aes(xintercept = op.chi), alpha = .7) +
     geom_text(aes(x,y, label = "Joint Operation Chihuahua"),
@@ -97,7 +97,7 @@ ggplot(cdj, aes(Date,rate)) +
     geom_smooth(aes(group = group), se = FALSE, method = lm) +
     scale_size("Number of\nHomicides") +
     ylab("Annualized homicide rate") + xlab("") +
-    opts(title = "Homicide rates in Ciudad Juarez before and after the army took control")
+    opts(title = "Homicide rates in Ciudad Juarez before and after the army took control"))
 dev.off()
 
 rate <- ts(cdj$rate, start=2007, freq=12)

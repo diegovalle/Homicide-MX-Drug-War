@@ -79,7 +79,7 @@ homicideEW <- c(0.73, 0.74, 0.68, 0.7, 0.83, 0.83, 0.8, 1.07,
 #Mexico 1990-2008
 #INEGI
 #The equivalent of Vital Statistics, calculated from the directory homicides-suicides-accidents
-hom <- read.csv("../accidents-homicides-suicides/output/homicide.csv")
+hom <- read.csv("accidents-homicides-suicides/output/homicide.csv")
 homicideMX <- hom$rate
 #From the World Bank: Mexico 1980-1990
 #c(11866,12485	12258	11819	14453	15497	15358	14810	14934)
@@ -111,7 +111,7 @@ mhom <- melt(hom, id = c("year"))
 
 
 #International comparison
-Cairo(file = "output/ew-mx-us-homicide.png")
+Cairo(file = "historic/output/ew-mx-us-homicide.png")
 p <- ggplot(data = mhom, aes(year, value, group = variable,
             color = variable))  +
   geom_line(size = 1) +
@@ -119,7 +119,7 @@ p <- ggplot(data = mhom, aes(year, value, group = variable,
   opts (title = "Homicide rates in Brazil, Mexico, England and Wales, and the US (1950-2008)")
 get.means <-
   dl.indep(unique(transform(d,x = 2005, y = mean(y, na.rm = TRUE))))
-direct.label(p, get.means)
+print(direct.label(p, get.means))
 dev.off()
 
 
@@ -128,8 +128,8 @@ dev.off()
 
 
 #line plot of the mexican homicide rate 1990-2008
-Cairo(file = "output/homicide-mx-1990-2008.png")
-ggplot(hom[hom$year >= 1990, ], aes(year, MX),
+Cairo(file = "historic/output/homicide-mx-1990-2008.png")
+print(ggplot(hom[hom$year >= 1990, ], aes(year, MX),
        ylab = "Homicide rate")   +
   geom_line(size = 1) +
   opts(title = "Homicide rate in Mexico, 1990-2008 and 2009 (estimate)") +
@@ -146,5 +146,5 @@ ggplot(hom[hom$year >= 1990, ], aes(year, MX),
             aes(x, y), color = "gray40", size=1, linetype=2) +
   geom_rect(xmin = 2006, xmax = 2009,
             ymin=0, ymax=Inf, alpha = .01, fill = "blue") +
-  annotate("text", x = 2007.5, y = 16.9, label = "Drug War")
+  annotate("text", x = 2007.5, y = 16.9, label = "Drug War"))
 dev.off()

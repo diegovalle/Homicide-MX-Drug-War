@@ -10,6 +10,7 @@
 #5. Small multiples of the evolution of the murder rate 1990-2008
 
 library(ggplot2)
+library(Hmisc)
 library(RColorBrewer)
 library(maptools)
 library(classInt)
@@ -59,11 +60,13 @@ cleanPop <- function(type = "Total") {
   pop
 }
 
-mergeHomPop2008 <- function(hom, pop) {
-  hom2008 <- merge(subset(hom, Year.of.Murder == 2008),
-                 pop, by="Code", all.x = TRUE)
+mergeHomPopYear <- function(hom, pop, year = 2008) {
+  hom2008 <- merge(subset(hom, Year.of.Murder == year),
+                   pop[ ,c(1,year-1990+2,ncol(pop))],
+                   by="Code", all.x = TRUE)
+  names(hom2008)[ncol(hom) + 2] <- "popyear"
   #The per 100,000  murder rate
-  hom2008$Rate <- hom2008$X2008.x / hom2008$X2008.y * 100000
+  hom2008$Rate <- hom2008$Tot / hom2008$popyear * 100000
   hom2008$County <- cleanNames(hom2008)
   hom2008$County <- factor(hom2008$County)
   hom2008
@@ -71,7 +74,10 @@ mergeHomPop2008 <- function(hom, pop) {
 
 redScale <- function(rate) {
   #the second highest value (Sinaloa)
-  obs <- 34
+  obs <- round(range(rate)[2]) + 1
+  if(obs > 70) {
+    obs <- round(-sort(-rate)[2]) + 1
+  }
   index <- round(rate) + 1
   clr.inc <- colorRampPalette(brewer.pal(8, "Reds"))
   vec <- clr.inc(obs)[index]
@@ -82,20 +88,22 @@ redScale <- function(rate) {
   vec
 }
 
-barPlot <- function(hom2008) {
+barPlot <- function(hom2008, year="") {
   hom2008$color <- redScale(hom2008$Rate)
   hom2008$County <- reorder(hom2008$County, hom2008$Rate)
+  xmax <- range(hom2008$Rate)[2] + 5
+  hom.mean <- wtd.mean(hom2008$Rate, hom2008$popyear)
   ggplot(data = hom2008, aes(County, Rate)) +
     geom_bar(stat = "identity", aes(fill = color)) +
-    scale_y_continuous(limits = c(0, 85)) +
+    scale_y_continuous(limits = c(0, xmax)) +
     coord_flip() +
     labs(x = "", y = "Homicides per 100,000") +
-    opts(title = "Homicide Rate in Mexico (2008)") +
+    opts(title = paste("Homicide Rates in Mexico -", year)) +
     opts(legend.position = "none") +
     scale_fill_identity(aes(breaks = color)) +
     geom_text(aes(label=round(Rate, digits = 1)), hjust = -.05,
             color = "gray50") +
-    geom_hline(yintercept = 12.77435165, alpha=.1, linetype=2)
+    geom_hline(yintercept = hom.mean, alpha=.1, linetype=2)
 }
 
 #We need to order the variables by name to match them with the map
@@ -121,18 +129,22 @@ plotMap <- function(mexico.shp, colors, plotclr, legend="", title="") {
 }
 
 #return a data frame with the change in homicide rates
-getDiff <- function(hom, year1, year2) {
+getDiff <- function(hom, pop, year1, year2) {
   if(year1>year2){
         temp <- year2
         year2 <- year1
-        year1 <- year2
+        year1 <- temp
      }
   hom2008 <- merge(subset(hom, Year.of.Murder == year2),
-                   pop, by="Code", all.x=T)
-  hom2008$Rate2008 <- hom2008$X2008.x / hom2008$X2008.y * 100000
+                   pop[ ,c(1,year2-1990+2,ncol(pop))],
+                   by="Code", all.x=T)
+  names(hom2008)[ncol(hom)+2] <- "popyear2"
+  hom2008$Rate2008 <- hom2008$Tot / hom2008[[ncol(hom)+2]] * 100000
   hom2006 <- merge(subset(hom, Year.of.Murder == year1),
-                   pop, by="Code", all.x=T)
-  hom2006$Rate2006 <- hom2006$X2006.x / hom2006$X2006.y * 100000
+                   pop[ ,c(1,year1-1990+2,ncol(pop))],
+                   by="Code", all.x=T)
+  names(hom2006)[ncol(hom)+2] <- "popyear1"
+  hom2006$Rate2006 <- hom2006$Tot / hom2006[[ncol(hom)+2]] * 100000
   hom.diff <- merge(hom2008,hom2006, by ="Code")
   hom.diff$Diff <- hom.diff$Rate2008 - hom.diff$Rate2006
   hom.diff$County.x <- factor(hom.diff$County.x)
@@ -157,27 +169,32 @@ greenReds <- function(difference){
 
 #Based on code from:
 #http://learnr.wordpress.com/2009/06/01/ggplot2-positioning-of-barplot-category-labels/
-barDiff <- function(hom.diff) {
+barDiff <- function(hom.diff, year1="", year2="") {
   hom.diff$color <- greenReds(hom.diff$Diff)
   hom.diff$hjust <- ifelse(hom.diff$Diff > 0, 1.1, -.1)
   hom.diff$text.pos <- ifelse(hom.diff$Diff > 0, -.05, 1)
   hom.diff$County.x <- cleanNames(hom.diff, "County.x")
   hom.diff$County.x <- factor(hom.diff$County.x)
   hom.diff$County.x <- reorder(hom.diff$County.x, hom.diff$Diff)
+  xmin <- range(hom.diff$Diff)[1] - 2
+  xmax <- range(hom.diff$Diff)[2] + 2
+  hom.mean08 <- wtd.mean(hom.diff$Rate2008, hom.diff$popyear2)
+  hom.mean06 <- wtd.mean(hom.diff$Rate2006, hom.diff$popyear1)
   ggplot(hom.diff, aes(x=County.x, y=Diff, label=County.x,
                         hjust = hjust)) +
     geom_text(aes(y = 0, size=3)) +
     geom_bar(stat = "identity",aes(fill = color)) +
-    scale_y_continuous(limits = c(-18, 65)) +
+    scale_y_continuous(limits = c(xmin, xmax)) +
     coord_flip() +
     labs(x = "", y = "Change in Rate per 100,000") +
     scale_x_discrete(breaks = NA) +
-    opts(legend.position = "none")+
-    opts(title="Change in Mexican Homicide Rates (2006-2008)")+
+    opts(legend.position = "none") +
+    opts(title = paste("Change in Mexican Homicide Rates (",
+                       year1, "-", year2, ")", sep = "")) +
     scale_fill_identity(aes(breaks = color)) +
     geom_text(aes(label=round(Diff, digits = 1), hjust = text.pos),
               color="gray50") +
-    geom_hline(yintercept = 12.77435165- 9.919495802, alpha=.1, , linetype=2)
+    geom_hline(yintercept = hom.mean08 - hom.mean06, alpha=.1, , linetype=2)
 }
 
 
@@ -190,13 +207,15 @@ barDiff <- function(hom.diff) {
 type = "Total"  #Change this to "Mujer" to get homicide data for women
 hom <- cleanHom(type)
 pop <- cleanPop(type)
-hom2008 <- mergeHomPop2008(hom, pop)
 
 ########################################################
 #Barplot with the homicide rate in 2008
 ########################################################
-barPlot(hom2008)
-dev.print(png, file = "output/2008-homicide-bars.png", width = 480, height = 480)
+year <- 2008
+hom.year <- mergeHomPopYear(hom, pop, year)
+barPlot(hom.year, year)
+dev.print(png, file = "output/2008-homicide-bars.png",
+          width = 480, height = 480)
 
 ########################################################
 #Map with the homicide rate in 2008
@@ -205,24 +224,27 @@ mexico.shp <- readShapePoly(map.icesi,
                             IDvar = "NAME",
                             proj4string = CRS("+proj=longlat"))
 
-hom2008.map <- mapOrder(hom2008, "County")
+hom.year.map <- mapOrder(hom.year, "County")
 
 Cairo(file="output/2008-homicide-map.png", width=480, height=480)
-plotMap(mexico.shp, redScale(hom2008.map$Rate))
+plotMap(mexico.shp, redScale(hom.year.map$Rate))
 dev.off()
 
 ###################################################################
 #Bar plot of the change in homicide rate from the start of the
 #drug war at the end of 2006 till 2008 and a map
 ###################################################################
-hom.diff <- getDiff(hom, 2006, 2008)
-barDiff(hom.diff)
-dev.print(png, file="output/2006-2008-change-homicide.png", width=480, height=480)
+year1 <- 2006
+year2 <- 2008
+hom.diff <- getDiff(hom, pop, year1, year2)
+barDiff(hom.diff, year1, year2)
+dev.print(png, file="output/2006-2008-change-homicide.png",
+          width=480, height=480)
 
 ########################################################
 #Map of the change in homicide rates
 ########################################################
-hom.diff.map <- mapOrder(hom.diff, "State.x")
+hom.diff.map <- mapOrder(hom.diff, "County.x")
 Cairo(file="output/2006-2008-change-homicide-map.png", width=480, height=480)
 plotMap(mexico.shp, greenReds(hom.diff.map$Diff))
 dev.off()
@@ -238,7 +260,6 @@ totalHom <- function(hom){
 }
 
 mergeHomPopS <- function(hom){
-  pop <- cleanPop("Total")
   mpop <- melt(subset(pop, State != "Nacional"), id=c("Code", "State"))
   mpop$variable <- as.numeric(substring(mpop$variable, 2))
   mpop$Year.of.Murder <- mpop$variable
@@ -254,7 +275,7 @@ mergeHomPopS <- function(hom){
 
 cluster <- function(hom.mpop, nclusters){
   #k-means clustering to order the plot
-  t <- cast(hom.mpop[,c(26:27,29)], State ~ variable)
+  t <- cast(hom.mpop[,c(26:27,29)], State ~ variable, value = "Rate")
   t[is.na(t)] <- 0
   cl <- kmeans(t[,2:ncol(t)], nclusters)
   t$Cluster <- cl$cluster
@@ -266,7 +287,7 @@ cluster <- function(hom.mpop, nclusters){
   hom.mpop
 }
 
-smallMultiples <- function(hom, nclusters = 8){
+smallMultiples <- function(hom, pop, nclusters = 8){
   total.hom <- totalHom(hom)
   hom.mpop <- mergeHomPopS(hom)
   hom.mpop <- cluster(hom.mpop, nclusters)
@@ -286,10 +307,10 @@ smallMultiples <- function(hom, nclusters = 8){
 }
 
 #This is how you get anti-aliasing in R
-Cairo(file="output/1990-2008-homicide-small-multiples-w.png",
-      type="png", width=960, height=600)
-smallMultiples(hom, 4)
-dev.off()
+#Cairo(file="output/1990-2008-homicide-small-multiples-w.png",
+#      type="png", width=960, height=600)
+smallMultiples(hom, pop, 8)
+#dev.off()
 
 
 #The graph for Chihuahua looks similar to the hockey stick

@@ -14,7 +14,7 @@ library(classInt)
 library(Cairo)
 
 #location of the INEGI maps
-source("../maps-locations.r")
+source("maps-locations.r")
 
 
 #Clean data file with all homicides *registered* by county and sex
@@ -115,7 +115,7 @@ mergeMap <- function(df, year){
 
 savePlot <- function(df, year, breaks, name){
     map <- mergeMap(df, year)
-    filename <- paste("output/", name, ".png", sep ="")
+    filename <- paste("choropleths/output/", name, ".png", sep ="")
     Cairo(file = filename,
           width=960, height=600, type="png", bg="white")
     print(drawMap(map$rate, name, breaks))
@@ -127,13 +127,13 @@ savePlot <- function(df, year, breaks, name){
 #read the files with population data from the censuses
 readPop <- function(type){
   if(type=="Total") {
-    popm <- cleanPopCONAPO("data/pop.csv.bz2")
+    popm <- cleanPopCONAPO("choropleths/data/pop.csv.bz2")
   } else{
-    popm <- cleanPopCONAPO("data/pop-w.csv.bz2")
+    popm <- cleanPopCONAPO("choropleths/data/pop-w.csv.bz2")
   }
-  pop90 <- cleanPopINEGI("data/inegi1990.csv", 1990, type)
-  pop95 <- cleanPopINEGI("data/inegi1995.csv", 1995, type)
-  pop00 <- cleanPopINEGI("data/inegi2000.csv", 2000, type)
+  pop90 <- cleanPopINEGI("choropleths/data/inegi1990.csv", 1990, type)
+  pop95 <- cleanPopINEGI("choropleths/data/inegi1995.csv", 1995, type)
+  pop00 <- cleanPopINEGI("choropleths/data/inegi2000.csv", 2000, type)
 
   rbind(popm, pop90, pop95, pop00)
 }
@@ -175,7 +175,7 @@ mexico.st.shp <- readShapePoly(map.inegi.st,
 ################################################################
 type = "Total" #Change this to Mujer to get femicides
 
-hom <- cleanHomicide("../states/data/homicide-mun-2008.csv.bz2", type)
+hom <- cleanHomicide("states/data/homicide-mun-2008.csv.bz2", type)
 popm <- readPop(type)
 hom.popm <- mergeHomPop(hom, popm)
 if(type == "Mujer") {

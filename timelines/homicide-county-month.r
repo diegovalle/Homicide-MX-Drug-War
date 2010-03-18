@@ -14,7 +14,7 @@ library(Cairo)
 library(zoo)
 library(strucchange)
 
-source("constants.r")
+source("timelines/constants.r")
 
 #;;;;Apply an  artificial correction to the data
 #;;;;to prove that Global Warming is happening
@@ -173,8 +173,8 @@ savePlot <- function(df, ll, title = "", width = 700, height = 600,
 }
 
 
-hom <- read.csv(bzfile("data/county-month.csv.bz2"))
-pop <- cleanPop("data/pop.csv.bz2")
+hom <- read.csv(bzfile("timelines/data/county-month.csv.bz2"))
+pop <- cleanPop("timelines/data/pop.csv.bz2")
 
 
 #the county must be this big to enter the chart
@@ -189,58 +189,58 @@ bcn.df <- getData(hom, pop, baja.california, popsize)
 ll <- list("Joint Operation Tijuana" = op.tij,
            "E.A.F. Captured" = doctor)
 savePlot(bcn.df, ll, "Baja California",
-          file = "output/Baja California.png")
-findbreaks(bcn.df, 3)
+          file = "timelines/output/Baja California.png")
+#findbreaks(bcn.df, 3)
 
 #Sonora
 son.df <- getData(hom, pop, sonora, popsize)
 ll <- list("Operation Sonora I" = op.son)
-savePlot(son.df, ll, "Sonora", file = "output/Sonora.png")
-findbreaks(son.df)
+savePlot(son.df, ll, "Sonora", file = "timelines/output/Sonora.png")
+#findbreaks(son.df)
 
 #Chihuahua
 chi.df <- getData(hom, pop, chihuahua, popsize)
 ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Joint Operation Chihuahua" = op.chi)
 savePlot(chi.df, ll, "Chihuahua",
-         file = "output/Chihuahua.png", height=700)
-findbreaks(chi.df)
+         file = "timelines/output/Chihuahua.png", height=700)
+#findbreaks(chi.df)
 
 #Michoacán (I hate trying to get emacs and R to understand utf!)
 mich.df <- getData(hom, pop, michoacan, popsize)
 ll <- list("Joint Operation Michoacan" = op.mich)
 savePlot(mich.df, ll, "Michoacan",
-         file = "output/Michoacan.png", height=700)
-findbreaks(mich.df)
+         file = "timelines/output/Michoacan.png", height=700)
+#findbreaks(mich.df)
 
 #Sinadroga
 sin.df <- getData(hom, pop, sinaloa, popsize)
 ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Joint Operation Culiacan-Navolato" = op.sin)
 savePlot(sin.df, ll, "Sinaloa",
-         file = "output/Sinaloa.png", height=700)
-findbreaks(sin.df)
+         file = "timelines/output/Sinaloa.png", height=700)
+#findbreaks(sin.df)
 
 #Durango
 dur.df <- getData(hom, pop, durango, popsize)
 ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Phase III"=op.tria.dor.III)
 savePlot(dur.df, ll, "Durango",
-         file = "output/Durango.png")
-findbreaks(dur.df)
+         file = "timelines/output/Durango.png")
+#findbreaks(dur.df)
 
 
 
 #The data for Oaxaca and Guerrero are in another file
-hom <- read.csv(bzfile("data/county-month-gue-oax.csv.bz2"))
+hom <- read.csv(bzfile("timelines/data/county-month-gue-oax.csv.bz2"))
 
 #Guerrero
 gue.df <- getData(hom, pop, guerrero, popsize)
 ll <- list("Joint Operation Guerrero" = op.gue,
            "A.B.L. Captured" = bel.ley)
 savePlot(gue.df, ll, "Guerrero",
-         file = "output/Guerrero.png", height=700)
-findbreaks(gue.df, 3)
+         file = "timelines/output/Guerrero.png", height=700)
+#findbreaks(gue.df, 3)
 
 
 #There were some changes in the municipalities of Oaxaca and
@@ -251,18 +251,18 @@ findbreaks(gue.df, 3)
 
 
 #The data for Nuevo Leon and Tamaulipas is in yet another file
-hom <- read.csv(bzfile("data/county-month-nl-tam.csv.bz2"))
+hom <- read.csv(bzfile("timelines/data/county-month-nl-tam.csv.bz2"))
 
 #Tamaulipas
 tam.df <- getData(hom, pop, tamaulipas, popsize)
 ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
 savePlot(tam.df, ll, "Tamaulipas",
-         file = "output/Tamaulipas.png", height=900)
-findbreaks(tam.df)
+         file = "timelines/output/Tamaulipas.png", height=900)
+#findbreaks(tam.df)
 
 #Nuevo Leon
 nl.df <- getData(hom, pop, nuevo.leon, popsize)
 ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
 savePlot(nl.df, ll, "Nuevo Leon",
-         file = "output/Nuevo-Leon.png", height=900)
-findbreaks(nl.df)
+         file = "timelines/output/Nuevo-Leon.png", height=900)
+#findbreaks(nl.df)

@@ -1,4 +1,4 @@
-﻿########################################################
+########################################################
 #####       Author: Diego Valle Jones
 #####       Website: www.diegovalle.net
 #####       Date Created: Sat Jan 23 21:10:55 2010
@@ -18,7 +18,7 @@ library(Cairo)
 library(plotrix)
 
 #location of the ICESI map
-source("../maps-locations.r")
+source("maps-locations.r")
 
 #############################################
 #String Constants
@@ -33,7 +33,7 @@ cleanNames <- function(df, varname = "County"){
 }
 
 cleanHom <- function(type="Total") {
-  hom <- read.csv(bzfile("data/homicide-mun-2008.csv.bz2"), skip=4)
+  hom <- read.csv(bzfile("states/data/homicide-mun-2008.csv.bz2"), skip=4)
   names(hom)[1:4] <- c("Code", "County", "Year.of.Murder", "Sex")
   hom <- hom[grep("=CONCATENAR", hom$Code),]
   hom <- hom[-grep("Extranjero", hom$County),]
@@ -53,9 +53,9 @@ cleanHom <- function(type="Total") {
 
 cleanPop <- function(type = "Total") {
   if(type == "Mujer")
-    pop <- read.csv("../conapo-pop-estimates/conapo-states-f.csv")
+    pop <- read.csv("conapo-pop-estimates/conapo-states-f.csv")
   else
-    pop <- read.csv("../conapo-pop-estimates/conapo-states.csv")
+    pop <- read.csv("conapo-pop-estimates/conapo-states.csv")
   pop$Code <- c(1:33)
   pop
 }
@@ -268,8 +268,8 @@ pop <- cleanPop(type)
 ########################################################
 year <- 2008
 hom.year <- mergeHomPopYear(hom, pop, year)
-barPlot(hom.year, year)
-dev.print(png, file = "output/2008-homicide-bars.png",
+print(barPlot(hom.year, year))
+dev.print(png, file = "states/output/2008-homicide-bars.png",
           width = 480, height = 480)
 
 ########################################################
@@ -281,8 +281,8 @@ mexico.shp <- readShapePoly(map.icesi,
 
 hom.year.map <- mapOrder(hom.year, "County")
 
-Cairo(file="output/2008-homicide-map.png", width=480, height=480)
-plotMap(mexico.shp, redScale(hom.year.map$Rate))
+Cairo(file="states/output/2008-homicide-map.png", width=480, height=480)
+print(plotMap(mexico.shp, redScale(hom.year.map$Rate)))
 dev.off()
 
 ###################################################################
@@ -292,26 +292,28 @@ dev.off()
 year1 <- 2006
 year2 <- 2008
 hom.diff <- getDiff(hom, pop, year1, year2)
-barDiff(hom.diff, year1, year2)
-dev.print(png, file="output/2006-2008-change-homicide.png",
+print(barDiff(hom.diff, year1, year2))
+dev.print(png, file="states/output/2006-2008-change-homicide.png",
           width=480, height=480)
 
 ########################################################
 #Map of the change in homicide rates
 ########################################################
 hom.diff.map <- mapOrder(hom.diff, "County.x")
-Cairo(file="output/2006-2008-change-homicide-map.png", width=480, height=480)
-plotMap(mexico.shp, greenReds(hom.diff.map$Diff))
+Cairo(file="states/output/2006-2008-change-homicide-map.png", width=480, height=480)
+print(plotMap(mexico.shp, greenReds(hom.diff.map$Diff)))
 dev.off()
 
 ########################################################
 #Small Multiples of each state
 ########################################################
 #This is how you get anti-aliasing in R
-#Cairo(file="output/1990-2008-homicide-small-multiples-w.png",
-#      type="png", width=960, height=600)
-smallMultiples(hom, pop, 8)
-#dev.off()
+Cairo(file="states/output/1990-2008-homicide-small-multiples-w.png",
+      type="png", width=960, height=600)
+#If it's for women you might want to swith the number of
+#kmeans clusters to 4
+print(smallMultiples(hom, pop, 8))
+dev.off()
 
 
 #The graph for Chihuahua looks similar to the hockey stick

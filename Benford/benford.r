@@ -54,15 +54,15 @@ addMonths <- function(df){
 ########################################################
 #Read and clean the data
 ########################################################
-hom <- read.csv(bzfile("../timelines/data/county-month-gue-oax.csv.bz2"))
+hom <- read.csv(bzfile("timelines/data/county-month-gue-oax.csv.bz2"))
 hom <- cleanHom(hom)
 hom <- addMonths(hom)
 
 #No monthly homicide patterns
-ggplot(hom, aes(y = Total.Murders, x = Month.of.Murder,
-                group = Year.of.Murder, color = Year.of.Murder)) +
-    geom_line() +
-    facet_wrap(~ County, scales = "free_y")
+#ggplot(hom, aes(y = Total.Murders, x = Month.of.Murder,
+#                group = Year.of.Murder, color = Year.of.Murder)) +
+#    geom_line() +
+#    facet_wrap(~ County, scales = "free_y")
 
 
 
@@ -108,15 +108,15 @@ chisq.test(death.rate, p = dBen(1:9))
 #For the vital statistics data
 #Benford's law is scale invariant
 inegi <- hom$Total.Murders
-benObsExp(inegi, "INEGI")
-ggsave("output/INEGI.png", dpi=90)
+print(benObsExp(inegi, "INEGI"))
+ggsave("benford/output/INEGI.png", dpi=90)
 chiBen(inegi)
 
 #For the police data
-icesi <- melt(read.csv("../INEGIvsICESI/data/states-icesi.csv"),
+icesi <- melt(read.csv("INEGIvsICESI/data/states-icesi.csv"),
            id ="State")
-benObsExp(icesi$value, "SNSP")
-ggsave("output/ICESI.png", dpi=90)
+print(benObsExp(icesi$value, "SNSP"))
+ggsave("benford/output/ICESI.png", dpi=90)
 chiBen(icesi$value)
 
 

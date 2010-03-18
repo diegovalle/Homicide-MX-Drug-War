@@ -15,7 +15,7 @@ library(Cairo)
 #Note: If you don't break down the deaths by place of occurence you'll
 #end up counting deaths that took place in foreign countries but
 #were registered in Mexico. Yeah, the INEGI database is hard to use.
-deaths <- read.csv(bzfile("data/accidents-homicides-suicides-bystate.csv.bz2"), skip=3)
+deaths <- read.csv(bzfile("accidents-homicides-suicides/data/accidents-homicides-suicides-bystate.csv.bz2"), skip=3)
 names(deaths)[1:4] <- c("Code","State","Year","Type.of.Death")
 deaths <- subset(deaths, Type.of.Death != "Se ignora" &
                  State != "Extranjero" & State != "Total" &
@@ -28,7 +28,7 @@ deaths$Tot <- apply(deaths[,5:ncol(deaths)], 1, function(x) sum(x))
 
 #write the total murders by state to a file
 st <- cast(subset(deaths, Type.of.Death == "Homicidio"), State ~ Year)
-write.csv(st, "output/states.csv", row.names = FALSE)
+write.csv(st, "accidents-homicides-suicides/output/states.csv", row.names = FALSE)
 
 deaths <- ddply(deaths, .(Year, Type.of.Death), function(df) sum(df$Tot))
 names(deaths) <- c("Year","Type.of.Death","Tot")
@@ -45,18 +45,18 @@ plotDeaths <- function(df, type, filename) {
     df <- subset(deaths, Type.of.Death == type)
     df$pop.mex <- pop.mex
     df$rate <- df$Tot / df$pop.mex * 100000
-    write.csv(df, paste("output/", filename, sep=""))
+    write.csv(df, paste("accidents-homicides-suicides/output/", filename, sep=""))
     qplot(1990:2008, df$rate, geom="line")
 }
 
-Cairo(file="output/homicide.png")
-plotDeaths(deaths, "Homicidio", "homicide.csv")
+Cairo(file="accidents-homicides-suicides/output/homicide.png")
+print(plotDeaths(deaths, "Homicidio", "homicide.csv"))
 dev.off()
 
-Cairo(file="output/suicide.png")
-plotDeaths(hom, "Suicidio", "suicide.csv")
+Cairo(file="accidents-homicides-suicides/output/suicide.png")
+print(plotDeaths(hom, "Suicidio", "suicide.csv"))
 dev.off()
 
-Cairo(file="output/accident.png")
-plotDeaths(hom, "Accidente", "accident.csv")
+Cairo(file="accidents-homicides-suicides/output/accident.png")
+print(plotDeaths(hom, "Accidente", "accident.csv"))
 dev.off()

@@ -10,7 +10,7 @@
 library(ggplot2)
 library(car)
 
-drugs <- read.csv("data/druguse.csv")
+drugs <- read.csv("drugs/data/druguse.csv")
 #The drug usage as a percetage
 drugs[,2:7] <- drugs[,2:7] / 100
 
@@ -44,4 +44,4 @@ print(drawPlots(drugs, "Amphetamines", "Homicide.Rate"),
 print(drawPlots(drugs, "Illegal.Drugs", "Homicide.Rate"),
       vp = subplot(2, 2))
 
-dev.print(png, "output/Drug Use.png", width=500, height=500)
+dev.print(png, "drugs/output/Drug Use.png", width=500, height=500)

@@ -17,14 +17,14 @@ library(directlabels)
 ########################################################
 # Line plot of PAHO, UN, INEGI and ICESI homicide rates
 ########################################################
-homts <- read.csv("data/PAHO-UN-INEGI-ICESI.csv")
+homts <- read.csv("missing-homicides/data/PAHO-UN-INEGI-ICESI.csv")
 names(homts)[4] <- "SNSP"
-ggplot(melt(homts, id="Year"), aes(Year, value, group = variable,
+print(ggplot(melt(homts, id="Year"), aes(Year, value, group = variable,
                                    color = variable)) +
        geom_line(size=1.5) +
        ylab("Homicide rate") +
-      opts(title = "Different estimates of the ‘homicide’ rate")
-dev.print(png, file = "output/PAHO-UN-INEGI-ICESI.png", width = 500, height = 300)
+      opts(title = "Different estimates of the ‘homicide’ rate"))
+dev.print(png, file = "missing-homicides/output/PAHO-UN-INEGI-ICESI.png", width = 500, height = 300)
 
 #FADE IN:
 #LOWLY GOVERNMENT OFFICIAL Fernando is on the phone with a POWERFUL
@@ -89,7 +89,7 @@ dev.print(png, file = "output/PAHO-UN-INEGI-ICESI.png", width = 500, height = 30
 # Scatter Plot
 ########################################################
 
-ivsi <- read.csv("data/INEGIvsICESI.csv")
+ivsi <- read.csv("missing-homicides/data/INEGIvsICESI.csv")
 #Get rid of the full name of the states (eg: Veracruz de
 #Ignacio de la Llave changes to Veracruz
 cleanNames <- function(df, varname = "County"){
@@ -99,7 +99,7 @@ cleanNames <- function(df, varname = "County"){
 
 ivsi$State <- cleanNames(ivsi, "State")
 
-ggplot(ivsi, aes(INEGI, ICESI,
+print(ggplot(ivsi, aes(INEGI, ICESI,
                  label = paste(State," (",
                        as.character(INEGI-ICESI), ")", sep = ""))) +
        geom_text(aes(size = sqrt(abs(INEGI-ICESI))), hjust=-.1) +
@@ -108,9 +108,9 @@ ggplot(ivsi, aes(INEGI, ICESI,
        opts(title = "Differences in ‘homicide’ reporting rates (INEGI - SNSP)") + ylab("SNSP") +
        scale_x_continuous(limits = c(0, 4000)) +
        opts(legend.position = "none") +
-       annotate("text", 1400, 1400, label = "Data ara equal ->",
-                color ="blue", hjust = 1)
-dev.print(png, file = "output/scatter-inegi-icesi.png", width = 600, height = 480)
+       annotate("text", 1400, 1400, label = "missing-homicides/data ara equal ->",
+                color ="blue", hjust = 1))
+dev.print(png, file = "missing-homicides/output/scatter-inegi-icesi.png", width = 600, height = 480)
 
 
 
@@ -144,18 +144,18 @@ drawBars <- function(df) {
 }
 #ICESI data
 names(ivsi)[3] <- "SNSP"
-drawBars(melt(ivsi[ , c(1:2,3)], id="State"))
-dev.print(png, file = "output/INEGIvsICESI.png", width = 480, height = 600)
+print(drawBars(melt(ivsi[ , c(1:2,3)], id="State")))
+dev.print(png, file = "missing-homicides/output/INEGIvsICESI.png", width = 480, height = 600)
 
 #data from the statistical yearbooks
-drawBars(melt(ivsi[ , c(1:2,6)], id="State"))
-dev.print(png, file = "output/INEGIvsYearbook.png", width = 480, height = 600)
+print(drawBars(melt(ivsi[ , c(1:2,6)], id="State")))
+dev.print(png, file = "missing-homicides/output/INEGIvsYearbook.png", width = 480, height = 600)
 
 
 ########################################################
 # Percentage Difference
 ########################################################
-ggplot(ivsi, aes(INEGI, abs(INEGI - Stat.Yrbks) /
+print(ggplot(ivsi, aes(INEGI, abs(INEGI - Stat.Yrbks) /
                  (Stat.Yrbks + INEGI) / 2, label = Abbrv)) +
     geom_text(alpha = .6)+
     #Not significant
@@ -163,8 +163,8 @@ ggplot(ivsi, aes(INEGI, abs(INEGI - Stat.Yrbks) /
     scale_y_continuous(formatter = "percent") +
     xlab("Number of Homicides according to INEGI") +
     ylab("Percentage difference") +
-    opts(title = "Statistical Yearbook and INEGI")
-dev.print(png, file = "output/INEGIvsStatYrbksprop.png", width = 480, height = 480)
+    opts(title = "Statistical Yearbook and INEGI"))
+dev.print(png, file = "missing-homicides/output/INEGIvsStatYrbksprop.png", width = 480, height = 480)
 
 with(ivsi, {
      dep <- abs((INEGI - Stat.Yrbks) /
@@ -174,13 +174,13 @@ with(ivsi, {
 
 #How much did the number of homicide change. Compare the data from
 #the SNSP witht that of the statistical yearbooks
-ggplot(ivsi, aes(SNSP,
+print(ggplot(ivsi, aes(SNSP,
                  Stat.Yrbks / SNSP, label = Abbrv)) +
     geom_text(alpha = .6)+
     scale_y_continuous(formatter = "percent") +
     xlab("Number of Homicides according to ICESI") +
     ylab("Percentage extra according to the Statistical Yearbooks") +
-    opts(title="SNSP and Statistical Yearbooks")
+    opts(title="SNSP and Statistical Yearbooks"))
 
 
 ########################################################
@@ -190,10 +190,10 @@ ggplot(ivsi, aes(SNSP,
 mivsi <- melt(ivsi[ , c(1:3,5)], id="State")
 mivsi <- na.omit(mivsi)
 mivsi$State <- with(mivsi, reorder(factor(State), value))
-ggplot(mivsi, aes(value, State, group = variable,
+print(ggplot(mivsi, aes(value, State, group = variable,
                   fill = variable)) +
        opts(title = "Differences in reported ‘homicides’") +
        xlab("Number of Homicides") +
        geom_point(aes(color = variable, shape = variable),
-                  size = 3, alpha = .5)
-dev.print(png, file = "output/INEGIvsICESIvsYear.png", width = 480, height = 600)
+                  size = 3, alpha = .5))
+dev.print(png, file = "missing-homicides/output/INEGIvsICESIvsYear.png", width = 480, height = 600)
