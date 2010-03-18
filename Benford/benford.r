@@ -5,7 +5,6 @@
 ########################################################
 #Check to see if the homicide data was manipulated with
 #1. Benford's law
-#2. Variance
 
 library(ggplot2)
 library(boot)
@@ -55,7 +54,7 @@ addMonths <- function(df){
 ########################################################
 #Read and clean the data
 ########################################################
-hom <- read.csv(bzfile("../county-month/data/county-month-gue-oax.csv.bz2"))
+hom <- read.csv(bzfile("../timelines/data/county-month-gue-oax.csv.bz2"))
 hom <- cleanHom(hom)
 hom <- addMonths(hom)
 
@@ -134,13 +133,18 @@ sum(abs((dBen(1:9)) - y / sum(y)))*100
 #Some regressions to see the size of the difference
 
 #Null hypothesis
-summary(lm(log(dBen(1:9))~ c(1:9)))
+y <- dBen(1:9)
+fitBen <- lm(log(y) ~ c(1:9))
 #INEGI
-y <- tabulate(firstDigit(inegi), nbins=9)
-summary(lm(log(y)~c(1:9)))
+y1 <- tabulate(firstDigit(inegi), nbins=9)
+fitInegi <- lm(log(y) ~ c(1:9))
 #ICESI
-y <- tabulate(firstDigit(icesi$value), nbins=9)
-summary(lm(log(y)~c(1:9)))
+y2 <- tabulate(firstDigit(icesi$value), nbins=9)
+fitIcesi <- lm(log(y) ~ c(1:9))
+
+anova(fitInegi, fitBen)
+anova(fitIcesi, fitBen)
+
 
 #check if the last digit follows a uniform distribution
 #Is this even reasonable? I don't think so
