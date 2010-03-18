@@ -42,7 +42,7 @@ __Mexican Homicide Data:__
 
 [ICESI](http://www.icesi.org.mx/documentos/estadisticas/estadisticas/denuncias_homicidio_doloso_1997_2008.xls)
 
-[Statistical Yearbooks](http://www.inegi.org.mx/est/contenidos/espanol/sistemas/sisnav/selproy.aspx): The following states were not available as of Feb-17-2009, so I used the estimates that appear in the file from the ICESI: Durango, Tlaxcala, Yucatan and Nayarit. Furthermore there was a mistake in the statistical yearbook for Querétaro (the data from "homicidios dolosos"[homicide] and "homicidios culposos"[manslaughter] was transposed).
+[Statistical Yearbooks](http://www.inegi.org.mx/est/contenidos/espanol/sistemas/sisnav/selproy.aspx): The following states were not available as of Feb-17-2009, so I used the estimates that appear in the file from the ICESI: Durango, Tlaxcala, Yucatan and Nayarit. Furthermore, there was a mistake in the statistical yearbook for Querétaro (the values from "homicidios dolosos"[homicide] and "homicidios culposos"[manslaughter] was transposed).
 
 [PAHO](http://www.paho.org/English/SHA/coredata/tabulator/newTabulator.htm) Pan American Health Organization, Health Analysis and Statistics Unit. Regional Core Health Data Initiative; Technical Health Information System. Washington DC, 2007.
 
