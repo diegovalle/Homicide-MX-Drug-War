@@ -9,28 +9,13 @@
 #4. Map of the same
 #5. Small multiples of the evolution of the murder rate 1990-2008
 
-library(ggplot2)
-library(Hmisc)
-library(RColorBrewer)
-library(maptools)
-library(classInt)
-library(Cairo)
-library(plotrix)
-
-#location of the ICESI map
-source("maps-locations.r")
+source("library/utilities.r")
 
 #############################################
 #String Constants
 kyears <- 1990:2008
 #############################################3
 
-#Get rid of the full name of the states (eg: Veracruz de
-#Ignacio de la Llave changes to Veracruz
-cleanNames <- function(df, varname = "County"){
-  df[[varname]] <- gsub("* de .*","", df[[varname]])
-  df[[varname]]
-}
 
 cleanHom <- function(type="Total") {
   hom <- read.csv(bzfile("states/data/homicide-mun-2008.csv.bz2"), skip=4)
@@ -98,7 +83,7 @@ barPlot <- function(hom2008, year="") {
     scale_y_continuous(limits = c(0, xmax)) +
     coord_flip() +
     labs(x = "", y = "Homicides per 100,000") +
-    opts(title = paste("Homicide Rates in Mexico -", year)) +
+    opts(title = paste(config$title.barplot, year)) +
     opts(legend.position = "none") +
     scale_fill_identity(aes(breaks = color)) +
     geom_text(aes(label=round(Rate, digits = 1)), hjust = -.05,
@@ -189,12 +174,13 @@ barDiff <- function(hom.diff, year1="", year2="") {
     labs(x = "", y = "Change in Rate per 100,000") +
     scale_x_discrete(breaks = NA) +
     opts(legend.position = "none") +
-    opts(title = paste("Change in Mexican Homicide Rates (",
+    opts(title = paste(config$title.bardiff,
                        year1, "-", year2, ")", sep = "")) +
     scale_fill_identity(aes(breaks = color)) +
     geom_text(aes(label=round(Diff, digits = 1), hjust = text.pos),
               color="gray50") +
-    geom_hline(yintercept = hom.mean08 - hom.mean06, alpha=.1, , linetype=2)
+    geom_hline(yintercept = hom.mean08 - hom.mean06, alpha=.1,
+               linetype=2)
 }
 
 ####################################################
@@ -222,7 +208,7 @@ mergeHomPopS <- function(hom){
 }
 
 cluster <- function(hom.mpop, nclusters){
-  #k-means clustering to order the plot
+  #k-means clustering to order the facets
   t <- cast(hom.mpop[,c(26:27,29)], State ~ variable, value = "Rate")
   t[is.na(t)] <- 0
   cl <- kmeans(t[,2:ncol(t)], nclusters)
@@ -244,7 +230,7 @@ smallMultiples <- function(hom, pop, nclusters = 8){
   p + facet_wrap(~ State, as.table = TRUE,
                  scale="free_y") +
       labs(x = "", y = "Homicide Rate") +
-      opts(title = "Mexican homicide rates 1990-2008, compared to the national average and grouped by similarity") +
+      opts(title = config$title.sm) +
       scale_x_continuous(breaks = c(1990, 2000, 2008),
                          labels = c("90", "00", "08")) +
       theme_bw() +
@@ -254,19 +240,28 @@ smallMultiples <- function(hom, pop, nclusters = 8){
 }
 
 
-
+if(config$sex == "Women") {
+  type <- "Mujer"
+  config$title.sm <- config$states$ftitle.sm
+  config$title.bardiff <- config$states$ftitle.bardiff
+  config$title.barplot <- config$states$ftitle.barplot
+} else {
+  type <- "Total"
+  config$title.sm <- config$states$mtitle.sm
+  config$title.bardiff <- config$states$mtitle.bardiff
+  config$title.barplot <- config$states$mtitle.barplot
+}
 
 ##########################################################
 #Read the data
 ##########################################################
-type = "Total"  #Change this to "Mujer" to chart femicides
 hom <- cleanHom(type)
 pop <- cleanPop(type)
 
 ########################################################
 #Barplot with the homicide rate in 2008
 ########################################################
-year <- 2008
+year <- config$states$year
 hom.year <- mergeHomPopYear(hom, pop, year)
 print(barPlot(hom.year, year))
 dev.print(png, file = "states/output/2008-homicide-bars.png",
@@ -289,8 +284,8 @@ dev.off()
 #Bar plot of the change in homicide rate from the start of the
 #drug war at the end of 2006 till 2008
 ###################################################################
-year1 <- 2006
-year2 <- 2008
+year1 <- config$states$year1
+year2 <- config$states$year2
 hom.diff <- getDiff(hom, pop, year1, year2)
 print(barDiff(hom.diff, year1, year2))
 dev.print(png, file="states/output/2006-2008-change-homicide.png",

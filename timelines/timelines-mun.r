@@ -9,12 +9,9 @@
 #the Mexican states where joint military operations
 #took place from 2006-2008
 #######################################################
-library(ggplot2)
-library(Cairo)
-library(zoo)
-library(strucchange)
 
 source("timelines/constants.r")
+source("library/utilities.r")
 
 #;;;;Apply an  artificial correction to the data
 #;;;;to prove that Global Warming is happening
@@ -162,7 +159,7 @@ breaks <- function(df, brks){
 }
 
 findbreaks <- function(df, brks=2){
-  ddply(df, .(Code), breaks, brks)
+  ddply(df, .(County.x), breaks, brks)
 }
 
 savePlot <- function(df, ll, title = "", width = 700, height = 600,
@@ -176,9 +173,9 @@ savePlot <- function(df, ll, title = "", width = 700, height = 600,
 hom <- read.csv(bzfile("timelines/data/county-month.csv.bz2"))
 pop <- cleanPop("timelines/data/pop.csv.bz2")
 
-
 #the county must be this big to enter the chart
 popsize <- 100000
+
 
 ########################################################
 #Finally, the plots
@@ -190,13 +187,13 @@ ll <- list("Joint Operation Tijuana" = op.tij,
            "E.A.F. Captured" = doctor)
 savePlot(bcn.df, ll, "Baja California",
           file = "timelines/output/Baja California.png")
-#findbreaks(bcn.df, 3)
+findbreaks(bcn.df, 3)
 
 #Sonora
 son.df <- getData(hom, pop, sonora, popsize)
 ll <- list("Operation Sonora I" = op.son)
 savePlot(son.df, ll, "Sonora", file = "timelines/output/Sonora.png")
-#findbreaks(son.df)
+findbreaks(son.df)
 
 #Chihuahua
 chi.df <- getData(hom, pop, chihuahua, popsize)
@@ -204,14 +201,14 @@ ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Joint Operation Chihuahua" = op.chi)
 savePlot(chi.df, ll, "Chihuahua",
          file = "timelines/output/Chihuahua.png", height=700)
-#findbreaks(chi.df)
+findbreaks(chi.df)
 
 #Michoacán (I hate trying to get emacs and R to understand utf!)
 mich.df <- getData(hom, pop, michoacan, popsize)
 ll <- list("Joint Operation Michoacan" = op.mich)
 savePlot(mich.df, ll, "Michoacan",
          file = "timelines/output/Michoacan.png", height=700)
-#findbreaks(mich.df)
+findbreaks(mich.df)
 
 #Sinadroga
 sin.df <- getData(hom, pop, sinaloa, popsize)
@@ -219,7 +216,7 @@ ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Joint Operation Culiacan-Navolato" = op.sin)
 savePlot(sin.df, ll, "Sinaloa",
          file = "timelines/output/Sinaloa.png", height=700)
-#findbreaks(sin.df)
+findbreaks(sin.df)
 
 #Durango
 dur.df <- getData(hom, pop, durango, popsize)
@@ -227,7 +224,7 @@ ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Phase III"=op.tria.dor.III)
 savePlot(dur.df, ll, "Durango",
          file = "timelines/output/Durango.png")
-#findbreaks(dur.df)
+findbreaks(dur.df)
 
 
 
@@ -240,14 +237,12 @@ ll <- list("Joint Operation Guerrero" = op.gue,
            "A.B.L. Captured" = bel.ley)
 savePlot(gue.df, ll, "Guerrero",
          file = "timelines/output/Guerrero.png", height=700)
-#findbreaks(gue.df, 3)
+findbreaks(gue.df, 3)
 
 
 #There were some changes in the municipalities of Oaxaca and
 #their populations don't match the ones in the CONAPO data
 #so I'm excluding them
-
-
 
 
 #The data for Nuevo Leon and Tamaulipas is in yet another file
@@ -258,11 +253,11 @@ tam.df <- getData(hom, pop, tamaulipas, popsize)
 ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
 savePlot(tam.df, ll, "Tamaulipas",
          file = "timelines/output/Tamaulipas.png", height=900)
-#findbreaks(tam.df)
+findbreaks(tam.df)
 
 #Nuevo Leon
 nl.df <- getData(hom, pop, nuevo.leon, popsize)
 ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
 savePlot(nl.df, ll, "Nuevo Leon",
          file = "timelines/output/Nuevo-Leon.png", height=900)
-#findbreaks(nl.df)
+findbreaks(nl.df)

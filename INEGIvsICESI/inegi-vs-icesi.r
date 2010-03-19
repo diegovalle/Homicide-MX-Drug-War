@@ -6,6 +6,9 @@
 #Small multiples plot to compare the INEGI and ICESI data
 
 library(ggplot2)
+
+source("library/utilities.r")
+
 icesi <- read.csv("INEGIvsICESI/data/states-icesi.csv")
 inegi <- read.csv("accidents-homicides-suicides/output/states.csv")
 
@@ -19,6 +22,7 @@ inegi$org <- "INEGI"
 
 ii <- rbind(inegi, icesi)
 ii$variable <- rep(1997:2008, each=32)
+ii$State <- cleanNames(ii, "State")
 
 #Population of Mexico 1997-2008
 #source: CONAPO
@@ -27,16 +31,17 @@ pop <- pop[-(33) ,-(2:8)]
 pop <- melt(pop, id = "State")
 pop$variable <- rep(1997:2008, each=32)
 pop <- pop[order(pop$State),]
-
+pop$State <- cleanNames(pop, "State")
 ii.pop <- merge(ii, pop, by = c("State", "variable"), all.x = TRUE)
-
 ii.pop$rate <- ii.pop$value.x / ii.pop$value.y * 100000
+
+
 
 print(ggplot(ii.pop, aes(variable, rate, group = org, color = org)) +
     geom_line(size = 2) +
     facet_wrap(~ State, scales = "free_y"))
-
 dev.print(png, file = "INEGIvsICESI/output/INEGI-ICESI.png", width = 960, height = 600)
+
 
 
 dif <- cast(ii.pop[order(ii.pop$org),], State ~ variable,
@@ -44,7 +49,7 @@ dif <- cast(ii.pop[order(ii.pop$org),], State ~ variable,
             fun.aggregate = function(x) x[1] - x[2])
 difm <- melt(dif, id=c("State"))
 difm <- ddply(difm, .(State), transform, var = var(value))
-difm$State <- reorder(difm$State, -difm$var)
+difm$State <- reorder(factor(difm$State), -difm$var)
 print(ggplot(difm, aes(as.numeric(as.character(variable)), value)) +
     geom_line(size = 1.2, color = "darkred") +
     facet_wrap(~ State) +

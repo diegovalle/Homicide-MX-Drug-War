@@ -66,7 +66,7 @@ _More generally there are some big differences in the reported homicides. But no
 
 _Benford’s Law was used as the expected distribution for the first digit of reported homicide rates. Not surprisingly, in a corrupt country like Mexico, both homicide series failed the test_
 
-![Benford's law](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/Benford/output/INEGI.png)
+![Benford's law](http://imgur.com/M7IMP.png)
 
 
 ------------------------------------------------------------------------------------------------------------------------------------
@@ -94,14 +94,20 @@ _Annualized monthly homicide rates in Ciudad Juarez. The city turned into the mo
 Requirements
 ------------
 *    You'll need to download a map of Mexico from the [ICESI](http://www.icesi.org.mx/estadisticas/estadisticas_encuestasTablas.asp)
-*    You'll also need to download two maps of Mexico at the state and county level from the [INEGI](http://mapserver.inegi.org.mx/data/mgm/). You'll need to register to download them. They have to be version 3.1.1 or they won't work
+*    You'll also need to download two maps of Mexico at the state and county level from the [INEGI](http://mapserver.inegi.org.mx/data/mgm/). (Note: you have to register to download them. Registration is free.). They have to be version 3.1.1 or they won't work
 
     [Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=ESTADOS311)
 
     [Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=MUNICIPIOS311)
 
-*    Edit the file maps-locations.r with the locations of the maps you downloaded
+*    Edit the file "config/config.yaml" with the locations of the maps you downloaded
 *    Imagemagick if you want to merge the state level homicide rate maps with the bar plots
+
+To Run
+-------
+
+Just run the script "run-all.r" and it will create all the charts in their respective directories. If you want to get data for femicides edit the file "config/config.yaml" and change the sex to Women
+
 
 Contents
 --------
@@ -115,8 +121,7 @@ In the directories you'll find:
 * timelines: Pretty timelines of the effect on the murder rate of sending the army to fight the drug cartels
 * historic: Plot of the Mexican homicide rate from 1990 to 2009, a
   comparison with that of the US, Brazil, and England and Wales
-* missing-homicides:¨Plots of the different homicide data to figure out how thrust-worthy the Mexican statistics are.
-* Benford: Check to see if the homicide rates follow Benford's law
+* missing-homicides: Plots of the different homicide data to figure out how thrust-worthy the Mexican statistics are.
 * most-violent-counties: A small multiple plot of the least and most violent municipalities for men and women
 * states: Pretty plots and choropleths of the homicide rate at the state level
 

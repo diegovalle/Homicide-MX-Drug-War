@@ -60,8 +60,3 @@ bel.ley <- as.Date("01/21/2008", "%m/%d/%Y")
 doctor <- as.Date("10/26/2008", "%m/%d/%Y")
 
 
-#Group  dates into intervals
-cutDates <- function(df, dates) {
-  vec <- c(df$Date[1], dates, df$Date[nrow(df)] + 1000)
-  cut(df$Date, vec)
-}

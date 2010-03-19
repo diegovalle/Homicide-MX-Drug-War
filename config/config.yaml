@@ -1,0 +1,29 @@
+#* You'll need to download a map of Mexico from the [ICESI](http://www.icesi.org.mx/estadisticas/estadisticas_encuestasTablas.asp)
+#* You'll also need to download two maps of Mexico at the state and county level from the [INEGI](http://mapserver.inegi.org.mx/data/mgm/). #You'll need to register to do download them
+#They have to be version 3.1.1 or they won't work
+# Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)
+# Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)
+maps:
+    #Change to were you downloaded the map from the ICESI
+    map.icesi: "../../maps/Mexico.shp"  
+    #Change to the location of the INEGI maps
+    map.inegi.ct: "../../maps/3.1.1/MUNICIPIOS.shp"
+    map.inegi.st: "../../maps/3.1.1/ESTADOS.shp"
+
+#Can be Total or Women
+sex: Total
+    
+states:
+    year: 2008 #change to the year you want
+    year1: 2006 #The first year for the difference barplot
+    year2: 2008 #the second year
+    mtitle.sm: Mexican homicide rates 1990-2008, compared to the national average and grouped by similarity
+    ftitle.sm: Mexican femicide rates 1990-2008, compared to the national average and grouped by similarity
+    mtitle.barplot: Homicide Rates in Mexico -
+    ftitle.barplot: Femicide Rates in Mexico -
+    mtitle.bardiff: Change in Mexican Homicide Rates (
+    ftitle.bardiff: Change in Mexican Femicide Rates (
+    
+choropleths:
+    mtitle.ch: Homicide rate by municipality
+    ftitles.chf: Femicide rate by municipality

@@ -27,7 +27,7 @@ deaths[is.na(deaths)] <- 0
 deaths$Tot <- apply(deaths[,5:ncol(deaths)], 1, function(x) sum(x))
 
 #write the total murders by state to a file
-st <- cast(subset(deaths, Type.of.Death == "Homicidio"), State ~ Year)
+st <- cast(subset(deaths, Type.of.Death == "Homicidio"), State ~ Year, , value = "Tot")
 write.csv(st, "accidents-homicides-suicides/output/states.csv", row.names = FALSE)
 
 deaths <- ddply(deaths, .(Year, Type.of.Death), function(df) sum(df$Tot))

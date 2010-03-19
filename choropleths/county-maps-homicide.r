@@ -4,17 +4,7 @@
 #####       Date Created: Sun Jan 24 19:33:22 2010
 ########################################################
 #Maps of the homicide rate by county according to the INEGI
-#data source: EstadÃ­sticas Vitales INEGI
-
-library(ggplot2)
-library(Hmisc)
-library(maptools)
-library(RColorBrewer)
-library(classInt)
-library(Cairo)
-
-#location of the INEGI maps
-source("maps-locations.r")
+#data source: Estadísticas Vitales INEGI
 
 
 #Clean data file with all homicides *registered* by county and sex
@@ -113,12 +103,15 @@ mergeMap <- function(df, year){
   map
 }
 
-savePlot <- function(df, year, breaks, name){
+savePlot <- function(df, year, breaks){
+    name <- config$titles.ch
     map <- mergeMap(df, year)
-    filename <- paste("choropleths/output/", name, ".png", sep ="")
+    filename <- paste("choropleths/output/", name, ", ",
+                      as.character(year), ".png", sep ="")
+    title <- paste(name, ", ", as.character(year), sep ="")
     Cairo(file = filename,
           width=960, height=600, type="png", bg="white")
-    print(drawMap(map$rate, name, breaks))
+    print(drawMap(map$rate, title, breaks))
     dev.off()
     TRUE
 }
@@ -170,35 +163,27 @@ mexico.ct.shp <- readShapePoly(map.inegi.ct,
 mexico.st.shp <- readShapePoly(map.inegi.st,
                                proj4string = CRS("+proj=aea"))
 
+
+if(config$sex == "Women"){
+  type <- "Mujer"
+  config$titles.ch <- config$choropleths$ftitle.ch
+  breaks <- c(0,0.05,1,2,3,4,5,10,20,Inf)
+} else {
+  type <- "Total"
+  config$titles.ch <- config$choropleths$mtitle.ch
+   breaks <- c(0,0.1,3,6,12,20,40,60,80,Inf)
+}
+
 #################################################################
 #Read the files with the data and population, then merge them
 ################################################################
-type = "Total" #Change this to Mujer to get femicides
-
 hom <- cleanHomicide("states/data/homicide-mun-2008.csv.bz2", type)
 popm <- readPop(type)
 hom.popm <- mergeHomPop(hom, popm)
-if(type == "Mujer") {
-  breaks <- c(0,0.05,1,2,3,4,5,10,20,Inf)
-} else {
-  breaks <- c(0,0.1,3,6,12,20,40,60,80,Inf)
-}
 
 ########################################################
-#Draw a map of Mexico
+#Draw choropleths of Mexico
 ########################################################
-savePlot(hom.popm, 2008, breaks, "Homicide rate by municipality, 2008")
-savePlot(hom.popm, 2007, breaks, "Homicide rate by municipality, 2007")
-savePlot(hom.popm, 2006, breaks, "Homicide rate by municipality, 2006")
+sapply(c(1990,1995,2000, 2006:2008), savePlot, breaks = breaks,
+       df = hom.popm)
 
-savePlot(hom.popm, 1990, breaks, "Homicide rate by municipality, 1990")
-savePlot(hom.popm, 1995, breaks, "Homicide rate by municipality, 1995")
-savePlot(hom.popm, 2000, breaks, "Homicide rate by municipality, 2000")
-
-#savePlot(hom.popm, 2008, breaks, "Femicide rate by municipality, 2008")
-#savePlot(hom.popm, 2007, breaks, "Femicide rate by municipality, 2007")
-#savePlot(hom.popm, 2006, breaks, "Femicide rate by municipality, 2006")
-
-#savePlot(hom.popm, 1990, breaks, "Femicide rate by municipality, 1990")
-#savePlot(hom.popm, 1995, breaks, "Femicide rate by municipality, 1995")
-#savePlot(hom.popm, 2000, breaks, "Femicide rate by municipality, 2000")

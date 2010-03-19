@@ -3,7 +3,7 @@
 
 Notes
 -----
-To run it on your machine you have to modify the path to the maps in the file "maps-locations.r" in the root directory
+To run it on your machine you have to modify the path to the maps in the file "config/config.yaml" in the root directory
 
 Sources
 -------
@@ -34,4 +34,4 @@ __Maps__
 
 Notes:
 ------
-If you want choropleths of femicides set type = "Mujer"
+If you want choropleths of femicides set the variable sex in the file "config/config.yaml" to Women

@@ -49,11 +49,8 @@
 
 #Es mi ciudad, don`t let me down...
 
-library(ggplot2)
-library(Cairo)
-library(strucchange)
-
 source("timelines/constants.r")
+source("library/utilities.r")
 
 hom <- read.csv(bzfile("timelines/data/county-month.csv.bz2"))
 cdjuarez09 <- c(136, 240, 73, 90, 125, 247, 248, 337,
