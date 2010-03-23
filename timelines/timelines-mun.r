@@ -149,17 +149,44 @@ createPlot <- function(df.pop, operations, title = "") {
   drawTS(df.pop, operations, title)
 }
 
-breaks <- function(df, brks){
+breaks <- function(df, brks, h, ll){
   rate <- ts(df$rate, start=2005, freq=12)
-  fd <- Fstats(rate ~ 1)
-  print(df$County.x[1])
-  print(pts <- breakpoints(fd, breaks = brks))
-  print(breakdates(pts, breaks = brks))
-  #fd
+  #fd <- Fstats(rate ~ 1)
+  mdays <- strptime(df$Date, format = "%Y-%m-%d")$mday
+  bp.mun <- breakpoints(rate ~ 1 + mdays, h)
+  x <- confint(bp.mun, breaks = brks)
+  data.frame(x$confint)
 }
 
-findbreaks <- function(df, brks=2){
-  ddply(df, .(County.x), breaks, brks)
+convertToDate <- function(x){
+    d <- as.Date(paste((x %% 12) + 1,"/",
+                    "01", "/",
+                    floor(x / 12) + 2005, sep =""), "%m/%d/%Y")
+    as.Date(format(d + 31, "%Y%m01"), "%Y%m%d") - 1
+}
+
+convertDateToChar <- function(df){
+  dateToChar <- function(x){
+      as.character(as.Date(x))
+  }
+  df[,2:ncol(df)] <- sapply(df[,2:ncol(df)], dateToChar)
+  df
+}
+
+addOps <- function(df, ll){
+  cbind(df, t(unlist(ll)))
+}
+
+joinBreaksOps <- function(df, ll){
+  df[2:4] <- sapply(df[2:4], convertToDate)
+  df <- addOps(df, ll)
+  names(df)[1:4] <- c("Municipality", "Lower", "Breakpoints", "Upper")
+  convertDateToChar(df)
+}
+
+findbreaks <- function(df, brks = 1, h = .15, ll){
+  breakpoints <- ddply(df, .(County.x), breaks, brks, h, ll)
+  joinBreaksOps(breakpoints, ll)
 }
 
 savePlot <- function(df, ll, title = "", width = 700, height = 600,
@@ -176,55 +203,58 @@ pop <- cleanPop("timelines/data/pop.csv.bz2")
 #the county must be this big to enter the chart
 popsize <- 100000
 
-
 ########################################################
 #Finally, the plots
 ########################################################
+report.ll <- list()
 
 #Baja Califronia Norte! as the ICESI would say, hahahaha
 bcn.df <- getData(hom, pop, baja.california, popsize)
-ll <- list("Joint Operation Tijuana" = op.tij,
+ll.bcn <- list("Joint Operation Tijuana" = op.tij,
            "E.A.F. Captured" = doctor)
-savePlot(bcn.df, ll, "Baja California",
+savePlot(bcn.df, ll.bcn, "Baja California",
           file = "timelines/output/Baja California.png")
-findbreaks(bcn.df, 3)
+report.ll$bcn <- findbreaks(bcn.df, h = 3, ll = ll.bcn)
+
+
 
 #Sonora
 son.df <- getData(hom, pop, sonora, popsize)
-ll <- list("Operation Sonora I" = op.son)
-savePlot(son.df, ll, "Sonora", file = "timelines/output/Sonora.png")
-findbreaks(son.df)
+ll.son <- list("Operation Sonora I" = op.son)
+savePlot(son.df, ll.son, "Sonora",
+         file = "timelines/output/Sonora.png")
+report.ll$son <- findbreaks(son.df, 1, ll = ll.son)
 
 #Chihuahua
 chi.df <- getData(hom, pop, chihuahua, popsize)
-ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
+ll.chi <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Joint Operation Chihuahua" = op.chi)
-savePlot(chi.df, ll, "Chihuahua",
+savePlot(chi.df, ll.chi, "Chihuahua",
          file = "timelines/output/Chihuahua.png", height=700)
-findbreaks(chi.df)
+report.ll$chi <- findbreaks(chi.df, 1, ll = ll.chi)
 
 #Michoacán (I hate trying to get emacs and R to understand utf!)
 mich.df <- getData(hom, pop, michoacan, popsize)
-ll <- list("Joint Operation Michoacan" = op.mich)
-savePlot(mich.df, ll, "Michoacan",
+ll.mich <- list("Joint Operation Michoacan" = op.mich)
+savePlot(mich.df, ll.mich, "Michoacan",
          file = "timelines/output/Michoacan.png", height=700)
-findbreaks(mich.df)
+report.ll$mich <- findbreaks(mich.df, 2, ll = ll.mich)
 
 #Sinadroga
 sin.df <- getData(hom, pop, sinaloa, popsize)
-ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
+ll.sin <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Joint Operation Culiacan-Navolato" = op.sin)
-savePlot(sin.df, ll, "Sinaloa",
+savePlot(sin.df, ll.sin, "Sinaloa",
          file = "timelines/output/Sinaloa.png", height=700)
-findbreaks(sin.df)
+report.ll$sin <- findbreaks(sin.df, 1, ll = ll.sin)
 
 #Durango
 dur.df <- getData(hom, pop, durango, popsize)
-ll <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
+ll.dur <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
            "Phase III"=op.tria.dor.III)
-savePlot(dur.df, ll, "Durango",
+savePlot(dur.df, ll.dur, "Durango",
          file = "timelines/output/Durango.png")
-findbreaks(dur.df)
+report.ll$dur <- findbreaks(dur.df, 1, ll = ll.dur)
 
 
 
@@ -233,16 +263,17 @@ hom <- read.csv(bzfile("timelines/data/county-month-gue-oax.csv.bz2"))
 
 #Guerrero
 gue.df <- getData(hom, pop, guerrero, popsize)
-ll <- list("Joint Operation Guerrero" = op.gue,
+ll.gue <- list("Joint Operation Guerrero" = op.gue,
            "A.B.L. Captured" = bel.ley)
-savePlot(gue.df, ll, "Guerrero",
+savePlot(gue.df, ll.gue, "Guerrero",
          file = "timelines/output/Guerrero.png", height=700)
-findbreaks(gue.df, 3)
-
+report.ll$gue <- findbreaks(gue.df, 2, ll = ll.gue)
 
 #There were some changes in the municipalities of Oaxaca and
 #their populations don't match the ones in the CONAPO data
 #so I'm excluding them
+#report.ll$oax <- findbreaks(getData(hom, pop, oaxaca, 50000),
+#                            2, ll = ll)
 
 
 #The data for Nuevo Leon and Tamaulipas is in yet another file
@@ -250,14 +281,17 @@ hom <- read.csv(bzfile("timelines/data/county-month-nl-tam.csv.bz2"))
 
 #Tamaulipas
 tam.df <- getData(hom, pop, tamaulipas, popsize)
-ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
-savePlot(tam.df, ll, "Tamaulipas",
+ll.tam <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
+savePlot(tam.df, ll.tam, "Tamaulipas",
          file = "timelines/output/Tamaulipas.png", height=900)
-findbreaks(tam.df)
+report.ll$tam <- findbreaks(tam.df, 2, ll = ll.tam)
 
 #Nuevo Leon
 nl.df <- getData(hom, pop, nuevo.leon, popsize)
-ll <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
-savePlot(nl.df, ll, "Nuevo Leon",
+ll.nl <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
+savePlot(nl.df, ll.nl, "Nuevo Leon",
          file = "timelines/output/Nuevo-Leon.png", height=900)
-findbreaks(nl.df)
+report.ll$nl <- findbreaks(nl.df, 1, ll = ll.nl)
+
+Sweave("timelines/report/report.Rnw",
+       output = "timelines/report/report.tex")
