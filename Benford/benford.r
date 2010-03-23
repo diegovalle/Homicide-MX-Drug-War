@@ -109,14 +109,14 @@ chisq.test(death.rate, p = dBen(1:9))
 #Benford's law is scale invariant
 inegi <- hom$Total.Murders
 print(benObsExp(inegi, "INEGI"))
-ggsave("benford/output/INEGI.png", dpi=90)
+ggsave("Benford/output/INEGI.png", dpi=90)
 chiBen(inegi)
 
 #For the police data
 icesi <- melt(read.csv("INEGIvsICESI/data/states-icesi.csv"),
            id ="State")
 print(benObsExp(icesi$value, "SNSP"))
-ggsave("benford/output/ICESI.png", dpi=90)
+ggsave("Benford/output/ICESI.png", dpi=90)
 chiBen(icesi$value)
 
 
