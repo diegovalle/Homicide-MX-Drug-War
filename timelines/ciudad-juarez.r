@@ -54,7 +54,7 @@ source("library/utilities.r")
 
 hom <- read.csv(bzfile("timelines/data/county-month.csv.bz2"))
 cdjuarez09 <- c(136, 240, 73, 90, 125, 247, 248, 337,
-                304, 290, 374, 317)
+                304, 290, 374, 317)#  265, 127, 231) march is wrong
 cdjuarez0708 <- subset(hom,
                        Code == "08 037" &
                        (Year.of.Murder == "2008" |
@@ -63,22 +63,23 @@ cdjuarez0708 <- subset(hom,
 cdjuarez0708$Tot <- apply(cdjuarez0708[ , 5:ncol(cdjuarez0708)], 1, sum, na.rm = T)
 
 #Estimate the monthly population
-pop0709 <- c(1359787, 1384102, 1407849)
-pop <- data.frame(month=rep(1:12,3), year=rep(2007:2009, each=12))
+pop0709 <- c(1359787, 1384102, 1407849,  1431072)
+pop <- data.frame(month=rep(1:12,4), year=rep(2007:2010, each=12))
 pop$Monthly[pop$month == 6] <- pop0709
 pop$MonthlyEst <- na.spline(pop$Monthly, na.rm=TRUE)
 
 
 #A sequence of dates starting at the end of the month
 start <- as.Date(as.Date("2007/2/01"))
-next.mon <- seq(start, length=36, by='1 month')
+next.mon <- seq(start, length= length(cdjuarez0708) + length(cdjuarez09),
+                by='1 month')
 dates <- next.mon - 1
 cdj <- data.frame(Murders = c(cdjuarez0708$Tot, cdjuarez09),
            Date = dates)
 #Anualized murder rate
-cdj$rate <- (cdj$Murders / pop$MonthlyEst) * 100000 * 12
+cdj$rate <- (cdj$Murders / pop$MonthlyEst[1:nrow(cdj)]) * 100000 * 12
 
-cdj$group <- cutDates(cdj, c(op.chi, cdj.rein))
+cdj$group <- cutDates(cdj, c(op.chi, cdj.rein, calderon))
 
 Cairo(file = "timelines/output/ciudad-juarez.png", width=600, height=400)
 print(ggplot(cdj, aes(Date,rate)) +
@@ -91,13 +92,30 @@ print(ggplot(cdj, aes(Date,rate)) +
     geom_text(aes(x,y, label = "Reinforcements sent"),
             data = data.frame(x = cdj.rein, y = 252),
             size = 4, hjust = 1.01, vjust = 0) +
+    #geom_vline(aes(xintercept = calderon), alpha = .7) +
+    #geom_text(aes(x,y, label = "Presidential visit"),
+    #        data = data.frame(x = calderon, y = 25),
+    #        size = 4, hjust = 1.01, vjust = 0) +
+    #geom_vline(aes(xintercept = consulate), alpha = .7) +
+    #geom_text(aes(x,y, label = "Consulate killings"),
+    #        data = data.frame(x = consulate, y = 50),
+    #        size = 4, hjust = 1.01, vjust = 0) +
     geom_smooth(aes(group = group), se = FALSE, method = lm) +
     scale_size("Number of\nHomicides") +
     ylab("Annualized homicide rate") + xlab("") +
     opts(title = "Homicide rates in Ciudad Juarez before and after the army took control"))
 dev.off()
 
+########################################################
+#Structural Change Tests
+########################################################
 rate <- ts(cdj$rate, start=2007, freq=12)
-fd <- Fstats(rate ~ 1)
-(breakpoints(fd))
-confint(breakpoints(rate~1))
+ndays <- strptime(cdj$Date, format = "%Y-%m-%d")$mday
+
+fd <- Fstats(rate ~ 1 + ndays)
+sctest(rate ~ 1 + ndays, type = "Chow", point = 15)
+
+op.chi
+cdj.rein
+bp.cdj <- breakpoints(rate ~ 1 + ndays, h = 3, breaks = 3)
+confint(bp.cdj, breaks = 3)

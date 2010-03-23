@@ -59,4 +59,11 @@ bel.ley <- as.Date("01/21/2008", "%m/%d/%Y")
 #Eduardo Arellano Félix "El Doctor" captured
 doctor <- as.Date("10/26/2008", "%m/%d/%Y")
 
+#Presidential visit to Ciudad Juarez after 16 students were killed
+calderon <- as.Date("02/11/2010", "%m/%d/%Y")
+
+#
+consulate <- as.Date("03/13/2010", "%m/%d/%Y")
+
+
 
