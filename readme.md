@@ -93,7 +93,7 @@ _Annualized monthly homicide rates in Ciudad Juarez. The city turned into the mo
 
 Requirements
 ------------
-*    You'll need to download a map of Mexico from the [ICESI](http://www.icesi.org.mx/estadisticas/estadisticas_encuestasTablas.asp)
+*    You'll need to download a map of Mexico from the [ICESI](http://www.icesi.org.mx/estadisticas/estadisticas_encuestasTablas.asp) (Control-f xico and download the zip file)
 *    You'll also need to download two maps of Mexico at the state and county level from the [INEGI](http://mapserver.inegi.org.mx/data/mgm/). (Note: you have to register to download them. Registration is free.). They have to be version 3.1.1 or they won't work
 
     [Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=ESTADOS311)
@@ -106,7 +106,7 @@ Requirements
 To Run
 -------
 
-Just run the script "run-all.r" and it will create all the charts in their respective directories. If you want to get data for femicides edit the file "config/config.yaml" and change the sex to Women
+Just run the script "run-all.r" and it will create all the charts in their respective directories. If you want to get data for femicides edit the file "config/config.yaml" and change the sex to Female
 
 
 Contents

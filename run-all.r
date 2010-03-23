@@ -1,3 +1,12 @@
+########################################################
+#####       Author: Diego Valle Jones
+#####       Website: www.diegovalle.net
+#####       Date Created: Fri Mar 19 07:53:06 2010
+########################################################
+#Run all scripts and save the charts in the output directories
+
+#If you have a slow computer you might want to go get a cup of coffee
+
 source("initialize/init.r")
 
 source("accidents-homicides-suicides/accidents-homicides-suicides.r")

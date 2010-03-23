@@ -164,7 +164,7 @@ mexico.st.shp <- readShapePoly(map.inegi.st,
                                proj4string = CRS("+proj=aea"))
 
 
-if(config$sex == "Women"){
+if(config$sex == "Female"){
   type <- "Mujer"
   config$titles.ch <- config$choropleths$ftitle.ch
   breaks <- c(0,0.05,1,2,3,4,5,10,20,Inf)

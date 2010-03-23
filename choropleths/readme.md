@@ -34,4 +34,4 @@ __Maps__
 
 Notes:
 ------
-If you want choropleths of femicides set the variable sex in the file "config/config.yaml" to Women
+If you want choropleths of femicides set the variable sex in the file "config/config.yaml" to Female

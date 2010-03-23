@@ -10,7 +10,7 @@ maps:
     map.inegi.ct: "../../maps/3.1.1/MUNICIPIOS.shp"
     map.inegi.st: "../../maps/3.1.1/ESTADOS.shp"
 
-#Can be Total or Women
+#Can be Total or Female
 sex: Total
     
 states:

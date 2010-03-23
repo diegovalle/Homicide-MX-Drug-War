@@ -240,16 +240,18 @@ smallMultiples <- function(hom, pop, nclusters = 8){
 }
 
 
-if(config$sex == "Women") {
+if(config$sex == "Female") {
   type <- "Mujer"
   config$title.sm <- config$states$ftitle.sm
   config$title.bardiff <- config$states$ftitle.bardiff
   config$title.barplot <- config$states$ftitle.barplot
+  nclust <- 4
 } else {
   type <- "Total"
   config$title.sm <- config$states$mtitle.sm
   config$title.bardiff <- config$states$mtitle.bardiff
   config$title.barplot <- config$states$mtitle.barplot
+  nclust <- 8
 }
 
 ##########################################################
@@ -305,9 +307,9 @@ dev.off()
 #This is how you get anti-aliasing in R
 Cairo(file="states/output/1990-2008-homicide-small-multiples-w.png",
       type="png", width=960, height=600)
-#If it's for women you might want to swith the number of
+#If it's for females you might want to swith the number of
 #kmeans clusters to 4
-print(smallMultiples(hom, pop, 8))
+print(smallMultiples(hom, pop, nclust))
 dev.off()
 
 
