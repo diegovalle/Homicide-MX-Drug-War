@@ -16,7 +16,7 @@ estimates (missing over 1,100 homicides in Chihuahua, looks like it was a mid-ye
 "estimate"). The INEGI releases a series of statistical yearkbooks for each state
 that contain the final (final being over 90% reported) data according to the local police forces (homicide is a 
 local crime in Mexico). I didn't include the statistical yearbooks because they're
-about 250MB, but in the directory "anuarios" you'll find a script to download them
+about 250MB, but in the directory "stat-yearbooks" you'll find a script to download them
 
 Even thicker: the data from the ICESI and the statistical yearbooks are not even 
 homicides, but police reports. So if 18 kids are killed in a massacre at the same 
