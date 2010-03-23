@@ -267,7 +267,7 @@ ll.gue <- list("Joint Operation Guerrero" = op.gue,
            "A.B.L. Captured" = bel.ley)
 savePlot(gue.df, ll.gue, "Guerrero",
          file = "timelines/output/Guerrero.png", height=700)
-report.ll$gue <- findbreaks(gue.df, 2, ll = ll.gue)
+report.ll$gue <- findbreaks(gue.df, 2, ll = ll.gue, h = 6)
 
 #There were some changes in the municipalities of Oaxaca and
 #their populations don't match the ones in the CONAPO data

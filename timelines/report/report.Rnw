@@ -15,12 +15,13 @@ The R package strucchange was used to test for stability in the linear
 regressions of the homicide rates to see if the different military
 operations caused it to increase.
 
+\begin{verbatim}
 breakpoints(rate ~ 1 + ndays)
+\end{verbatim}
 
-where rate is the homicide rate
-ndays are the number of days in the month
+where rate is the homicide rate, and ndays are the number of days in the month
 
-In the tables below lower refers to the lower confidence interval and
+In the tables below, lower refers to the lower confidence interval, and
 upper refers to the upper confidence interval
 
 <<results=tex, echo=FALSE>>=
@@ -58,11 +59,10 @@ print(createPlot(mich.df, ll.mich, "Michoacan"))
 
 \section{Guerrero}
 
-From the charts it looks like two breaks in the homicide rate occurred,
+From the charts it looks as if there were two breaks in the homicide rate,
 the first one coinciding with the arrival of the army, when there was
 a decrease in the homicide rate, especially in Acapulco. And a second
-one when Alfredo Beltran Leyva was captured by the army at one of his
-homes in Sinaloa.
+one when Alfredo Beltran Leyva was captured by the army.
 
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$gue)
@@ -141,7 +141,7 @@ print(createPlot(son.df, ll.son, "Sonora"))
 \section{Sinaloa}
 
 <<results=tex,echo=FALSE>>=
-printTable(report.ll$bcn)
+printTable(report.ll$sin)
 @
 
 \begin{figure}
@@ -161,11 +161,11 @@ print(createPlot(sin.df, ll.sin, "Sinaloa"))
 From the charts it looks like there were 2 breaks in the homicide
 rate, one corresponding to when ``El Chapo'' sent ``La barbie'' to take
 over the plaza in Nuevo Leon, and the other to when he realized he
-wasn't going to be able to take over. Notice how the violence
+wasn't going to be able to take it over. Notice how the violence
 decreased about 5 months before the army arrived.
 
 <<results=tex,echo=FALSE>>=
-printTable(report.ll$bcn)
+printTable(report.ll$tam)
 @
 
 \begin{figure}
