@@ -44,9 +44,9 @@ _There have been some big changes in homicide rates since the goverment declared
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-_The top row is composed of the states controlled by drug cartels, though I would have preferred it if the kmeans clustering algorithm had classified Sonora instead of Nayarit with the narco-states. There were some big decreases in the homicide rates of the State of Mexico, Morelos, Oaxaca and Michoacan._
+_The top row is composed of the states that are home to drug trafficking organizations, though I would have preferred it if the kmeans clustering algorithm had classified Sonora instead of Nayarit with the narco-states. There were some big decreases in the homicide rates of the State of Mexico, Morelos, Oaxaca and Michoacan._
 
-![Homicide by State](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/states/output/1990-2008-homicide-small-multiples.png)
+![Homicide by State](http://imgur.com/JE2b2.png)
 
 ------------------------------------------------------------------------------------------------------------------------
 
