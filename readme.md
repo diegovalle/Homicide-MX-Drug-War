@@ -22,7 +22,7 @@ _While the drug war met with some success at first, the homicide rate increased 
 
 _As you can see Mexico is pretty violent, but not as violent as Brazil_
 
-![International Comparison](http://imgur.com/gxWQ3.png)
+![International Comparison](http://imgur.com/TWxh9.png)
 
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -54,13 +54,13 @@ _In Mexico there are two ways to measure the number of homicides: 1) Police Data
 
 _read the file readme.md in the directory [missing-homicides](http://github.com/diegovalle/Homicide-MX-Drug-War/tree/master/missing-homicides/) to see why this happened_
 
-![Who's missing homicides?](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/missing-homicides/output/INEGIvsICESI.png "Chihuahua is missing 1153 homicides")
+![Who's missing homicides?](http://imgur.com/ybq4G.png "Chihuahua is missing 1153 homicides")
 
 -------------------------------------------------------------------------------------------------------------------------
 
 _More generally there are some big differences in the reported homicides. But not enough to make them useless_
 
-![Differences in homicide rates](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/INEGIvsICESI/output/INEGI-SNSP-dif.png)
+![Differences in homicide rates](http://imgur.com/7uJOm.png)
 
 -----------------------------------------------------------------------------------------------------------------------------------
 
@@ -159,6 +159,7 @@ timelines:
 
 * Time series divided into before and after military operations for high crime states or states where the military has been sent
 * Chart of the murder rate in Ciudad Juarez before and after the military took over since it is the most violent city in the world
+* A latex file in the "report" directory with the confidence intervals of the breakpoints
 
 most-violent-counties:
 
