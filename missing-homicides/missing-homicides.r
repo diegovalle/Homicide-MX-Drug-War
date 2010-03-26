@@ -24,7 +24,7 @@ print(ggplot(melt(homts, id="Year"), aes(Year, value, group = variable,
        geom_line(size=1.5) +
        ylab("Homicide rate") +
       opts(title = "Different estimates of the ‘homicide’ rate"))
-dev.print(png, file = "missing-homicides/output/PAHO-UN-INEGI-ICESI.png", width = 500, height = 300)
+dev.print(png, file = "missing-homicides/output/PAHO-UN-INEGI-SNSP.png", width = 500, height = 300)
 
 #FADE IN:
 #LOWLY GOVERNMENT OFFICIAL Fernando is on the phone with a POWERFUL
@@ -110,7 +110,7 @@ print(ggplot(ivsi, aes(INEGI, ICESI,
        opts(legend.position = "none") +
        annotate("text", 1400, 1400, label = "missing-homicides/data ara equal ->",
                 color ="blue", hjust = 1))
-dev.print(png, file = "missing-homicides/output/scatter-inegi-icesi.png", width = 600, height = 480)
+dev.print(png, file = "missing-homicides/output/scatter-inegi-snsp.png", width = 600, height = 480)
 
 
 
@@ -145,7 +145,7 @@ drawBars <- function(df) {
 #ICESI data
 names(ivsi)[3] <- "SNSP"
 print(drawBars(melt(ivsi[ , c(1:2,3)], id="State")))
-dev.print(png, file = "missing-homicides/output/INEGIvsICESI.png", width = 480, height = 600)
+dev.print(png, file = "missing-homicides/output/INEGIvsSNSP.png", width = 480, height = 600)
 
 #data from the statistical yearbooks
 print(drawBars(melt(ivsi[ , c(1:2,6)], id="State")))
@@ -196,4 +196,4 @@ print(ggplot(mivsi, aes(value, State, group = variable,
        xlab("Number of Homicides") +
        geom_point(aes(color = variable, shape = variable),
                   size = 3, alpha = .5))
-dev.print(png, file = "missing-homicides/output/INEGIvsICESIvsYear.png", width = 480, height = 600)
+dev.print(png, file = "missing-homicides/output/INEGIvsSNSPvsYear.png", width = 480, height = 600)
