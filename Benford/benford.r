@@ -113,7 +113,7 @@ ggsave("Benford/output/INEGI.png", dpi=90)
 chiBen(inegi)
 
 #For the police data
-icesi <- melt(read.csv("INEGIvsICESI/data/states-icesi.csv"),
+icesi <- melt(read.csv("INEGIvsSNSP/data/states-icesi.csv"),
            id ="State")
 print(benObsExp(icesi$value, "SNSP"))
 ggsave("Benford/output/ICESI.png", dpi=90)

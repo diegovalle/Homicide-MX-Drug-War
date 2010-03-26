@@ -5,11 +5,9 @@
 ########################################################
 #Small multiples plot to compare the INEGI and ICESI data
 
-library(ggplot2)
-
 source("library/utilities.r")
 
-icesi <- read.csv("INEGIvsICESI/data/states-icesi.csv")
+icesi <- read.csv("INEGIvsSNSP/data/states-icesi.csv")
 inegi <- read.csv("accidents-homicides-suicides/output/states.csv")
 
 icesi <- melt(icesi, id = "State")
@@ -35,12 +33,17 @@ pop$State <- cleanNames(pop, "State")
 ii.pop <- merge(ii, pop, by = c("State", "variable"), all.x = TRUE)
 ii.pop$rate <- ii.pop$value.x / ii.pop$value.y * 100000
 
-
-
+variat <- function(df){
+  ine <- subset(df, org == "INEGI")
+  sns <- subset(df, org == "SNSP")
+  var(ine$rate - sns$rate)
+}
+ii.pop <- merge(ii.pop, ddply(ii.pop, .(State), variat), by = "State")
+ii.pop$State <- with(ii.pop, reorder(factor(State), -V1))
 print(ggplot(ii.pop, aes(variable, rate, group = org, color = org)) +
     geom_line(size = 2) +
     facet_wrap(~ State, scales = "free_y"))
-dev.print(png, file = "INEGIvsICESI/output/INEGI-ICESI.png", width = 960, height = 600)
+dev.print(png, file = "INEGIvsSNSP/output/INEGI-SNSP.png", width = 960, height = 600)
 
 
 
@@ -60,4 +63,4 @@ print(ggplot(difm, aes(as.numeric(as.character(variable)), value)) +
                          labels = c("98", "03", "08")) +
     #scale_y_continuous(formatter="percent") +
     theme_bw())
-dev.print(png, file = "INEGIvsICESI/output/INEGI-SNSP-dif.png", width = 960, height = 600)
+dev.print(png, file = "INEGIvsSNSP/output/INEGI-SNSP-dif.png", width = 960, height = 600)
