@@ -32,7 +32,8 @@ sanitizeCol <- function(x){
   x
 }
 printTable <- function(df){
-  print(xtable(df), include.rownames = FALSE,
+  df.table <- xtable(df)
+  print(xtable(df.table), include.rownames = FALSE,
         tabular.environment = "longtable",
         floating = FALSE,
         sanitize.colnames.function = sanitizeCol)
