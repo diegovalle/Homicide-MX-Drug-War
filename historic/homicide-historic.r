@@ -92,9 +92,6 @@ homicideBZ <- c(18.6, 17.5, 15.6, 16.7, 17.5, 19.3, 24, 25, 26, 25,
         26.7,27.8,28.4,28.9,27.4,26.6,25.7)
 
 
-library(ggplot2)
-library(directlabels)
-library(Cairo)
 
 kyears <- 1950:2008
 hom <- data.frame(year = c(kyears),
@@ -108,18 +105,18 @@ hom <- data.frame(year = c(kyears),
                                  NA, NA)
                   )
 mhom <- melt(hom, id = c("year"))
-
+mhom <- subset(mhom, year >= 1990)
 
 #International comparison
-Cairo(file = "historic/output/ew-mx-us-homicide.png")
+Cairo(file = "historic/output/ew-mx-us-homicide.png", width=450)
 p <- ggplot(data = mhom, aes(year, value, group = variable,
             color = variable))  +
   geom_line(size = 1) +
   labs(y = "Homicide rate",x="") +
-  opts (title = "Homicide rates in Brazil, Mexico, England and Wales, and the US (1950-2008)")
-get.means <-
-  dl.indep(unique(transform(d,x = 2005, y = mean(y, na.rm = TRUE))))
-print(direct.label(p, get.means))
+  opts (title = "Homicide rates in Brazil, Mexico, the US, and England and Wales")
+get.pos <-
+  dl.indep(unique(transform(d,x = 2006, y = y[16]+1)))
+print(direct.label(p, get.pos))
 dev.off()
 
 
