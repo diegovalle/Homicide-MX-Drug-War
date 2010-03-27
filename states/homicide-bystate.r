@@ -136,10 +136,10 @@ getDiff <- function(hom, pop, year1, year2) {
   hom.diff
 }
 
-#red green scale for the difference barplot
+#orange-blue scale for the difference barplot
 greenReds <- function(difference){
   clr.inc <- colorRampPalette(brewer.pal(5, "Oranges"))
-  clr.dec <- colorRampPalette(brewer.pal(5, "Greens"))
+  clr.dec <- colorRampPalette(brewer.pal(5, "Blues"))
   #I (heart) R
   colors <- difference
   obs <- abs(round(range(difference)[2])) + 1

@@ -26,9 +26,9 @@ _As you can see Mexico is pretty violent, but not as violent as Brazil_
 
 --------------------------------------------------------------------------------------------------------------------------
 
-_Most of the violence is concentrated in the states controlled by the drug cartels. Chihuahua looks like a war zone_
+_Most of the violence is concentrated in the states home to the drug cartels. Chihuahua looks like a war zone_
 
-![Choropleth of homicide rates in 2009](http://github.com/diegovalle/Homicide-MX-Drug-War/raw/master/states/output/montage2008.png)
+![Choropleth of homicide rates in 2009](http://imgur.com/bqGHk.png)
 
 -------------------------------------------------------------------------------------------------------------------------
 
@@ -40,7 +40,7 @@ _Here's what it looks like at the municipality level. Keep in mind that the big 
 
 _There have been some big changes in homicide rates since the goverment declared war on the drug cartels at the end of 2006_
 
-![Change in homicide rates](http://imgur.com/AhM8c.png)
+![Change in homicide rates](http://imgur.com/oLS5G.png)
 
 -----------------------------------------------------------------------------------------------------------------------------
 
