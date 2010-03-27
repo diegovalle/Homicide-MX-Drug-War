@@ -29,5 +29,5 @@ __Homicides with Firearm__
 Notes:
 -------
 
-The homicide with firearm data is ordered by year in the death was registered and the data for overall homicides is ordered by the year in which the death occured, but there should'nt be much of a difference.
+The homicide with firearm data is ordered by the year in which the death was registered and the data for overall homicides is ordered by the year in which the death occurred, but there shouldn't be much of a difference.
 
