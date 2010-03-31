@@ -113,7 +113,7 @@ p <- ggplot(data = mhom, aes(year, value, group = variable,
             color = variable))  +
   geom_line(size = 1) +
   labs(y = "Homicide rate",x="") +
-  opts (title = "Homicide rates in Brazil, Mexico, the US, and England and Wales")
+  opts (title = "Homicide rates in Brazil, Mexico, the US,\nand England and Wales (1990-2008)")
 get.pos <-
   dl.indep(unique(transform(d,x = 2006, y = y[16]+1)))
 print(direct.label(p, get.pos))
@@ -131,17 +131,14 @@ print(ggplot(hom[hom$year >= 1990, ], aes(year, MX),
   geom_line(size = 1) +
   opts(title = "Homicide rate in Mexico, 1990-2008 and 2009 (estimate)") +
   labs(y = "Homicide rate", x = "") +
-  #Estimate for 2009. According to the Justice in Mexico project
-  #executions were 30% higher from jan-2009 to oct-2009 than
-  #during the same period in 2008. In 2008 there were ~1600
-  #murders in Ciudad Juarez, in 2009 there were ~2700,
-  #that alone would represent an increase of 7% in the murder rate.
-  #Lets be conservative and say overall homicides
-  #increased by 20%...
-  geom_line(data = data.frame(x=c(2008,2009),
-            y = c(homicideMX[19], homicideMX[19] * 1.2)),
+  #Estimate for 2009. Based on a linear regression of the number of
+  #executions in 2009 according to Reforma, and the fact that 2600
+  #homicides occured in Ciudad Juárez.
+  #See trends/seasonal-decomposition.r
+  geom_line(data = data.frame(x=c(2008,2009), #,2010),
+            y = c(homicideMX[19], 15.52)), #,17.5)),
             aes(x, y), color = "gray40", size=1, linetype=2) +
   geom_rect(xmin = 2006, xmax = 2009,
-            ymin=0, ymax=Inf, alpha = .01, fill = "blue") +
+            ymin=0, ymax=Inf, alpha = .02, fill = "red") +
   annotate("text", x = 2007.5, y = 16.9, label = "Drug War"))
 dev.off()
