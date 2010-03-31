@@ -13,6 +13,9 @@ source("library/utilities.r")
 ########################################################
 homr <- read.csv("accidents-homicides-suicides/output/homicide.csv")
 exe <- read.csv("guns-executions/data/firearm-executions.csv")
+#The data for exections from reforma seems to be missing 1600
+#executions in Ciudad Juarez
+#exe$Executions[10] <- exe$Executions[10] + 1600
 exe$Homicides <- c(homr$Tot[11:19], NA)
 exer <- exe
 exer[,c(2,3,5)] <- sapply(exer[,c(2,3,5)],
@@ -64,12 +67,14 @@ correl <- function(df){
     f <- subset(df, type == "Firearm\nHomicides")
     h <- subset(df, type == "Homicides")
     cor(f$value,h$value)[1]
-    #summary(lm(f$value ~ h$value))$r.squared
-
+    #coef(summary(lm(f$value ~ h$value)))
 }
 mstate <- merge(mstate, ddply(mstate, .(State), correl), by = "State")
 mstate$State <- cleanNames(mstate, "State")
+mstate <- subset(mstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California"))
 mstate$State <- paste(mstate$State,"-", round(mstate$V1,2))
+
+
 mstate$State <- with(mstate, reorder(factor(State), -V1))
 scale_color <- scale_colour
 print(ggplot(mstate, aes(variable, value,
@@ -81,8 +86,34 @@ print(ggplot(mstate, aes(variable, value,
                          labels = c("00","04", "07")) +
     opts(title = "Homicides and Homicides with Firearm, ordered by correlation"))
 dev.print(png, "guns-executions/output/homicides-firearm-st.png",
-          width = 960, height = 600)
+          width = 600, height = 400)
 
+###############################################################
+##Now homicides committed with a firearm as a proportion of
+#all homicides
+##############################################################
+pstate <- state[2:9] / state [10:17]
+pstate$State <- state$State
+mpstate <- melt(pstate, id = "State")
+mpstate$variable <- rep(2000:2007, each = 31)
+mpstate <- subset(mpstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California"))
+m <- function(df){
+    lm(df$variable ~ df$value)$coef[2]
+}
+mpstate <- merge(mpstate, ddply(mpstate, .(State), m),
+                 by = c("State"))
+mpstate$State <- reorder(mpstate$State, mpstate$"df$value")
+print(ggplot(mpstate, aes(variable, value)) +
+    geom_line() +
+    facet_wrap(~ State, scales = "free_y") +
+    ylab("Proportion") + xlab("Year") +
+    scale_x_continuous(breaks = c(2000, 2004, 2007),
+                         labels = c("00","04", "07")) +
+    scale_y_continuous(formatter = "percent") +
+    stat_smooth(method = lm, se = FALSE) +
+    opts(title = "Proportions of Homicides commited with a Firearm"))
+dev.print(png, "guns-executions/output/homicides-firearm-st-p.png",
+          width = 600, height = 400)
 
 #Guns traced to the US
 #c(3090, 5260, 1950, 3060, 6700)
