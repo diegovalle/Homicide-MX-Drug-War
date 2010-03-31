@@ -10,9 +10,6 @@
 #3. Bar plot of the differences
 #4. Scatter plot against the proportions
 
-library(ggplot2)
-library(directlabels)
-
 
 ########################################################
 # Line plot of PAHO, UN, INEGI and ICESI homicide rates
