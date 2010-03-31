@@ -305,7 +305,7 @@ dev.off()
 #Small Multiples of each state
 ########################################################
 #This is how you get anti-aliasing in R
-Cairo(file="states/output/1990-2008-homicide-small-multiples-w.png",
+Cairo(file="states/output/1990-2008-homicide-small-multiples.png",
       type="png", width=960, height=600)
 #If it's for females you might want to swith the number of
 #kmeans clusters to 4
