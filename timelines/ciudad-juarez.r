@@ -54,7 +54,7 @@ source("library/utilities.r")
 
 hom <- read.csv(bzfile("timelines/data/county-month.csv.bz2"))
 cdjuarez09 <- c(136, 240, 73, 90, 125, 247, 248, 337,
-                304, 290, 374, 317)#  265, 127, 231) march is wrong
+                304, 290, 374, 317)#  265, 127, 250)
 cdjuarez0708 <- subset(hom,
                        Code == "08 037" &
                        (Year.of.Murder == "2008" |
