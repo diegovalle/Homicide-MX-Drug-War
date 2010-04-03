@@ -21,6 +21,8 @@ combate al narcotráfico en México," in Renglones, No. 61, Sept. 2009-Mar. 2010
 Tecnológico y de Estudios Superiores de Occidente, A.C., 2009. Data for 2006-2009 compiled from
 Reforma in Justice In Mexico Project Narcobarometer Database (www.justiceinmexico.org).
 
+[2007-2009 - Milenio](http://impreso.milenio.com/node/8697054)
+
 
 __Homicides with Firearm__
 
@@ -30,4 +32,6 @@ Notes:
 -------
 
 The homicide with firearm data is ordered by the year in which the death was registered and the data for overall homicides is ordered by the year in which the death occurred, but there shouldn't be much of a difference.
+
+I subsituted the execution data from _Reforma_ with that from _Milenio_ since it seems to match what happened in Ciudad Juarez more closely.
 

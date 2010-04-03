@@ -88,6 +88,9 @@ print(ggplot(mstate, aes(variable, value,
 dev.print(png, "guns-executions/output/homicides-firearm-st.png",
           width = 600, height = 400)
 
+
+
+
 ###############################################################
 ##Now homicides committed with a firearm as a proportion of
 #all homicides
