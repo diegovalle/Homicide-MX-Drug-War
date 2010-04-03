@@ -11,6 +11,8 @@ source("initialize/init.r")
 
 source("accidents-homicides-suicides/accidents-homicides-suicides.r")
 source("guns-executions/guns-executions.r")
+source("trends/seasonal-decomposition.r")
+source("predictions/predictions.r")
 source("historic/homicide-historic.r")
 source("missing-homicides/missing-homicides.r")
 source("INEGIvsSNSP/inegi-vs-snsp.r")
@@ -20,7 +22,6 @@ source("drugs/druguse.r")
 source("most-violent-counties/most-violent.r")
 source("timelines/timelines-mun.r")
 source("timelines/ciudad-juarez.r")
-source("trends/seasonal-decomposition.r")
-#You need the maps for the next line
+#You need the maps for the next lines
 source("states/homicide-bystate.r")
 source("choropleths/county-maps-homicide.r")

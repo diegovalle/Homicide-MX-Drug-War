@@ -5,7 +5,7 @@
 ########################################################
 #Shared functions
 
-#Group  dates into intervals
+#Group dates into intervals
 cutDates <- function(df, dates) {
   vec <- c(df$Date[1], dates, df$Date[nrow(df)] + 1000)
   cut(df$Date, vec)
@@ -16,6 +16,41 @@ cutDates <- function(df, dates) {
 cleanNames <- function(df, varname = "County"){
   df[[varname]] <- gsub("* de .*","", df[[varname]])
   df[[varname]]
+}
+
+monthSeq <- function(st, len){
+  start <- as.Date(st)
+  next.mon <- seq(start, length = len, by='1 month')
+  next.mon - 1
+}
+
+monthlyPop <- function() {
+  pop <- read.csv("conapo-pop-estimates/conapo-states.csv")
+  pop2 <- data.frame(year = rep(1990:2008, each = 12),
+                   month = rep(1:12))
+  pop2$Monthly.Pop[pop2$month == 6] <- unlist(pop[33,2:ncol(pop)])
+  pop2$Monthly <- na.spline(pop2$Monthly.Pop, na.rm=FALSE)
+  pop2
+}
+
+addHom <- function(df, pop) {
+  hom.st <- ddply(df, .(Month.of.Murder, Year.of.Murder),
+                 function(df) sum(df$Total.Murders))
+  hom.st <- hom.st[order(hom.st$Year.of.Murder,
+                         hom.st$Month.of.Murder),]
+  pop$murders <- hom.st$V1
+  pop$rate <- (pop$murders / pop$Monthly) * 100000 * 12
+  start <- as.Date("1990/2/01")
+  next.mon <- seq(start, length = 12*19, by='1 month')
+  period <- next.mon - 1
+  pop$date <- period
+  pop
+}
+
+addTrend <- function(df){
+  hom.ts <- ts(df$rate, start=1990, freq = 12)
+  hom.stl <- stl(hom.ts, "per")
+  cbind(df, data.frame(hom.stl$time.series))
 }
 
 cleanHom <-  function(df) {

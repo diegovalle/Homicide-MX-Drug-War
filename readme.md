@@ -6,21 +6,22 @@ Summary
 --------
 
 * From 2007 to 2008 there was a 65% increase in the homicide rate
-* While homicides have increased greatly, most of the increase has been concentrated in the states controlled by drug cartels, the overall homicide rate in Mexico is about half that of Brazil
-* The homicide data is not very reliable and if fails Benford's law. There were 1,157 homicides missing from the official police records in the state of Chihuahua. If the police data is to be believed, there were less homicides in the whole state of Chihuahua than in Ciudad of Juarez (which is located in Chihuahua).
+* While homicides have increased greatly, most of the increase has been concentrated in the states controlled by drug cartels. The overall homicide rate in Mexico is about half that of Brazil
+* The homicide data is not very reliable and it fails Benford's law. There were 1,157 homicides missing from the official police records in the state of Chihuahua. If the police data is to be believed, there were less homicides in the whole state of Chihuahua than in Ciudad of Juarez (which is located in Chihuahua).
 * There’s evidence that sending the army to fight the drug cartels has increased the homicide rate.
 * Since the army took control of Ciudad Juarez it has become the most violent city in the world.
+* Based on execution rates I estimate the homicide rate for 2009 will be 15 (95% Conf. Int. 13-17) and for 2010 19.8 (95% Conf. Int. 15.8-23.8)
 
 The Story in Charts
 --------------------
 
 _While the drug war met with some success at first, the homicide rate increased 65% between 2007 and 2008_
 
-![homicide rate in Mexico 1990-2009](http://imgur.com/xfDuE.png)
+![homicide rate in Mexico 1990-2009](http://imgur.com/pz5dl.png)
 
 ------------------------------------------------------------------------------------------------------------------------
 
-_As you can see Mexico is pretty violent, but not as violent as Brazil_
+_As you can see Mexico is pretty violent, but not as violent as Brazil, at least in 2008. See the last chart for an estimate for 2010_
 
 ![International Comparison](http://imgur.com/oiVTt.png)
 
@@ -88,6 +89,11 @@ _Annualized monthly homicide rates in Ciudad Juarez. The city turned into the mo
 
 ![Ciudad Juarez](http://imgur.com/gPN45.png)
 
+-------------------------------------------------------------------------------------------------------------
+
+Things will only get worse until a new equilibrium is reached by the drug traficking organizations
+
+![Homicide Rate](http://imgur.com/nuPiv.png)
 
 
 
