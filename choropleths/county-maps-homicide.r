@@ -120,7 +120,7 @@ savePlot <- function(df, year, breaks){
 #read the files with population data from the censuses
 readPop <- function(type){
   if(type=="Total") {
-    popm <- cleanPopCONAPO("choropleths/data/pop.csv.bz2")
+    popm <- cleanPopCONAPO("timelines/data/pop.csv.bz2")
   } else{
     popm <- cleanPopCONAPO("choropleths/data/pop-w.csv.bz2")
   }
@@ -184,6 +184,6 @@ hom.popm <- mergeHomPop(hom, popm)
 ########################################################
 #Draw choropleths of Mexico
 ########################################################
-sapply(c(1990,1995,2000, 2006:2008), savePlot, breaks = breaks,
+sapply(c(1990,1995,2000, 2005:2008), savePlot, breaks = breaks,
        df = hom.popm)
 
