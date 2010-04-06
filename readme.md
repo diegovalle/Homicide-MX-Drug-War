@@ -1,4 +1,4 @@
-﻿Homicide in Mexico and the Drug War
+﻿Analysis of the Drug War in Mexico
 =========================================================
 Homicides in Mexico have increased greatly since the government sent in the military to fight drug cartels in December 2006. These series of scripts explore various statistics related to the increase in violence
 
@@ -6,11 +6,13 @@ Summary
 --------
 
 * From 2007 to 2008 there was a 65% increase in the homicide rate
-* While homicides have increased greatly, most of the increase has been concentrated in the states controlled by drug cartels. The overall homicide rate in Mexico is about half that of Brazil
-* The homicide data is not very reliable and it fails Benford's law. There were 1,157 homicides missing from the official police records in the state of Chihuahua. If the police data is to be believed, there were less homicides in the whole state of Chihuahua than in Ciudad of Juarez (which is located in Chihuahua).
+* While homicides have increased greatly, most of the increase has been concentrated in the states controlled by drug cartels. Though rising rapidly, the overall homicide rate in Mexico in 2008 was about half that of Brazil.
+* In Mexico there are two sources of homicide data, police records (SNSP) and the vital statistics system (INEGI). Not surprisingly for a corrupt country like Mexico, both series fail to follow Benford's law. A close look a the data reveals that:
+    * The police records in 2008 are missing more than a thousand homicides in Chihuahua! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024), more than the 1,414 reported in the whole state according to police records.
+    * The [Acteal massacre](http://en.wikipedia.org/wiki/Acteal_massacre) of 45 Indians in Chiapas is missing from the vital statistics database. According to the INEGI there were only 2 deaths during December 1995 in the municipality of Chenalhó.
 * There’s evidence that sending the army to fight the drug cartels has increased the homicide rate.
 * Since the army took control of Ciudad Juarez it has become the most violent city in the world.
-* Based on execution rates I estimate the homicide rate for 2009 will be 15 (95% Conf. Int. 13-17) and for 2010 19.8 (95% Conf. Int. 15.8-23.8)
+* Based on execution rates I predict the homicide rate for 2009 will be 1X.X (95% CI 1X-1X) and for 2010 it will be XX
 
 The Story in Charts
 --------------------
@@ -21,19 +23,19 @@ _While the drug war met with some success at first, the homicide rate increased 
 
 ------------------------------------------------------------------------------------------------------------------------
 
-_As you can see Mexico is pretty violent, but not as violent as Brazil, at least in 2008. See the last chart for an estimate for 2010_
+_As you can see Mexico is pretty violent, but not as violent as Brazil—at least in 2008. See the last chart for an estimate for 2010_
 
 ![International Comparison](http://imgur.com/oiVTt.png)
 
 --------------------------------------------------------------------------------------------------------------------------
 
-_Most of the violence is concentrated in the states home to the drug cartels. Chihuahua looks like a war zone_
+_Most of the violence is concentrated in the states home to the drug cartels._
 
 ![Choropleth of homicide rates in 2009](http://imgur.com/bqGHk.png)
 
 -------------------------------------------------------------------------------------------------------------------------
 
-_Here's what it looks like at the municipality level. Keep in mind that the big municipalities tend to draw more attention because of their size, but they also tend to have low population densities_
+_Here's what it looks like at the municipality level. The border zone of Chihuahua looks like a war zone. Keep in mind that the big municipalities tend to draw more attention because of their size, but they also tend to have low population densities_
 
 ![Choropleth of homicide rates by municipality](http://imgur.com/eX8cK.png)
 
@@ -49,6 +51,13 @@ _The top row is composed of the states that are home to drug trafficking organiz
 
 ![Homicide by State](http://imgur.com/JE2b2.png)
 
+-----------------------------------------------------------------------------------------------------------------------------------
+
+_Benford’s Law was used as the expected distribution for the first digit of reported homicide rates.  Both homicide series failed the test_
+
+![Benford's law](http://imgur.com/M7IMP.png)
+
+
 ------------------------------------------------------------------------------------------------------------------------
 
 _In Mexico there are two ways to measure the number of homicides: 1) Police Data (SNSP) and 2) Vital Statistics (INEGI). The bar plot compares them to see if the police records (labeled SNSP and filled with blue) match those of the vital statistics system (labeled INEGI and filled with red). The police records are missing 1,153 homicides in Chihuahua alone! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024), more than the 1,414 reported in the whole state according to police records._
@@ -62,13 +71,6 @@ _read the file readme.md in the directory [missing-homicides](http://github.com/
 _More generally there are some big differences in the reported homicides. But not enough to make them useless_
 
 ![Differences in homicide rates](http://imgur.com/7uJOm.png)
-
------------------------------------------------------------------------------------------------------------------------------------
-
-_Benford’s Law was used as the expected distribution for the first digit of reported homicide rates. Not surprisingly, in a corrupt country like Mexico, both homicide series failed the test_
-
-![Benford's law](http://imgur.com/M7IMP.png)
-
 
 ------------------------------------------------------------------------------------------------------------------------------------
 __With the exception of Michoacan and Guerrero, when the army moved in, there was an increase in homicides__
@@ -130,6 +132,8 @@ In the directories you'll find:
 * missing-homicides: Plots of the different homicide data to figure out how thrust-worthy the Mexican statistics are.
 * most-violent-counties: A small multiple plot of the least and most violent municipalities for men and women
 * states: Pretty plots and choropleths of the homicide rate at the state level
+* trends: Seasonal and trend decomposition of the monthly homicide rates since 1990
+* predictions: My predictions on what the homicide rate will be like in 2009 and 2010
 
 Each directory contains its own readme so you may want to look at them
 

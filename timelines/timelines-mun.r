@@ -50,7 +50,7 @@ cleanHom <-  function(df, state) {
 }
 
 mergeHomPop <- function(df, pop, cutoff) {
-  df$Month.of.Murder <- as.numeric(df$Month.of.Murder)
+  df$Month.of.Murder <- as.numeric(as.character(df$Month.of.Murder))
   df.pop <- merge(df, pop, by.x=c("Code", "Year.of.Murder",
                                   "Month.of.Murder"),
         by.y=c("Code", "Year", "Month"), all.x=TRUE)

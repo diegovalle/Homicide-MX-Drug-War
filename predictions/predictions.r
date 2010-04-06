@@ -7,35 +7,22 @@
 
 source("library/utilities.r")
 
-plotReg <- function(df){
-  hom.ts <- ts(df$rate, start=1990, freq = 12)
-  trend = time(hom.ts)
-  ndays <- strptime(df$date, format = "%Y-%m-%d")$mday
-  reg <- lm(rate ~ 0 + trend + factor(year) + factor(month) +
-            ndays, data = df)
-  summary(reg)
-  df$fitted <- unlist(reg$fitted.values)
-  df$fitted <- fitted(reg)
-  print(ggplot(df, aes(as.Date(date), rate)) +
-      geom_line() +
-      geom_line(aes(as.Date(date), fitted,
-                    legend = FALSE), color = "blue") +
-      scale_x_date(major ="year") +
-      opts(title = reg$call))
-}
 
-plotRegM <- function(hexe){
-  print(ggplot(hexe, aes(Milenio, murders, label = tmon)) +
-      geom_text() +
+
+saveplotRegM <- function(hexe){
+  print(ggplot(hexe, aes(Executions, murders, label = tmon)) +
+      geom_text(hjust=-.1) +
+      geom_point() +
       stat_smooth(method = lm))
-  dev.print(png, "trends/output/exe-hom.png",
+  dev.print(png, "predictions/output/exe-hom.png",
             width = 450, height = 300)
 }
 
-regM <- function(df, executions){
-  #The murder rate started rising after may 2007. Exclude December 2008
-  #because it's not complete
-  h07.08 <- df[210:227,]
+regM <- function(df, executions, saveplot = FALSE){
+  #The murder rate for january and february was low cause it was low
+  #in Mexico City, which isn't beset by the drug war, so we exlude it.
+  #Alos exclude December 2008 because it will be off by 25% or so
+  h07.08 <- df[208:227,]
 
   #The data for november looks wrong, so I'm using the average
   #exe[35, "Milenio"] <- (exe[34, "Milenio"] + exe[36, "Milenio"])/2
@@ -44,9 +31,9 @@ regM <- function(df, executions){
   hexe <- hexe[order(hexe$year, hexe$month),]
   hexe$tmon <- paste(factor(format(as.Date(hexe$date), "%b")),
                      hexe$year)
-  reg <- lm(murders ~ Milenio, data = hexe)
+  reg <- lm(murders ~ Executions, data = hexe)
   print(summary(reg))
-  plotRegM(hexe)
+  if(saveplot == TRUE) saveplotRegM(hexe)
   reg
 }
 
@@ -58,7 +45,8 @@ predict09 <- function(reg) {
   e2009 <- subset(exe, Year == 2009)
 
   pre09 <- data.frame(predict(reg,
-                              data.frame(Milenio = e2009$Milenio),
+                              data.frame(Executions =
+                                         e2009$Executions),
                               interval = "confidence"))
   res <- sapply(pre09, murderRate)
   res
@@ -68,7 +56,8 @@ predict09 <- function(reg) {
 
 predictChart <- function(exe, homrate) {
   pre10 <- data.frame(predict(reg,
-                              data.frame(Milenio = exe$Milenio[25:39]),
+                              data.frame(Executions =
+                                         exe$Executions[25:39]),
                               interval = "confidence"))
   pre10$date <- monthSeq("2009/2/01", 15)
 
@@ -89,7 +78,7 @@ predictChart <- function(exe, homrate) {
 exeRate <- function(df, population){
   df$date <- monthSeq("2007/2/01", 39)
   df$pop <- population
-  df$rate <- df$Milenio / df$pop * 100000 * 12
+  df$rate <- df$Executions / df$pop * 100000 * 12
   df
 }
 
@@ -109,21 +98,22 @@ plotHomEx <- function(pre10, exe, homrate) {
     geom_ribbon(aes(ymax = upr, ymin = lwr), alpha = .2,
                 fill ="darkred") +
     xlab("") + ylab("Annualized Homicide Rate") +
-    annotate("text", x = as.numeric(as.Date("2007-02-15")), y = 24,
-             label = "rate in 2007\n        8.3", hjust =-.2) +
-    annotate("text", x = as.numeric(as.Date("2008-02-15")), y = 24,
-             label = "rate in 2008\n        12.8", hjust =-.2) +
-    annotate("text", x = as.numeric(as.Date("2009-02-15")), y = 24,
-             label = "rate in 2009\n        15", hjust =-.2) +
-    annotate("text", x = as.numeric(as.Date("2010-01-15")), y = 24,
-             label = "rate in 2010\n     19.8?", hjust =-.2) +
-    annotate("text", x = as.numeric(as.Date("2010-04-15")), y = 20,
+    annotate("text", x = as.numeric(as.Date("2007-07-01")), y = 27,
+             label = "homicide rate\nin 2007 = 8.3") +
+    annotate("text", x = as.numeric(as.Date("2008-07-01")), y = 27,
+             label = "homicide rate\nin 2008 = 12.8") +
+    annotate("text", x = as.numeric(as.Date("2009-07-01")), y = 27,
+             label = "homicide rate\nin 2009 ~ 15.5") +
+    annotate("text", x = as.numeric(as.Date("2010-05-15")), y = 27,
+             label = "homicide rate\nin 2010 ~ 20.2") +
+    annotate("text", x = as.numeric(as.Date("2010-04-15")), y = 22.5,
              label = "homicide\nrate", hjust =0, color = "darkred") +
-    annotate("text", x = as.numeric(as.Date("2010-04-15")), y = 12.5,
+    annotate("text", x = as.numeric(as.Date("2010-04-15")), y = 12,
              label = "execution\nrate", hjust =0, color ="darkgreen") +
     geom_line(data = exe, aes(as.Date(date), rate), color = "darkgreen") +
     scale_x_date(limits = c(as.Date("2006-11-01"),
                      as.Date("2010-08-01"))) +
+    scale_y_continuous(limits = c(1.5, 28)) +
     opts(title = "Monthly Homicide and Execution Rates")
 }
 
@@ -132,6 +122,20 @@ savePlot <- function(p) {
   print(p)
   dev.off()
 }
+
+
+#Let's explore the differences in executions reported by the
+#newpapers Milenio and Reforma
+exe.st <- read.csv("predictions/data/executions-bystate.csv")
+exe.st$Universal <- NULL
+exe.st <- melt(exe.st, id = "State")
+exe.st$State <- with(exe.st,reorder(State, value))
+print(ggplot(exe.st, aes(value, State, group = variable,
+                         color = variable, shape = variable)) +
+    geom_point() +
+    opts(title = "Differences in Reported Number of Executions in 2009"))
+dev.print(png, "predictions/output/diff-execut2009.png",
+            width = 500, height = 600)
 
 #Prepare the data
 hom <- read.csv(bzfile("timelines/data/county-month-gue-oax.csv.bz2"))
@@ -142,8 +146,16 @@ homrate <- addHom(hom, pop)
 homrate <- addTrend(homrate)
 
 #The predictions
-exe <- read.csv("predictions/data/executions.csv")
-reg <- regM(homrate, exe)
+exe <- read.csv("predictions/data/executions-bymonth.csv")
+exe$diff <- exe$Reforma - exe$Milenio
+#I couldn't find the data for March so here's and estimated
+exe$Reforma[39] <- exe$Milenio[39] + mean(exe$diff[32:38])
+exe$Executions <- (exe$Reforma + exe$Milenio) /2
+
+
+reg <- regM(homrate, exe, saveplot = TRUE)
+#plot(reg)
+durbin.watson(reg)
 
 k2009.rate <- predict09(reg)
 k2009.rate
@@ -153,3 +165,17 @@ exe <- exeRate(exe, c(homrate$Monthly[205:228], pre10$pop[1:15]))
 savePlot(plotHomEx(pre10, exe, homrate))
 
 homRate2010(pre10)
+rate08.09 <- data.frame(rate =
+                        c(homrate$rate[217:228], pre10$fit[1:15]),
+                        date = 1:27)
+rate08.09
+reg10 <- lm(rate ~ date, data = rate08.09)
+x <- predict(reg10, data.frame(date = 25:36), interval = "confidence")
+x
+pre10[13:15,1:3]
+all10 <- rbind(x[4:12,], pre10[13:15,1:3])
+apply(all10,2,mean)
+
+
+
+
