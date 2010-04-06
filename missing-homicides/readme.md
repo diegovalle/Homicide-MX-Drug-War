@@ -27,12 +27,15 @@ they would do this?
 
 Data are also available from PAHO and the UN, but only at the national level.
 
+Since the INEGI database failed to follow Benford's law I also checked to see if some of the big massacres that occurred in Mexico were recorded, not surprisingly some of them were not in the database
+
 Output
 ------
 * Chart of homicides rate according to the INEGI, ICESI, PAHO, and the UN Crime Survey.
 * Bar plot of the differences in number if homicides, one for the ICESI data and another for the final data from the Statistical Yearbooks.
 * Scatter plot of the different homicide data (INEGI vs ICESI). That is see if the police records (labeled ICESI) match those of the vital statistics system(labeled INEGI). The police records are missing over 1,100 homicides in Chihuahua alone.
 * Scatter plot against the proportions.
+* A csv file with the number of homicides in the months during which there were massacres
 
 Sources
 ------
@@ -51,6 +54,21 @@ UN Crime Survey: Eight and Seventh United Nations Survey of Crime Trends and Ope
 __Population Data:__
 
 [Indicadores demográficos básicos 1990-2030](http://www.conapo.gob.mx/index.php?option=com_content&view=article&id=125&Itemid=203)
+
+
+Massacres
+----------
+
+[Aguas Blancas Massacre](http://www.sfgate.com/chronicle/special/mexico/massacre.html): (Warning: Graphic Video) 17 dead, June 28, 1995. In the INEGI homicide database
+
+[Acteal Massacre](http://zedillo.presidencia.gob.mx/pages/chiapas/docs/crono.html): 45 dead ,December 22, 1997. __Not in the INEGI homicide database__
+
+[Decapitated Bodies in Yucatán](http://www2.esmas.com/noticierostelevisa/mexico/009070/hallan-doce-cadaveres-decapitados-yucatan): August 28 2008, 12 dead. In the INEGI homicide database
+
+[Tijuana prison riot](http://news.newamericamedia.org/news/view_article.html?article_id=413e55db3c6d5eac317d63edb8ce03d8): September 2008,  25 dead. In the INEGI homicide database
+
+[Reynosa prison riot](http://www.horacerotam.com/Not_interior1.asp?Id=NHCT22047&link=280):  October 2008, 21 dead. In the INEGI homicide database
+
 
 CodeBook:
 ---------
