@@ -8,6 +8,22 @@
 source("library/utilities.r")
 source("timelines/constants.r")
 
+plotReg <- function(df){
+  hom.ts <- ts(df$rate, start=1990, freq = 12)
+  trend = time(hom.ts)
+  ndays <- strptime(df$date, format = "%Y-%m-%d")$mday
+  reg <- lm(rate ~ 0 + trend + factor(year) + factor(month) +
+            ndays, data = df)
+  summary(reg)
+  df$fitted <- unlist(reg$fitted.values)
+  df$fitted <- fitted(reg)
+  print(ggplot(df, aes(as.Date(date), rate)) +
+      geom_line() +
+      geom_line(aes(as.Date(date), fitted,
+                    legend = FALSE), color = "blue") +
+      scale_x_date(major ="year") +
+      opts(title = reg$call))
+}
 
 plotTrend <- function(df){
   start.dw <- op.mich
@@ -40,15 +56,6 @@ hom <- cleanHom(hom)
 hom <- addMonths(hom)
 
 
-#No record of the 12 decapitaded bodies found in Yucatan
-#http://www.eluniversal.com.mx/nacion/161981.html
-hom[4863,]
-#What about the 45 killed in Acteal? Unless they were the only ones
-#killed that month I doubt they were recorded
-hom[c(6309,6917, 261),]
-#What's up with February 2008?
-hom[1215,]
-
 #I can't see any clearcut paterns at the state level
 ggplot(hom, aes(y = Total.Murders, x = Month.of.Murder,
                 group = Year.of.Murder, color = Year.of.Murder)) +
@@ -59,13 +66,37 @@ ggplot(hom, aes(y = Total.Murders, x = Month.of.Murder,
 print(ggplot(hom, aes(as.Date(Date), Total.Murders)) +
     geom_line() +
     scale_x_date() +
-    facet_wrap(~ County, scales = "free_y"))
+    facet_wrap(~ County, scales = "free_y") +
+    opts(title = "Monthly Number of Homicides"))
 dev.print(png, "trends/output/st-murders.png", width = 960, height = 600)
+
+#Now only since the start of the Drug War
+print(ggplot(subset(hom, as.Date(Date) >= as.Date("2006/12/01")),
+             aes(as.Date(Date), Total.Murders)) +
+    geom_line() +
+    scale_x_date() +
+    facet_wrap(~ County, scales = "free_y")+
+    opts(title = "Monthly Number of Homicides Since the Start of the Drug War"))
+dev.print(png, "trends/output/st-drug-war-murders.png", width = 960, height = 600)
+
+#Let's see what Chiapas looked like during the 95 Acteal massacre
+print(ggplot(subset(hom, as.Date(Date) <= as.Date("1998/06/01") &
+                    as.Date(Date) >= as.Date("1997/01/01") &
+                    County == "Chiapas"),
+             aes(as.Date(Date), Total.Murders)) +
+    geom_line() +
+    scale_x_date() +
+    facet_wrap(~ County, scales = "free_y")+
+    opts(title = "Monthly Number of Homicides Since the Start of the Drug War"))
+
 
 #STL decomposition with loess
 pop <- monthlyPop()
 homrate <- addHom(hom, pop)
 homrate <- addTrend(homrate)
+
+plotReg(homrate)
+dev.print(png, "trends/output/regression.png", width = 450, height = 300)
 
 Cairo(file = "trends/output/trend.png")
 plotTrend(homrate)
@@ -74,8 +105,7 @@ dev.off()
 plotSeasonal(homrate)
 dev.print(png, "trends/output/seasonal.png", width = 450, height = 300)
 
-plotReg(homrate)
-dev.print(png, "trends/output/regression.png", width = 450, height = 300)
+
 
 
 
