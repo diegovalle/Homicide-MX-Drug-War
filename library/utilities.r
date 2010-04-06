@@ -84,7 +84,7 @@ addMonths <- function(df){
   dates <- strptime(as.character(dates.df$Date), "%Y-%m-%d")
   dates.df$Month.of.Murder <- dates$mon + 1
   dates.df$Year.of.Murder <- dates$year + 1900
-  df$Month.of.Murder <- as.numeric(df$Month.of.Murder)
+  df$Month.of.Murder <- as.numeric(as.character(df$Month.of.Murder))
   df <- merge(dates.df, df,
                    by = c("Month.of.Murder",
                           "Year.of.Murder", "County"),
