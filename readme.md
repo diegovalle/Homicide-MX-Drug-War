@@ -9,7 +9,7 @@ Summary
 * While homicides have increased greatly, most of the increase has been concentrated in the states controlled by drug cartels. Though rising rapidly, the overall homicide rate in Mexico in 2008 was about half that of Brazil.
 * In Mexico there are two sources of homicide data, police records (SNSP) and the vital statistics system (INEGI). Not surprisingly for a corrupt country like Mexico, both series fail to follow Benford's law. A close look a the data reveals that:
     * The police records in 2008 are missing more than a thousand homicides in Chihuahua! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024), more than the 1,414 reported in the whole state according to police records.
-    * The [Acteal massacre](http://en.wikipedia.org/wiki/Acteal_massacre) of 45 Indians in Chiapas is missing from the vital statistics database. According to the INEGI there were only 2 deaths during December 1995 in the municipality of Chenalhó.
+    * The [Acteal massacre](http://en.wikipedia.org/wiki/Acteal_massacre) of 45 Indians in Chiapas is missing from the vital statistics database. According to the INEGI there were only 2 deaths during December 1997 in the municipality of Chenalhó.
 * There’s evidence that sending the army to fight the drug cartels has increased the homicide rate.
 * Since the army took control of Ciudad Juarez it has become the most violent city in the world.
 * Based on execution rates I predict the homicide rate for 2009 will be 1X.X (95% CI 1X-1X) and for 2010 it will be XX
