@@ -13,9 +13,13 @@ source("library/utilities.r")
 ########################################################
 homr <- read.csv("accidents-homicides-suicides/output/homicide.csv")
 exe <- read.csv("guns-executions/data/firearm-executions.csv")
-#The data for exections from reforma seems to be missing 1600
-#executions in Ciudad Juarez
-#exe$Executions[10] <- exe$Executions[10] + 1600
+
+#Average the data from Reforma and Milenio
+exe$Executions[2:6] <- exe$Renglones[2:6]
+exe$Executions[7] <- exe$Reforma[7]
+exe$Executions[8:10] <- (exe$Reforma[8:10] + exe$Milenio[8:10]) / 2
+exe <- exe[,1:4]
+
 exe$Homicides <- c(homr$Tot[11:19], NA)
 exer <- exe
 exer[,c(2,3,5)] <- sapply(exer[,c(2,3,5)],
@@ -87,8 +91,6 @@ print(ggplot(mstate, aes(variable, value,
     opts(title = "Homicides and Homicides with Firearm, ordered by correlation"))
 dev.print(png, "guns-executions/output/homicides-firearm-st.png",
           width = 600, height = 400)
-
-
 
 
 ###############################################################
