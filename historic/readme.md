@@ -14,7 +14,8 @@ __Brazil:__
 
 1990-1999: [PAHO](http://www.paho.org/english/hcp/hcn/vio/violence-graphs.htm) Source: Minister of Justice, National Secretary of Public Security 
 
-2000-2006: [Wikipedia](http://en.wikipedia.org/wiki/Homicide_rate)
+2000-2007: [Mapa da violência Brasil 2010](http://www.institutosangari.org.br/mapadaviolencia/MapaViolencia2010.pdf) Gráfico 3.1.2. Evolução das Taxas de Homicídio (em 100.000). Brasil, 1997/2007.
+
 
 __US:__
 

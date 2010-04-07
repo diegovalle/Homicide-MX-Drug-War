@@ -86,10 +86,11 @@ homicideMX <- hom$rate
 
 #brazil 1990-1999
 #http://www.paho.org/english/hcp/hcn/vio/violence-graphs.htm
-#2000-2006 Wikipedia
-#http://en.wikipedia.org/wiki/Homicide_rate
+#2000-2007 Mapa da violência Brasil 2010
+#http://www.institutosangari.org.br/mapadaviolencia/MapaViolencia2010.pdf
 homicideBZ <- c(18.6, 17.5, 15.6, 16.7, 17.5, 19.3, 24, 25, 26, 25,
-        26.7,27.8,28.4,28.9,27.4,26.6,25.7)
+                26.7,27.8,28.5,28.9, 27, 25.8, 26.3, 25.2)
+
 
 
 
@@ -101,8 +102,8 @@ hom <- data.frame(year = c(kyears),
                                  length(homicideMX)), homicideMX),
                   US = c(homicideUS),
                   BZ = c(rep(NA, length(kyears) -
-                                 length(homicideBZ) - 2), homicideBZ,
-                                 NA, NA)
+                                 length(homicideBZ) - 1), homicideBZ,
+                                 NA)
                   )
 mhom <- melt(hom, id = c("year"))
 mhom <- subset(mhom, year >= 1990)
@@ -115,7 +116,7 @@ p <- ggplot(data = mhom, aes(year, value, group = variable,
   labs(y = "Homicide rate",x="") +
   opts (title = "Homicide rates in Brazil, Mexico, the US,\nand England and Wales (1990-2008)")
 get.pos <-
-  dl.indep(unique(transform(d,x = 2006, y = y[16]+1)))
+  dl.indep(unique(transform(d,x = 2006, y = y[16]+1.2)))
 print(direct.label(p, get.pos))
 dev.off()
 
