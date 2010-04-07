@@ -82,11 +82,17 @@ exeRate <- function(df, population){
   df
 }
 
-homRate2010 <- function(pre10) {
-  reg10 <- lm(pre10$fit[1:15] ~ time(pre10$date[1:15]))
-  summary(reg10)
-  (sum(12.36 + .4 * 16:24) + sum(pre10$fit[13:15])) / 12
-  #predict(reg10, data.frame(17:32))
+
+homRate2010 <- function(pre10, homrate){
+  rate08.09 <- data.frame(rate =
+                             c(homrate$rate[217:228], pre10$fit[1:15]),
+                          date = 1:27)
+  reg10 <- lm(rate ~ date, data = rate08.09)
+  x <- predict(reg10, data.frame(date = 25:36),
+               interval = "confidence")
+  pre10[13:14,1:3]
+  all10 <- rbind(x[3:12,], pre10[13:14,1:3])
+  apply(all10,2,mean)
 }
 
 plotHomEx <- function(pre10, exe, homrate) {
@@ -105,7 +111,7 @@ plotHomEx <- function(pre10, exe, homrate) {
     annotate("text", x = as.numeric(as.Date("2009-07-01")), y = 27,
              label = "homicide rate\nin 2009 ~ 15.5") +
     annotate("text", x = as.numeric(as.Date("2010-05-15")), y = 27,
-             label = "homicide rate\nin 2010 ~ 20.2") +
+             label = "homicide rate\nin 2010 ~ 20.1") +
     annotate("text", x = as.numeric(as.Date("2010-04-15")), y = 22.5,
              label = "homicide\nrate", hjust =0, color = "darkred") +
     annotate("text", x = as.numeric(as.Date("2010-04-15")), y = 12,
@@ -164,17 +170,10 @@ exe <- exeRate(exe, c(homrate$Monthly[205:228], pre10$pop[1:15]))
 
 savePlot(plotHomEx(pre10, exe, homrate))
 
-homRate2010(pre10)
-rate08.09 <- data.frame(rate =
-                        c(homrate$rate[217:228], pre10$fit[1:15]),
-                        date = 1:27)
-rate08.09
-reg10 <- lm(rate ~ date, data = rate08.09)
-x <- predict(reg10, data.frame(date = 25:36), interval = "confidence")
-x
-pre10[13:15,1:3]
-all10 <- rbind(x[4:12,], pre10[13:15,1:3])
-apply(all10,2,mean)
+print(homRate2010(pre10, homrate))
+
+
+
 
 
 
