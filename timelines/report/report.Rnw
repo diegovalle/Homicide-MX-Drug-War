@@ -42,20 +42,18 @@ printTable <- function(df){
 
 \section{Michoacan}
 
+Municipalities with more than a 100,000 thousand people:
+
 <<results=tex,echo=FALSE>>=
-printTable(report.ll$bcn)
+printTable(report.ll$mich)
 @
 
-\begin{figure}
-\begin{center}
-<<label=fig1,fig=TRUE,echo=FALSE>>=
-print(createPlot(mich.df, ll.mich, "Michoacan"))
+The cluster of municipalities near the pacific coast and the Tierra
+Caliente that have a very high homicide rate:
+
+<<results=tex,echo=FALSE>>=
+printTable(report.ll$mich.int)
 @
-\end{center}
-\caption{Homicide rates in municipalities with more than
-  100,000 people}
-\label{fig:one}
-\end{figure}
 
 
 \section{Guerrero}
@@ -65,20 +63,18 @@ the first one coinciding with the arrival of the army, when there was
 a decrease in the homicide rate, especially in Acapulco. And a second
 one when Alfredo Beltran Leyva was captured by the army.
 
+Municipalities with more than a 100,000 thousand people:
+
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$gue)
 @
 
-\begin{figure}
-\begin{center}
-<<label=fig2,fig=TRUE,echo=FALSE>>=
-print(createPlot(gue.df, ll.gue, "Guerrero"))
+These are the municipalities bordering Michoacan:
+
+<<results=tex,echo=FALSE>>=
+printTable(report.ll$gue.int)
 @
-\end{center}
-\caption{Homicide rates in municipalities with more than
-  100,000 people}
-\label{fig:two}
-\end{figure}
+
 
 
 
@@ -87,74 +83,39 @@ I set the minimum segment size as three because the capture of Eduardo
 Arrellano Felix occurred near the end of the year, so not many months
 with a high number of homicides were available for testing.
 
+Municipalities with more than a 100,000 thousand people:
+
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$bcn)
 @
 
-\begin{figure}
-\begin{center}
-<<label=fig3,fig=TRUE,echo=FALSE>>=
-print(createPlot(bcn.df, ll.bcn, "Baja California"))
-@
-\end{center}
-\caption{Homicide rates in municipalities with more than
-  100,000 people}
-\label{fig:three}
-\end{figure}
-
 
 \section{Durango}
+
+Municipalities with more than a 100,000 thousand people:
 
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$dur)
 @
 
-\begin{figure}
-\begin{center}
-<<label=fig4,fig=TRUE,echo=FALSE>>=
-print(createPlot(dur.df, ll.dur, "Durango"))
-@
-\end{center}
-\caption{Homicide rates in municipalities with more than
-  100,000 people}
-\label{fig:four}
-\end{figure}
-
 
 \section{Sonora}
+
+Municipalities with more than a 100,000 thousand people:
 
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$son)
 @
 
-\begin{figure}
-\begin{center}
-<<label=fig5,fig=TRUE,echo=FALSE>>=
-print(createPlot(son.df, ll.son, "Sonora"))
-@
-\end{center}
-\caption{Homicide rates in municipalities with more than
-  100,000 people}
-\label{fig:five}
-\end{figure}
-
 
 \section{Sinaloa}
+
+Municipalities with more than a 100,000 thousand people:
 
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$sin)
 @
 
-\begin{figure}
-\begin{center}
-<<label=fig6,fig=TRUE,echo=FALSE>>=
-print(createPlot(sin.df, ll.sin, "Sinaloa"))
-@
-\end{center}
-\caption{Homicide rates in municipalities with more than
-  100,000 people}
-\label{fig:six}
-\end{figure}
 
 
 \section{Tamaulipas}
@@ -165,55 +126,41 @@ over the plaza in Nuevo Leon, and the other to when he realized he
 wasn't going to be able to take it over. Notice how the violence
 decreased about 5 months before the army arrived.
 
+Municipalities with more than a 100,000 thousand people:
+
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$tam)
 @
 
-\begin{figure}
-\begin{center}
-<<label=fig7,fig=TRUE,echo=FALSE>>=
-print(createPlot(tam.df, ll.tam, "Tamaulipas"))
-@
-\end{center}
-\caption{Homicide rates in municipalities with more than
-  100,000 people}
-\label{fig:seven}
-\end{figure}
 
 
 \section{Nuevo Leon}
+
+Municipalities with more than a 100,000 thousand people:
 
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$nl)
 @
 
-\begin{figure}
-\begin{center}
-<<label=fig8,fig=TRUE,echo=FALSE>>=
-print(createPlot(nl.df, ll.nl, "Nuevo Leon"))
-@
-\end{center}
-\caption{Homicide rates in municipalities with more than
-  100,000 people}
-\label{fig:eight}
-\end{figure}
 
 \section{Chihuahua}
+
+Municipalities with more than a 100,000 thousand people:
 
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$chi)
 @
 
-\begin{figure}
-\begin{center}
-<<label=fig9,fig=TRUE,echo=FALSE>>=
-print(createPlot(chi.df, ll.chi, "Chihuahua"))
+These are the municpalities near the US border:
+<<results=tex,echo=FALSE>>=
+printTable(report.ll$chi.bdr)
 @
-\end{center}
-\caption{Homicide rates in municipalities with more than
-  100,000 people}
-\label{fig:nine}
-\end{figure}
+
+These are the municipalities with a very high homicide rate:
+
+<<results=tex,echo=FALSE>>=
+printTable(report.ll$chi.int)
+@
 
 
 

@@ -19,6 +19,18 @@ _county-month-gue-oax.csv.bz2_: Oaxaca and Guerrero
 
 _county-month.csv-tam-nl.bz2_: Tamaulipas and Nuevo Leon
 
+Interesting Municipalities
+---------------------------
+These municipalities are worth checking out because of the great increase in the homicide rate they suffered in 2008 (from the choropleths)
+
+_Guerrero_
+
+Bordering the state of Michoacán: Zirándaro, Coyuca de Catalán, Unión de Isidoro Montes de Oca
+
+_Chihuahua_
+
+The municipalities bordering the US excluding Juárez: Janos, Ascensión, Juárez, Guadalupe, Ojinaga, Ahumada, Nuevo Casas Grandes ,Coyame del Sotol
+
 
 Codebook
 --------
