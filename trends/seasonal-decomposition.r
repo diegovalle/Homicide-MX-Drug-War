@@ -12,9 +12,14 @@ plotReg <- function(df){
   hom.ts <- ts(df$rate, start=1990, freq = 12)
   trend = time(hom.ts)
   ndays <- strptime(df$date, format = "%Y-%m-%d")$mday
-  reg <- lm(rate ~ 0 + trend + factor(year) + factor(month) +
+  reg <- glm(rate ~ 0 + trend + factor(year) + factor(month) +
             ndays, data = df)
-  summary(reg)
+  reg2 <- glm(rate ~ 0 + trend + factor(year) + ndays, data = df)
+  reg3 <- glm(rate ~ 0 + trend + ndays, data = df)
+  print(anova(reg, reg2))
+  print(summary(reg))
+  print(summary(reg2))
+  print(summary(reg3))
   df$fitted <- unlist(reg$fitted.values)
   df$fitted <- fitted(reg)
   print(ggplot(df, aes(as.Date(date), rate)) +
@@ -94,9 +99,11 @@ print(ggplot(subset(hom, as.Date(Date) <= as.Date("1998/06/01") &
 pop <- monthlyPop()
 homrate <- addHom(hom, pop)
 homrate <- addTrend(homrate)
+#homrate <-  subset(homrate, year >= 2005)
 
 plotReg(homrate)
-dev.print(png, "trends/output/regression.png", width = 450, height = 300)
+dev.print(png, "trends/output/regression.png", width = 800,
+          height = 600)
 
 Cairo(file = "trends/output/trend.png")
 plotTrend(homrate)
