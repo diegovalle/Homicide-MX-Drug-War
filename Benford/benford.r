@@ -24,7 +24,7 @@ dBen <- function(x){
 }
 
 firstDigit <- function(x){
-    x <- as.numeric(substring(x, 1, 1))
+    x <- as.numeric(substring(formatC(x, format = 'e'), 1, 1))
 }
 
 benObsExp <- function(x, name =""){
@@ -33,6 +33,7 @@ benObsExp <- function(x, name =""){
     obs.freq <- tabulate(x, nbins = 9)
     obs.freq <- obs.freq / sum(obs.freq)
     ben.freq <- dBen(1:9)
+    name <- paste(name, "homicide data (red) vs. Benford's law (black)")
     df <- data.frame(obs = obs.freq, ben = ben.freq, digits = 1:9)
     ggplot(df, aes(digits, ben)) + geom_line() +
         geom_point(aes(digits, obs), color = "red") +
@@ -56,14 +57,14 @@ chisq.test(death.rate, p = dBen(1:9))
 #Benford's law is scale invariant
 inegi <- hom$Total.Murders
 print(benObsExp(inegi, "INEGI"))
-ggsave("Benford/output/INEGI.png", dpi=72)
+ggsave("Benford/output/INEGI.png", dpi=72, width = 6, height = 6)
 chiBen(inegi)
 
 #For the police data
 icesi <- melt(read.csv("INEGIvsSNSP/data/states-icesi.csv"),
            id ="State")
 print(benObsExp(icesi$value, "SNSP"))
-ggsave("Benford/output/ICESI.png", dpi=72)
+ggsave("Benford/output/ICESI.png", dpi=72, width = 6, height = 6)
 chiBen(icesi$value)
 
 
