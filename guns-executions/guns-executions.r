@@ -75,7 +75,7 @@ correl <- function(df){
 }
 mstate <- merge(mstate, ddply(mstate, .(State), correl), by = "State")
 mstate$State <- cleanNames(mstate, "State")
-mstate <- subset(mstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California"))
+mstate <- subset(mstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California","Michoacán", "Tamaulipas"))
 mstate$State <- paste(mstate$State,"-", round(mstate$V1,2))
 
 
@@ -101,7 +101,8 @@ pstate <- state[2:9] / state [10:17]
 pstate$State <- state$State
 mpstate <- melt(pstate, id = "State")
 mpstate$variable <- rep(2000:2007, each = 31)
-mpstate <- subset(mpstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California"))
+mpstate$State <- factor(cleanNames(mpstate, "State"))
+mpstate <- subset(mpstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California","Michoacán", "Tamaulipas"))
 m <- function(df){
     lm(df$variable ~ df$value)$coef[2]
 }
@@ -116,7 +117,7 @@ print(ggplot(mpstate, aes(variable, value)) +
                          labels = c("00","04", "07")) +
     scale_y_continuous(formatter = "percent") +
     stat_smooth(method = lm, se = FALSE) +
-    opts(title = "Proportions of Homicides commited with a Firearm"))
+    opts(title = "Proportion of Homicides commited with a Firearm"))
 dev.print(png, "guns-executions/output/homicides-firearm-st-p.png",
           width = 600, height = 400)
 
