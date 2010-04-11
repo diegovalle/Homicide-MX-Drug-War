@@ -85,8 +85,8 @@ exeRate <- function(df, population){
 
 homRate2010 <- function(pre10, homrate){
   rate08.09 <- data.frame(rate =
-                             c(homrate$rate[217:228], pre10$fit[1:15]),
-                          date = 1:27)
+                             c(homrate$rate[214:228], pre10$fit[1:15]),
+                          date = 1:30)
   reg10 <- lm(rate ~ date, data = rate08.09)
   x <- predict(reg10, data.frame(date = 25:36),
                interval = "confidence")
@@ -96,6 +96,8 @@ homRate2010 <- function(pre10, homrate){
 }
 
 plotHomEx <- function(pre10, exe, homrate) {
+  label09 <- paste("homicide rate\nin 2009 ~",round(k2009.rate[[1]],1))
+  label10 <- paste("homicide rate\nin 2010 ~",round(k2010.rate[[1]],1))
   ggplot(pre10, aes(as.Date(date), fit)) +
     scale_x_date() +
     geom_line(linetype = 2, color = "darkred") +
@@ -109,9 +111,9 @@ plotHomEx <- function(pre10, exe, homrate) {
     annotate("text", x = as.numeric(as.Date("2008-07-01")), y = 27,
              label = "homicide rate\nin 2008 = 12.8") +
     annotate("text", x = as.numeric(as.Date("2009-07-01")), y = 27,
-             label = "homicide rate\nin 2009 ~ 15.5") +
+             label = label09) +
     annotate("text", x = as.numeric(as.Date("2010-05-15")), y = 27,
-             label = "homicide rate\nin 2010 ~ 20.1") +
+             label = label10) +
     annotate("text", x = as.numeric(as.Date("2010-04-15")), y = 22.5,
              label = "homicide\nrate", hjust =0, color = "darkred") +
     annotate("text", x = as.numeric(as.Date("2010-04-15")), y = 12,
@@ -158,19 +160,19 @@ exe$diff <- exe$Reforma - exe$Milenio
 exe$Reforma[39] <- exe$Milenio[39] + mean(exe$diff[32:38])
 exe$Executions <- (exe$Reforma + exe$Milenio) /2
 
-
 reg <- regM(homrate, exe, saveplot = TRUE)
 #plot(reg)
 durbin.watson(reg)
 
 k2009.rate <- predict09(reg)
-k2009.rate
+print(round(k2009.rate,1))
 pre10 <- predictChart(exe, homrate)
+k2010.rate <- homRate2010(pre10, homrate)
+print(round(k2010.rate,1))
 exe <- exeRate(exe, c(homrate$Monthly[205:228], pre10$pop[1:15]))
 
 savePlot(plotHomEx(pre10, exe, homrate))
 
-print(homRate2010(pre10, homrate))
 
 
 
