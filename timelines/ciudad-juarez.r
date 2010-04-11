@@ -54,7 +54,7 @@ source("library/utilities.r")
 
 hom <- read.csv(bzfile("timelines/data/county-month.csv.bz2"))
 cdjuarez09 <- c(136, 240, 73, 90, 125, 247, 248, 337,
-                304, 290, 374, 317)#  265, 127, 253)
+                304, 290, 374, 317, 265, 127, 253)
 cdjuarez0708 <- subset(hom,
                        Code == "08 037" &
                        (Year.of.Murder == "2008" |
@@ -81,7 +81,7 @@ cdj$rate <- (cdj$Murders / pop$MonthlyEst[1:nrow(cdj)]) * 100000 * 12
 
 cdj$group <- cutDates(cdj, c(op.chi, cdj.rein, calderon))
 
-Cairo(file = "timelines/output/ciudad-juarez.png", width=600, height=400)
+Cairo(file = "timelines/output/ciudad-juarez.png", width=700, height=400)
 print(ggplot(cdj, aes(Date,rate)) +
     geom_point(aes(size = Murders), color = "darkred") +
     geom_vline(aes(xintercept = op.chi), alpha = .7) +
@@ -92,14 +92,14 @@ print(ggplot(cdj, aes(Date,rate)) +
     geom_text(aes(x,y, label = "Reinforcements sent"),
             data = data.frame(x = cdj.rein, y = 252),
             size = 4, hjust = 1.01, vjust = 0) +
-    #geom_vline(aes(xintercept = calderon), alpha = .7) +
-    #geom_text(aes(x,y, label = "Presidential visit"),
-    #        data = data.frame(x = calderon, y = 25),
-    #        size = 4, hjust = 1.01, vjust = 0) +
-    #geom_vline(aes(xintercept = consulate), alpha = .7) +
-    #geom_text(aes(x,y, label = "Consulate killings"),
-    #        data = data.frame(x = consulate, y = 50),
-    #        size = 4, hjust = 1.01, vjust = 0) +
+    geom_vline(aes(xintercept = calderon), alpha = .7) +
+    geom_text(aes(x,y, label = "Presidential visit"),
+            data = data.frame(x = calderon, y = 55),
+            size = 4, hjust = 1.01, vjust = 0) +
+    geom_vline(aes(xintercept = consulate), alpha = .7) +
+    geom_text(aes(x,y, label = "Consulate killings"),
+            data = data.frame(x = consulate, y = 20),
+            size = 4, hjust = 1.01, vjust = 0) +
     geom_smooth(aes(group = group), se = FALSE, method = lm) +
     scale_size("Number of\nHomicides") +
     ylab("Annualized homicide rate") + xlab("") +
@@ -117,5 +117,5 @@ sctest(rate ~ 1 + ndays, type = "Chow", point = 15)
 
 op.chi
 cdj.rein
-bp.cdj <- breakpoints(rate ~ 1 + ndays, h = 3, breaks = 3)
+bp.cdj <- breakpoints(rate ~ 1 + ndays, h = 4, breaks = 3)
 confint(bp.cdj, breaks = 3)

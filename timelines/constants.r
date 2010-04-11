@@ -62,8 +62,18 @@ doctor <- as.Date("10/26/2008", "%m/%d/%Y")
 #Presidential visit to Ciudad Juarez after 16 students were killed
 calderon <- as.Date("02/11/2010", "%m/%d/%Y")
 
-#
+#The killing of thre people linked with the US consulate in Juarez
 consulate <- as.Date("03/13/2010", "%m/%d/%Y")
+
+#El Chapo takes control of the drug trade in Ciudad Juarez
+#http://www.google.com/hostednews/ap/article/ALeqM5gMi5B2USfJStXxfqgWWr2xjRYpOgD9EVPTA01
+fall <- as.Date("04/09/2010", "%m/%d/%Y")
+
+#Police takes over from army
+#http://www.google.com/hostednews/ap/article/ALeqM5gMi5B2USfJStXxfqgWWr2xjRYpOgD9EV8GRO0
+police <- as.Date("04/08/2010", "%m/%d/%Y")
+
+
 
 
 
