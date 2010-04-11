@@ -122,9 +122,6 @@ dev.off()
 
 
 
-
-
-
 #line plot of the mexican homicide rate 1990-2008
 Cairo(file = "historic/output/homicide-mx-1990-2008.png")
 print(ggplot(hom[hom$year >= 1990, ], aes(year, MX),
@@ -136,8 +133,8 @@ print(ggplot(hom[hom$year >= 1990, ], aes(year, MX),
   #executions in 2009 according to Reforma, and the fact that 2600
   #homicides occured in Ciudad Juárez.
   #See trends/seasonal-decomposition.r
-  geom_line(data = data.frame(x=c(2008,2009), #,2010),
-            y = c(homicideMX[19], k2009.rate[1])), #,17.5)),
+  geom_line(data = data.frame(x=c(2008,2009),#, 2010),
+            y = c(homicideMX[19], k2009.rate[1])),#, k2010.rate[1])),
             aes(x, y), color = "gray40", size=1, linetype=2) +
   geom_rect(xmin = 2006, xmax = 2009,
             ymin=0, ymax=Inf, alpha = .02, fill = "red") +
