@@ -7,19 +7,19 @@ Summary
 
 * From 2007 to 2008 there was a 65% increase in the homicide rate
 * While homicides have increased greatly, most of the increase has been concentrated in the states controlled by drug cartels. Though rising rapidly, the overall homicide rate in Mexico in 2008 was about half that of Brazil.
-* In Mexico there are two sources of homicide data, police records (SNSP) and the vital statistics system (INEGI). Not surprisingly for a corrupt country like Mexico, both series fail to follow Benford's law. A close look a the data reveals that:
+* In Mexico there are two sources of homicide data, police records (SNSP) and the vital statistics system (INEGI). Not surprisingly for a corrupt country like Mexico both series fail to follow Benford's law. A close look a the data reveals that:
     * The police records in 2008 are missing more than a thousand homicides in Chihuahua! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024), more than the 1,414 reported in the whole state according to police records.
     * The [Acteal massacre](http://en.wikipedia.org/wiki/Acteal_massacre) of 45 Indians in Chiapas is missing from the vital statistics database. According to the INEGI there were only 2 deaths during December 1997 in the municipality of Chenalhó.
 * There’s evidence that sending the army to fight the drug cartels has increased the homicide rate.
 * Since the army took control of Ciudad Juarez it has become the most violent city in the world.
-* Based on execution rates I predict the homicide rate for 2009 will be 1X.X (95% CI 1X-1X) and for 2010 it will be XX
+* Based on execution rates I predict the homicide rate for 2009 will be 15.5 (95% CI 14.8-16.1) and for 2010 it will be 19.5 (95% CI 18.4-20.7)
 
 The Story in Charts
 --------------------
 
 _While the drug war met with some success at first, the homicide rate increased 65% between 2007 and 2008_
 
-![homicide rate in Mexico 1990-2009](http://imgur.com/pz5dl.png)
+![homicide rate in Mexico 1990-2009](http://imgur.com/scglO.png)
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -31,19 +31,19 @@ _As you can see Mexico is pretty violent, but not as violent as Brazil—at leas
 
 _Most of the violence is concentrated in the states home to the drug cartels._
 
-![Choropleth of homicide rates in 2009](http://imgur.com/bqGHk.png)
+![Choropleth of homicide rates in 2008](http://imgur.com/oCAiV.png)
 
 -------------------------------------------------------------------------------------------------------------------------
 
-_Here's what it looks like at the municipality level. The border zone of Chihuahua looks like a war zone. Keep in mind that the big municipalities tend to draw more attention because of their size, but they also tend to have low population densities_
+_Here's what it looks like at the municipality level. Keep in mind that the big municipalities tend to draw more attention because of their size, but they also tend to have low population densities_
 
-![Choropleth of homicide rates by municipality](http://imgur.com/eX8cK.png)
+![Choropleth of homicide rates by municipality](http://imgur.com/ShYYZ.png)
 
 ------------------------------------------------------------------------------------------------------------------------
 
 _There have been some big changes in homicide rates since the goverment declared war on the drug cartels at the end of 2006_
 
-![Change in homicide rates](http://imgur.com/oLS5G.png)
+![Change in homicide rates](http://imgur.com/Lt6NR.png)
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ _The top row is composed of the states that are home to drug trafficking organiz
 
 _Benford’s Law was used as the expected distribution for the first digit of reported homicide rates.  Both homicide series failed the test_
 
-![Benford's law](http://imgur.com/M7IMP.png)
+![Benford's law](http://imgur.com/1AIZV.png)
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -64,24 +64,28 @@ _In Mexico there are two ways to measure the number of homicides: 1) Police Data
 
 _read the file readme.md in the directory [missing-homicides](http://github.com/diegovalle/Homicide-MX-Drug-War/tree/master/missing-homicides/) to see why this happened_
 
-![Who's missing homicides?](http://imgur.com/ybq4G.png "Chihuahua is missing 1153 homicides")
+![Who's missing homicides?](http://imgur.com/OQgS2.png "Chihuahua is missing 1153 homicides")
 
 -------------------------------------------------------------------------------------------------------------------------
 
 _More generally there are some big differences in the reported homicides. But not enough to make them useless_
 
-![Differences in homicide rates](http://imgur.com/7uJOm.png)
+![Differences in homicide rates](http://imgur.com/kDPlZ.png)
 
 ------------------------------------------------------------------------------------------------------------------------------------
 __With the exception of Michoacan and Guerrero, when the army moved in, there was an increase in homicides__
 
 _Chihuahua didn't fare well_
 
-![Chihuahua](http://imgur.com/oaKOY.png)
+![Chihuahua](http://imgur.com/v5cAG.png)
+
+_Was Operation Sonora a success?_
+
+![Sonora](http://imgur.com/ymd2N.png)
 
 _Durango also didn't fare well_
 
-![Durango](http://imgur.com/G9Wh3.png)
+![Durango](http://imgur.com/R8fM9.png)
 
 _A similar thing happened in the rest of the states where the government sent in the army_
 
@@ -89,13 +93,13 @@ _A similar thing happened in the rest of the states where the government sent in
 
 _Annualized monthly homicide rates in Ciudad Juarez. The city turned into the most violent in the world after the army took control of it. Even rushing in reinforcements didn't return the murder rate to its former levels and after three months the bloodshed became even greater._
 
-![Ciudad Juarez](http://imgur.com/gPN45.png)
+![Ciudad Juarez](http://imgur.com/pO5tF.png)
 
 -------------------------------------------------------------------------------------------------------------
 
 Things will only get worse until a new equilibrium is reached by the drug traficking organizations
 
-![Homicide Rate](http://imgur.com/nuPiv.png)
+![Homicide Rate](http://imgur.com/WCWmI.png)
 
 
 
