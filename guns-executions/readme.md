@@ -16,8 +16,8 @@ __Mexican Homicide Data:__
 
 __Executions__
 
-[Drug Violence in Mexico Data and Analysis from 2001-2009](http://www.justiceinmexico.org/resources/pdf/drug_violence.pdf) by David A. Shirk: Figure 1. Drug-Related Killings in Mexico, 2001-2009. Sources: Data for 2001-2005 from Marcos Pablo Moloeznik, “Principales efectos de la militarización del
-combate al narcotráfico en México," in Renglones, No. 61, Sept. 2009-Mar. 2010, Guadalajara: Instituto
+[Drug Violence in Mexico Data and Analysis from 2001-2009](http://www.justiceinmexico.org/resources/pdf/drug_violence.pdf) by David A. Shirk: Figure 1. Drug-Related Killings in Mexico, 2001-2009. Sources: Data for 2001-2005 from Marcos Pablo Moloeznik, “[Principales efectos de la militarización del
+combate al narcotráfico en México](http://renglones.iteso.mx/upload/archivos/Marcos_Moloeznik.pdf)" in Renglones, No. 61, Sept. 2009-Mar. 2010, Guadalajara: Instituto
 Tecnológico y de Estudios Superiores de Occidente, A.C., 2009. Data for 2006-2009 compiled from
 Reforma in Justice In Mexico Project Narcobarometer Database (www.justiceinmexico.org).
 

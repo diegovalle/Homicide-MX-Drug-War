@@ -47,6 +47,7 @@ ggplot(exe, aes(Year, Firearm.Homicides / Homicides)) +
     scale_y_continuous(formatter = "percent")
 
 
+
 ############################################################
 #Small Multiples of Homicide and Homicide with Firearm Rates
 #############################################################
@@ -67,19 +68,49 @@ mstate$type <- factor(rep(c("Firearm\nHomicides", "Homicides"),
 mstate$variable <- rep(2000:2007, each = 31)
 
 mstate$type <- factor(mstate$type, levels = rev(levels(mstate$type)))
-correl <- function(df){
-    f <- subset(df, type == "Firearm\nHomicides")
-    h <- subset(df, type == "Homicides")
-    cor(f$value,h$value)[1]
-    #coef(summary(lm(f$value ~ h$value)))
+
+#Is the data cointegrated?
+unitRoot <- function(df){
+    f <- subset(df, type == "Firearm\nHomicides")$value
+    h <- subset(df, type == "Homicides")$value
+    reg <- lm(h ~ f)
+    ht <- adf.test(residuals(reg))
+    ht
 }
-mstate <- merge(mstate, ddply(mstate, .(State), correl), by = "State")
+#FFFFFFFFFFFFFFFCCCCCCCCC Chihuahua and Guerrero and Durango are coint
+dlply(mstate, .(State), unitRoot)
+
+#Simple error correction
+coint <- function(df){
+    f <- subset(df, type == "Firearm\nHomicides")$value
+    h <- subset(df, type == "Homicides")$value
+    coint.res <- residuals(lm(f ~ h))
+    coint.res <- coint.res[-c(7:8)]
+    dy1 <- diff(h)
+    dy2 <- diff(f)
+    diff.dat <- data.frame(embed(cbind(dy1, dy2), 2))
+    colnames(diff.dat) <- c("dy1", "dy2", "dy1.1", "dy2.1")
+    reg <- lm(dy2 ~ coint.res + dy1.1 + dy2.1, data = diff.dat)
+    print(df$State[1])
+    print(summary(reg))
+    reg
+}
+#Doesn't work :(
+dlply(mstate, .(State), coint)
+
+correl <- function(df){
+    f <- subset(df, type == "Firearm\nHomicides")$value
+    h <- subset(df, type == "Homicides")$value
+    cor(f, h)[1]
+}
+
+#mstate <- merge(mstate, ddply(mstate, .(State), correl), by = "State")
 mstate$State <- cleanNames(mstate, "State")
 mstate <- subset(mstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California","Michoacán", "Tamaulipas"))
-mstate$State <- paste(mstate$State,"-", round(mstate$V1,2))
+#mstate$State <- paste(mstate$State,"-", round(mstate$V1,2))
 
 
-mstate$State <- with(mstate, reorder(factor(State), -V1))
+#mstate$State <- with(mstate, reorder(factor(State), -V1))
 scale_color <- scale_colour
 print(ggplot(mstate, aes(variable, value,
                          color = type, group = type)) +
@@ -88,7 +119,7 @@ print(ggplot(mstate, aes(variable, value,
     ylab("Rate") + xlab("Year") +
     scale_x_continuous(breaks = c(2000, 2004, 2007),
                          labels = c("00","04", "07")) +
-    opts(title = "Homicides and Homicides with Firearm, ordered by correlation"))
+    opts(title = "Homicides and Homicides with Firearm"))
 dev.print(png, "guns-executions/output/homicides-firearm-st.png",
           width = 600, height = 400)
 
