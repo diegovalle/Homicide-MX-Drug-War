@@ -75,7 +75,7 @@ cleanPopINEGI <- function(filename, year, type = "Total") {
 }
 
 #Plot a map of the murder rate
-drawMap <- function(vector, title, breaks) {
+drawMap <- function(vector, title, breaks, text = NA) {
   plotvar<- unlist(vector)
   nclr <- 9
   plotclr <- brewer.pal(nclr,"Reds")
@@ -89,6 +89,8 @@ drawMap <- function(vector, title, breaks) {
   inter[1] <- "0"
   legend(3600000,2300000, legend=inter, #use axes=T to find the pos!
       fill=attr(colcode, "palette"), cex=1, bty="n")
+  if(!is.na(text))
+    text(700000, 580000, text, adj = c(0,1))
   par(bg='white')
 }
 
@@ -103,7 +105,7 @@ mergeMap <- function(df, year){
   map
 }
 
-savePlot <- function(df, year, breaks){
+savePlot <- function(df, year, text, breaks){
     name <- config$titles.ch
     map <- mergeMap(df, year)
     filename <- paste("choropleths/output/", name, ", ",
@@ -111,9 +113,8 @@ savePlot <- function(df, year, breaks){
     title <- paste(name, ", ", as.character(year), sep ="")
     Cairo(file = filename,
           width=960, height=600, type="png", bg="white")
-    print(drawMap(map$rate, title, breaks))
+    print(drawMap(map$rate, title, breaks, text))
     dev.off()
-    TRUE
 }
 
 #read the file with population data from 2006-2008
@@ -154,6 +155,63 @@ mergeHomPop <- function(hom, popm){
   rbind(hom.popm, hom.popm.ch)
 }
 
+ftext <- c(NA, NA, NA, NA, NA, NA)
+mtext <- c(
+#1990
+"1. Back in 1990 the southwest was the most violent area in Mexico.
+Michoacan had a higher homicide rate in 1990 than in 2006
+2. The Golden Triangle has always had a high homicide rate. Most
+cartel leaders have come Badiraguato (dark red). This has probably been
+the most violent municipality in Mexico over the last 20 years.",
+NA,
+
+#2000
+"Violence has significantly decreased in the southwest. The urban
+areas bordering the US are more violent.",
+
+#2005
+"1. The Sinaloa Cartel is battling the Gulf Cartel and the Zetas for
+control of Nuevo Laredo. The fiercest fighting takes place in 2005
+and the first half of 2006.
+2. A mysterious new cartel preaching Muscular Christianity and
+choping heads off starts operating in Michoacan.",
+
+#2006
+"1. The Sinaloa Cartel fails to defeat the Zetas in Nuevo Laredo.
+2. In the home state of the President of Mexico, Michoacan, a new
+cartel called La Familia officialy splinters off from the Zetas
+sparking a surge in homicides. Starting December 11, soon after a
+contentious election, the President sends in the army.",
+
+#2007
+"There seems to be some success in fighting La Familia in Michoacan
+and the Beltran Leyvas in Guerrero. Althought the number and violence
+involved in executions has increased, Mexico has the lowest homicide
+rate on record.",
+
+#2008
+"1. Arturo Beltran Leyva is captured. The remaining Beltran Leyvas
+accuse the leader of the Sinaloa Cartel of tipping off the government,
+sparking an inter-cartel war in Guerrero and Michoacan.
+2. The Sinaloa Cartel starts a turf war to defeat the Juarez Cartel.
+3. Eduardo Arellano Felix of the Tijuana Cartel is captured.")
+
+#2009
+"The war between the sinaloa and juarez cartels intensifies"
+
+#2010
+"Though it hasn't completly defeated the Juarez Cartel, the Sinaloa
+Cartel is now firmly established in Juarez. Seeing the writing on the
+wall the Gulf Cartel allies itself with the Sinaloa Cartel and La
+Familia to take out the Zetas, sparking a surge in violence in Nuevo
+León and Tamaulipas"
+
+#2011?
+"After having defeated the Zetas and the Juarez Cartel, the Sinaloa
+Cartel goes after the only remaining cartel in Tijuana"
+
+
+
 #For memory reasons these are global variables
 #County map
 mexico.ct.shp <- readShapePoly(map.inegi.ct,
@@ -168,10 +226,12 @@ if(config$sex == "Female"){
   type <- "Mujer"
   config$titles.ch <- config$choropleths$ftitle.ch
   breaks <- c(0,0.05,1,2,3,4,5,10,20,Inf)
+  text <- ftext
 } else {
   type <- "Total"
   config$titles.ch <- config$choropleths$mtitle.ch
-   breaks <- c(0,0.1,3,6,12,20,40,60,80,Inf)
+  breaks <- c(0,0.1,3,6,12,20,40,60,80,Inf)
+  text <- mtext
 }
 
 #################################################################
@@ -184,6 +244,5 @@ hom.popm <- mergeHomPop(hom, popm)
 ########################################################
 #Draw choropleths of Mexico
 ########################################################
-sapply(c(1990,1995,2000, 2005:2008), savePlot, breaks = breaks,
-       df = hom.popm)
-
+mapply(savePlot, c(1990,1995,2000, 2005:2008), text,
+       MoreArgs = list(breaks = breaks, df = hom.popm))
