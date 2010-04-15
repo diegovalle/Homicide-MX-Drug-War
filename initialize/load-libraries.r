@@ -1,3 +1,4 @@
+library(fUnitRoots)
 library(ggplot2)
 library(Hmisc)
 library(maptools)
@@ -12,3 +13,5 @@ library(car)
 library(directlabels)
 library(strucchange)
 library(xtable)
+library(tseries)
+
