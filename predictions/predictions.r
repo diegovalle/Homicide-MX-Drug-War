@@ -163,6 +163,7 @@ exe$Executions <- (exe$Reforma + exe$Milenio) /2
 reg <- regM(homrate, exe, saveplot = TRUE)
 #plot(reg)
 durbin.watson(reg)
+adf.test(residuals(reg))
 
 k2009.rate <- predict09(reg)
 print(round(k2009.rate,1))
