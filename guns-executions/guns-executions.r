@@ -16,7 +16,7 @@ exe <- read.csv("guns-executions/data/firearm-executions.csv")
 
 #Average the data from Reforma and Milenio
 exe$Executions[2:6] <- exe$Renglones[2:6]
-exe$Executions[7] <- exe$Reforma[7]
+exe$Executions[7] <- (exe$Reforma[7] + exe$Renglones[7]) / 2
 exe$Executions[8:10] <- (exe$Reforma[8:10] + exe$Milenio[8:10]) / 2
 exe <- exe[,1:4]
 
@@ -80,20 +80,21 @@ unitRoot <- function(df){
 #FFFFFFFFFFFFFFFCCCCCCCCC Chihuahua and Guerrero and Durango are coint
 dlply(mstate, .(State), unitRoot)
 
-#Simple error correction
+#Simple error correction, with eight samples per state there's not much
+#info
 coint <- function(df){
     f <- subset(df, type == "Firearm\nHomicides")$value
     h <- subset(df, type == "Homicides")$value
-    coint.res <- residuals(lm(f ~ h))
+    coint.res <- residuals(lm(h ~ f))
     coint.res <- coint.res[-c(7:8)]
-    dy1 <- diff(h)
-    dy2 <- diff(f)
-    diff.dat <- data.frame(embed(cbind(dy1, dy2), 2))
-    colnames(diff.dat) <- c("dy1", "dy2", "dy1.1", "dy2.1")
-    reg <- lm(dy2 ~ coint.res + dy1.1 + dy2.1, data = diff.dat)
-    print(df$State[1])
+    d_h <- diff(h)
+    d_f <- diff(f)
+    diff.dat <- data.frame(embed(cbind(d_h, d_f), 2))
+    colnames(diff.dat) <- c("d_h", "d_f", "d_h.1", "d_f.1")
+    reg <- lm(d_h ~ coint.res + d_h.1 + d_f.1, data = diff.dat)
+    print(df$State)
     print(summary(reg))
-    reg
+    print(plot(coint.res), type = "l")
 }
 #Doesn't work :(
 dlply(mstate, .(State), coint)

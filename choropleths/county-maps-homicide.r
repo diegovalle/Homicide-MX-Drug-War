@@ -3,7 +3,7 @@
 #####       Website: www.diegovalle.net
 #####       Date Created: Sun Jan 24 19:33:22 2010
 ########################################################
-#Maps of the homicide rate by county according to the INEGI
+#Choropleths of the homicide rate by county according to the INEGI
 #data source: Estadísticas Vitales INEGI
 
 
@@ -161,8 +161,8 @@ mtext <- c(
 "1. Back in 1990 the southwest was the most violent area in Mexico.
 Michoacan had a higher homicide rate in 1990 than in 2006
 2. The Golden Triangle has always had a high homicide rate. Most
-cartel leaders have come Badiraguato (dark red). This has probably been
-the most violent municipality in Mexico over the last 20 years.",
+cartel leaders have come from Badiraguato (dark red). This has
+probably been the most violent municipality over the last 20 years.",
 NA,
 
 #2000
@@ -246,3 +246,5 @@ hom.popm <- mergeHomPop(hom, popm)
 ########################################################
 mapply(savePlot, c(1990,1995,2000, 2005:2008), text,
        MoreArgs = list(breaks = breaks, df = hom.popm))
+#draw.circle(0,0,100,col="#ffccff50")
+#text(20,20,"1")
