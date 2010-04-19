@@ -12,10 +12,10 @@ plotReg <- function(df){
   hom.ts <- ts(df$rate, start=1990, freq = 12)
   trend = time(hom.ts)
   ndays <- strptime(df$date, format = "%Y-%m-%d")$mday
-  reg <- glm(rate ~ 0 + trend + factor(year) + factor(month) +
+  reg <- glm(rate ~ trend + factor(month) + ndays, data = df)
+  reg2 <- glm(rate ~ trend + factor(year) + factor(month) +
             ndays, data = df)
-  reg2 <- glm(rate ~ 0 + trend + factor(year) + ndays, data = df)
-  reg3 <- glm(rate ~ 0 + trend + ndays, data = df)
+  reg3 <- glm(rate ~ trend + ndays, data = df)
   print(anova(reg, reg2))
   print(summary(reg))
   print(summary(reg2))
