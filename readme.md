@@ -138,6 +138,9 @@ In the directories you'll find:
 * states: Pretty plots and choropleths of the homicide rate at the state level
 * trends: Seasonal and trend decomposition of the monthly homicide rates since 1990
 * predictions: My predictions on what the homicide rate will be like in 2009 and 2010
+* CIEISP: The original data from the CIEISP format the SNSP uses to collect homicide data from each state police agency
+* INEGIvsSNSP: A comparison of the homice data from the police and vital statistics from 1997 to 2008
+* guns executions: Statistics on homicides, homicides with firearm and executions
 
 Each directory contains its own readme so you may want to look at them
 
@@ -205,6 +208,18 @@ missing-homicides
 drugs:
 
 * Correlations between drug use and homicides
+
+CIEISP
+
+* The original data from the SNSP
+
+guns-executions
+
+* Statistics on homicides, homicides with firearm and executions
+
+predictions
+
+* What will the homicide rates be in 2009 and 2010
 
 Notes
 -----

@@ -155,6 +155,9 @@ homrate <- addTrend(homrate)
 
 #The predictions
 exe <- read.csv("predictions/data/executions-bymonth.csv")
+ggplot(exe, aes(1:39, Milenio)) +
+    geom_line(color = "blue") +
+    geom_line(aes(1:39, Reforma), color = "red")
 exe$diff <- exe$Reforma - exe$Milenio
 #I couldn't find the data for March so here's and estimated
 exe$Reforma[39] <- exe$Milenio[39] + mean(exe$diff[32:38])
