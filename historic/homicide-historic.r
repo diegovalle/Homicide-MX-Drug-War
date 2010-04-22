@@ -82,7 +82,9 @@ homicideEW <- c(0.73, 0.74, 0.68, 0.7, 0.83, 0.83, 0.8, 1.07,
 hom <- read.csv("accidents-homicides-suicides/output/homicide.csv")
 homicideMX <- hom$rate
 #From the World Bank: Mexico 1980-1990
-#c(11866,12485	12258	11819	14453	15497	15358	14810	14934)
+#h <- c(11866,12485,	12258,	11819,	14453,	15497,	15358,	14810,	14934)
+#pop <- c(68645759, 70417326, 72164243, 73889573, 75596381, 77287730, 78966685, 80636309, 82299665)
+#(h/pop)*100000
 
 #brazil 1990-1999
 #http://www.paho.org/english/hcp/hcn/vio/violence-graphs.htm
