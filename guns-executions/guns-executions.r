@@ -134,6 +134,17 @@ pstate$State <- state$State
 mpstate <- melt(pstate, id = "State")
 mpstate$variable <- rep(2000:2007, each = 31)
 mpstate$State <- factor(cleanNames(mpstate, "State"))
+print(ggplot(mpstate, aes(variable, value)) +
+    geom_line() +
+    facet_wrap(~ State, scales = "free_y") +
+    ylab("Proportion") + xlab("Year") +
+    scale_x_continuous(breaks = c(2000, 2004, 2007),
+                         labels = c("00","04", "07")) +
+    scale_y_continuous(formatter = "percent") +
+    stat_smooth(method = lm, se = FALSE) +
+    opts(title = "Proportion of Homicides commited with a Firearm"))
+dev.print(png, "guns-executions/output/homicides-firearm-st-p2005.png",
+          width = 960, height = 600)
 mpstate <- subset(mpstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California","Michoacán", "Tamaulipas"))
 m <- function(df){
     lm(df$variable ~ df$value)$coef[2]
