@@ -154,10 +154,10 @@ createPlot <- function(df.pop, operations, title = "", method) {
 }
 
 breaks <- function(df, brks, h, ll){
-  #rate <- ts(df$rate, start=2005, freq=12)
-  #fd <- Fstats(rate ~ 1)
   ndays <- strptime(df$Date, format = "%Y-%m-%d")$mday
-  bp.mun <- breakpoints(df$rate ~ 0 + ndays, h)
+  rate <- ts(df$rate, start=2005, freq=12)
+  #fd <- Fstats(rate ~ 1)
+  bp.mun <- breakpoints(rate ~ ndays, h)
   x <- confint(bp.mun, breaks = brks)
   data.frame(x$confint)
 }
@@ -219,7 +219,7 @@ ll.bcn <- list("Joint Operation Tijuana" = op.tij,
 savePlot(bcn.df, ll.bcn,
          "Baja California - Homicide Rates and Military Operations",
           file = "timelines/output/Baja California.png")
-report.ll$bcn <- findbreaks(bcn.df, h = 2, ll = ll.bcn)
+report.ll$bcn <- findbreaks(bcn.df, h = 3, ll = ll.bcn)
 
 
 

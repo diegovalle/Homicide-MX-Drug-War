@@ -112,10 +112,11 @@ dev.off()
 rate <- ts(cdj$rate, start=2007, freq=12)
 ndays <- strptime(cdj$Date, format = "%Y-%m-%d")$mday
 
-fd <- Fstats(rate ~ 1 + ndays)
-sctest(rate ~ 1 + ndays, type = "Chow", point = 15)
+fd <- Fstats(rate ~ ndays)
+sctest(rate ~ ndays, type = "Chow", point = 15)
 
 op.chi
 cdj.rein
-bp.cdj <- breakpoints(rate ~ 1 + ndays, h = 4, breaks = 3)
+summary(glm(rate ~ ndays))
+bp.cdj <- breakpoints(rate ~ ndays, h = 4, breaks = 2)
 confint(bp.cdj, breaks = 3)

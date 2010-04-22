@@ -1,6 +1,6 @@
 \documentclass[a4paper]{article}
 
-\title{Structural Change}
+\title{Structural Change in Homicide Rates}
 \author{Diego Valle-Jones}
 
 \usepackage{longtable}
@@ -16,10 +16,10 @@ regressions of the homicide rates to see if the different military
 operations caused it to increase.
 
 \begin{verbatim}
-breakpoints(rate ~ 1 + ndays)
+breakpoints(rate ~ ndays)
 \end{verbatim}
 
-where rate is the homicide rate, and ndays are the number of days in the month
+where rate is the homicide rate, and ndays are the number of days in each month
 
 In the tables below, lower refers to the lower confidence interval, and
 upper refers to the upper confidence interval
@@ -48,7 +48,7 @@ Municipalities with more than a 100,000 thousand people:
 printTable(report.ll$mich)
 @
 
-The cluster of municipalities near the pacific coast and the Tierra
+The cluster of municipalities near the Pacific Coast and the Tierra
 Caliente that have a very high homicide rate:
 
 <<results=tex,echo=FALSE>>=
