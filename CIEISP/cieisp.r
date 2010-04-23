@@ -40,12 +40,13 @@ dev.print(png, "CIEISP/output/Homicides02-08.png", width = 960,
           height = 600)
 
 
-print(ggplot(hom, aes(as.Date(date), HDAF, group = Entidad)) +
+print(ggplot(hom, aes(as.Date(date), HDAF / THD, group = Entidad)) +
     geom_line() +
     scale_x_date() +
+    scale_y_continuous(formatter = "percent") +
     facet_wrap(~ Entidad, scale = "free_y") +
     opts(axis.text.x=theme_text(angle=60, hjust=1.2 )) +
-    opts(title = "Monthly Number of Firearm Homicides (based on SNSP data)"))
+    opts(title = "Firearm Homicides as a percentage of total homicides(based on SNSP data)"))
 dev.print(png, "CIEISP/output/HomicidesGuns02-08.png", width = 960,
           height = 600)
 
@@ -103,7 +104,7 @@ print(ggplot(cie.ine, aes(as.Date(date), THD)) +
     xlab("Year") + ylab("Number of homicides") +
     opts(title = "INEGI (red) vs. SNSP (blue) Monthly Number of Homicides (Jan 2006 - Nov 2008)") +
     opts(axis.text.x=theme_text(angle=60, hjust=1.2 )))
-dev.print(png, "CIEISP/output/TwoHomicides02-07.png", width = 960,
+dev.print(png, "CIEISP/output/TwoHomicides02-08.png", width = 960,
           height = 600)
 
 hom2 <- addMonths(hom2)
