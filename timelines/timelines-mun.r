@@ -296,6 +296,16 @@ savePlot(sin.df, ll.sin,
          file = "timelines/output/Sinaloa.png", height=700)
 report.ll$sin <- findbreaks(sin.df, 1, ll = ll.sin)
 
+#Municipalities in Sinaloa with a high homicide rate
+muni <-  c("Badiraguato", "Sinaloa", "Mocorito", "Cosalá",
+           "San Ignacio")
+sin.int.df <- getData(hom, pop, sinaloa, 0, muni)
+savePlot(sin.int.df, ll.sin,
+         "Sinaloa - Municipalities with a high homicide rate",
+         file = "timelines/output/Sinaloa-interstng.png", height=900)
+report.ll$sin.int <- findbreaks(sin.int.df, 1, ll = ll.sin)
+
+
 #Durango
 dur.df <- getData(hom, pop, durango, popsize)
 ll.dur <- list("Joint Operation Triangulo Dorado" = op.tria.dor,
@@ -305,7 +315,15 @@ savePlot(dur.df, ll.dur,
          file = "timelines/output/Durango.png")
 report.ll$dur <- findbreaks(dur.df, 1, ll = ll.dur)
 
-
+#Municpalities in Durango with a high murder rate
+muni <- c("Súchil", "Mezquital", "Pueblo Nuevo", "San Dimas",
+          "Vicente Guerrero", "Poanas", "Guanaceví", "Tepehuanes",
+          "Ocampo", "El Oro")
+dur.int.df <- getData(hom, pop, durango, 0, muni)
+savePlot(dur.int.df, ll.dur,
+         "Durango - Municipalities with a high homicide rate",
+         file = "timelines/output/Durango-interstng.png", height = 900)
+report.ll$dur.int <- findbreaks(dur.int.df, 1, ll = ll.dur)
 
 #The data for Oaxaca and Guerrero are in another file
 hom <- read.csv(bzfile("timelines/data/county-month-gue-oax.csv.bz2"))

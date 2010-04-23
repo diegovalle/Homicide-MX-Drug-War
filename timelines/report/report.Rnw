@@ -98,6 +98,11 @@ Municipalities with more than a 100,000 thousand people:
 printTable(report.ll$dur)
 @
 
+These are the municpalities with a high homicide rate:
+<<results=tex,echo=FALSE>>=
+printTable(report.ll$dur.int)
+@
+
 
 \section{Sonora}
 
@@ -114,6 +119,12 @@ Municipalities with more than a 100,000 thousand people:
 
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$sin)
+@
+
+Municipalities with a high homicide rate:
+
+<<results=tex,echo=FALSE>>=
+printTable(report.ll$sin.int)
 @
 
 

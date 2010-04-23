@@ -7,7 +7,7 @@ Summary
 
 * From 2007 to 2008 there was a 65% increase in the homicide rate
 * While homicides have increased greatly, most of the increase has been concentrated in the states controlled by drug cartels. Though rising rapidly, the overall homicide rate in Mexico in 2008 was about half that of Brazil.
-* In Mexico there are two sources of homicide data, police records (SNSP) and the vital statistics system (INEGI). Not surprisingly for a corrupt country like Mexico both series fail to follow Benford's law. A close look a the data reveals that:
+* In Mexico there are two sources of homicide data, police records (SNSP) and the vital statistics system (INEGI). Not surprisingly both series fail to follow Benford's law. A close look a the data reveals that:
     * The police records in 2008 are missing more than a thousand homicides in Chihuahua! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024), more than the 1,414 reported in the whole state according to police records.
     * The [Acteal massacre](http://en.wikipedia.org/wiki/Acteal_massacre) of 45 Indians in Chiapas is missing from the vital statistics database. According to the INEGI there were only 2 deaths during December 1997 in the municipality of Chenalhó.
 * There’s evidence that sending the army to fight the drug cartels has increased the homicide rate.
@@ -157,7 +157,7 @@ Website of the INEGI: [Statistical Yearbooks](http://www.inegi.org.mx/est/conten
 
 __Population:__
 
-[census data](http://www.inegi.org.mx/inegi/default.aspx?c=9260&s=est) for the years 1990, 1995, 2000 at the county level. 
+[census data](http://www.inegi.org.mx/inegi/default.aspx?c=9260&s=est) for the years 1990, 1995, 2000 at the county level.
 
 [CONAPO](http://conapo.gob.mx/index.php?option=com_content&view=article&id=125&Itemid=203)
 for population estimates at the national level (1990-2030), state level (1990-2030) and county level(2005-2030).
