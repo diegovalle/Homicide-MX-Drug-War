@@ -90,12 +90,12 @@ ggplot(cie.ine, aes(as.Date(date), Total.Murders - THD)) +
 
 
 mad <- function(Total.Murders, THD){
-    sum(abs(Total.Murders - THD)) / (sum(Total.Murders, THD) / 2)
+    var(Total.Murders - THD)
 }
 
 cie.ine <- ddply(cie.ine, .(County), transform,
                  cor = mad(Total.Murders, THD))
-cie.ine$County <- reorder(factor(cie.ine$County), cie.ine$cor)
+cie.ine$County <- reorder(factor(cie.ine$County), -cie.ine$cor)
 print(ggplot(cie.ine, aes(as.Date(date), THD)) +
     geom_line(color = "blue") +
     geom_line(aes(as.Date(date), Total.Murders), color = "red") +
