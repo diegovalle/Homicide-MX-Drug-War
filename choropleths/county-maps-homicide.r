@@ -174,18 +174,18 @@ areas bordering the US are more violent.",
 control of Nuevo Laredo. The fiercest fighting takes place in 2005
 and the first half of 2006.
 2. A mysterious new cartel preaching Muscular Christianity and
-choping heads off starts operating in Michoacan.",
+chopping heads off starts operating in Michoacan.",
 
 #2006
 "1. The Sinaloa Cartel fails to defeat the Zetas in Nuevo Laredo.
 2. In the home state of the President of Mexico, Michoacan, a new
-cartel called La Familia officialy splinters off from the Zetas
+cartel called La Familia officially splinters off from the Zetas
 sparking a surge in homicides. Starting December 11, soon after a
 contentious election, the President sends in the army.",
 
 #2007
 "There seems to be some success in fighting La Familia in Michoacan
-and the Beltran Leyvas in Guerrero. Althought the number and violence
+and the Beltran Leyvas in Guerrero. Although the number and violence
 involved in executions has increased, Mexico has the lowest homicide
 rate on record.",
 
@@ -209,7 +209,7 @@ León and Tamaulipas"
 #2011?
 "After having defeated the Zetas and the Juarez Cartel, the Sinaloa
 Cartel goes after the only remaining cartel in Tijuana"
-
+mtext <- c(NA, NA, NA, NA, NA, NA)
 
 
 #For memory reasons these are global variables
