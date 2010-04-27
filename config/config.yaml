@@ -4,15 +4,13 @@
 # Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)
 # Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)
 maps:
-    #Change to were you downloaded the map from the ICESI
-    map.icesi: "../../maps/Mexico.shp"  
     #Change to the location of the INEGI maps
-    map.inegi.ct: "../../maps/3.1.1/MUNICIPIOS.shp"
-    map.inegi.st: "../../maps/3.1.1/ESTADOS.shp"
+    map.inegi.ct: "maps/MUNICIPIOS.shp"
+    map.inegi.st: "maps/ESTADOS.shp"
 
 #Can be Total or Female
 sex: Total
-    
+
 states:
     year: 2008 #change to the year you want
     year1: 2006 #The first year for the difference barplot
@@ -23,7 +21,7 @@ states:
     ftitle.barplot: Femicide Rates in Mexico -
     mtitle.bardiff: Change in Mexican Homicide Rates (
     ftitle.bardiff: Change in Mexican Femicide Rates (
-    
+
 choropleths:
     mtitle.ch: Homicide rate by municipality
     ftitles.chf: Femicide rate by municipality
