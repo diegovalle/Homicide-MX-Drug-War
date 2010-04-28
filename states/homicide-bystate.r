@@ -93,12 +93,15 @@ barPlot <- function(hom2008, year="") {
 
 #We need to order the variables by name to match them with the map
 mapOrder <- function(df, varname = "County.x"){
-  df$County <- iconv(df[[varname]], "", "ASCII")
-  df$County <- cleanNames(df)
+  df2 <- df
+  #df$County <- iconv(df[[varname]], "", "ASCII", "")
+  df$County <- cleanNames(df, varname)
   #Why doesnt this work for Michoac!An, I cheated and used the state
   #number as the no.match value. rrrrrrrgh!!!!!!!!!!!!!!
-  df$Code <- pmatch(df$County, mexico.shp$NAME, 16)
-  df.merge <- merge(data.frame(mexico.shp$NAME, Code = 1:32),
+  df$Code <- pmatch(df$County, mexico.shp$NAME_1, 16)
+  #df <- df2[order(df$County),]
+  #df$Code <- 1:32
+  df.merge <- merge(data.frame(mexico.shp$NAME_1, Code = 1:32),
                     df, by="Code", all.x = TRUE)
   df.merge
 }
@@ -272,9 +275,7 @@ dev.print(png, file = "states/output/2008-homicide-bars.png",
 ########################################################
 #Map with the homicide rate in 2008
 ########################################################
-mexico.shp <- readShapePoly(map.icesi,
-                            IDvar = "NAME",
-                            proj4string = CRS("+proj=longlat"))
+load("maps/map_mx.RData") #load mexico.shp
 
 hom.year.map <- mapOrder(hom.year, "County")
 

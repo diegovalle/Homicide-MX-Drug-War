@@ -23,6 +23,6 @@ source("drugs/druguse.r")
 source("most-violent-counties/most-violent.r")
 source("timelines/timelines-mun.r")
 source("timelines/ciudad-juarez.r")
-#You need the maps for the next lines
 source("states/homicide-bystate.r")
+#You need the maps for the next lines
 source("choropleths/county-maps-homicide.r")

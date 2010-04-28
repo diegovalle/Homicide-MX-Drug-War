@@ -105,14 +105,13 @@ Things will only get worse until a new equilibrium is reached by the drug trafic
 
 Requirements
 ------------
-*    You'll need to download a map of Mexico from the [ICESI](http://www.icesi.org.mx/estadisticas/estadisticas_encuestasTablas.asp) (Control-f xico and download the zip file)
-*    You'll also need to download two maps of Mexico at the state and county level from the [INEGI](http://mapserver.inegi.org.mx/data/mgm/). (Note: you have to register to download them. Registration is free.). They have to be version 3.1.1 or they won't work
+*    You'll need to download two maps of Mexico at the state and county level from the [INEGI](http://mapserver.inegi.org.mx/data/mgm/). (Note: you have to register to download them. Registration is free). They have to be version 3.1.1 or they won't work
 
     [Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=ESTADOS311)
 
     [Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=MUNICIPIOS311)
 
-*    Edit the file "config/config.yaml" with the locations of the maps you downloaded
+*    Unzip both files to the "maps" subdirectory
 *    Imagemagick if you want to merge the state level homicide rate maps with the bar plots
 
 To Run
@@ -224,6 +223,9 @@ predictions
 Notes
 -----
 Where possible I tried using the official mid-year population estimates from the CONAPO, but for some of the choropleths (1990, 1995 and 2000) I used census data at the county level.
+
+The state map of Mexico was downloaded from [GADM database of Global Administrative Areas[(http://www.gadm.org/Mexico) and simplified with
+[MapShaper](http://mapshaper.com/test/demo.html)
 
 Author
 -----

@@ -5,13 +5,6 @@
 * If you run combine.bat you get a merged chart of the bar plots and maps
 * A small multiples chart with the murder rate of each state from 1990 to 2008
 
-ToDo:
-----
-fix the iconv function which for some reason converts Michoacán into
-Michoac!}n, maybe it's Emacs or whatever. I harcoded the state number
-belonging to Michoacán which is ugly.
-
-
 Sources
 ------
 __Homicide Data:__
