@@ -108,7 +108,7 @@ hom <- data.frame(year = c(kyears),
                                  NA)
                   )
 mhom <- melt(hom, id = c("year"))
-mhom <- subset(mhom, year >= 1990)
+mhom <- subset(mhom, year >= 1994)
 
 #International comparison
 Cairo(file = "historic/output/ew-mx-us-homicide.png", width=450)
@@ -116,7 +116,7 @@ p <- ggplot(data = mhom, aes(year, value, group = variable,
             color = variable))  +
   geom_line(size = 1) +
   labs(y = "Homicide rate",x="") +
-  opts (title = "Homicide rates in Brazil, Mexico, the US,\nand England and Wales (1990-2008)")
+  opts (title = "Homicide rates in Brazil, Mexico, the US,\nand England and Wales (1994-2008)")
 get.pos <-
   dl.indep(unique(transform(d,x = 2006, y = y[16]+1.2)))
 print(direct.label(p, get.pos))
@@ -126,10 +126,10 @@ dev.off()
 
 #line plot of the mexican homicide rate 1990-2008
 Cairo(file = "historic/output/homicide-mx-1990-2008.png")
-print(ggplot(hom[hom$year >= 1990, ], aes(year, MX),
+print(ggplot(hom[hom$year >= 1994, ], aes(year, MX),
        ylab = "Homicide rate")   +
   geom_line(size = 1) +
-  opts(title = "Homicide rate in Mexico, 1990-2008 and 2009 (estimate)") +
+  opts(title = "Homicide rate in Mexico, 1994-2008 and 2009 (estimate)") +
   labs(y = "Homicide rate", x = "") +
   #Estimate for 2009. Based on a linear regression of the number of
   #executions in 2009 according to Reforma, and the fact that 2600

@@ -13,7 +13,8 @@ source("library/utilities.r")
 
 #############################################
 #String Constants
-kyears <- 1990:2008
+kyears.start <- 1994
+kyears <- kyears.start:2008
 #############################################3
 
 
@@ -25,7 +26,7 @@ cleanHom <- function(type="Total") {
   hom <- hom[grep(type, hom$Sex),]
   hom$Year.of.Murder <- as.numeric(as.numeric(gsub('[[:alpha:]]', '',
                                  hom$Year.of.Murder)))
-  hom <- subset(hom, Year.of.Murder >= 1990)
+  hom <- subset(hom, Year.of.Murder >= kyears.start)
   #Get rid of the commas in the numbers: 155,000 to 155000
   col2cvt <- 5:ncol(hom)
   hom[ ,col2cvt] <- lapply(hom[ ,col2cvt],
@@ -47,7 +48,7 @@ cleanPop <- function(type = "Total") {
 
 mergeHomPopYear <- function(hom, pop, year = 2008) {
   hom2008 <- merge(subset(hom, Year.of.Murder == year),
-                   pop[ ,c(1,year-1990+2,ncol(pop))],
+                   pop[ ,c(1,year-kyears.start+2,ncol(pop))],
                    by="Code", all.x = TRUE)
   names(hom2008)[ncol(hom) + 2] <- "popyear"
   #The per 100,000  murder rate
@@ -94,13 +95,8 @@ barPlot <- function(hom2008, year="") {
 #We need to order the variables by name to match them with the map
 mapOrder <- function(df, varname = "County.x"){
   df2 <- df
-  #df$County <- iconv(df[[varname]], "", "ASCII", "")
   df$County <- cleanNames(df, varname)
-  #Why doesnt this work for Michoac!An, I cheated and used the state
-  #number as the no.match value. rrrrrrrgh!!!!!!!!!!!!!!
-  df$Code <- pmatch(df$County, mexico.shp$NAME_1, 16)
-  #df <- df2[order(df$County),]
-  #df$Code <- 1:32
+  df$Code <- pmatch(df$County, mexico.shp$NAME_1)
   df.merge <- merge(data.frame(mexico.shp$NAME_1, Code = 1:32),
                     df, by="Code", all.x = TRUE)
   df.merge
@@ -124,12 +120,12 @@ getDiff <- function(hom, pop, year1, year2) {
         year1 <- temp
      }
   hom2008 <- merge(subset(hom, Year.of.Murder == year2),
-                   pop[ ,c(1,year2-1990+2,ncol(pop))],
+                   pop[ ,c(1,year2-kyears.start+2,ncol(pop))],
                    by="Code", all.x=T)
   names(hom2008)[ncol(hom)+2] <- "popyear2"
   hom2008$Rate2008 <- hom2008$Tot / hom2008[[ncol(hom)+2]] * 100000
   hom2006 <- merge(subset(hom, Year.of.Murder == year1),
-                   pop[ ,c(1,year1-1990+2,ncol(pop))],
+                   pop[ ,c(1,year1-kyears.start+2,ncol(pop))],
                    by="Code", all.x=T)
   names(hom2006)[ncol(hom)+2] <- "popyear1"
   hom2006$Rate2006 <- hom2006$Tot / hom2006[[ncol(hom)+2]] * 100000
@@ -220,7 +216,14 @@ cluster <- function(hom.mpop, nclusters){
         t, by = "Cluster")
   t <- t[,c(1,2,3)]
   hom.mpop <- merge(hom.mpop, t, by = "State")
-  hom.mpop$State <- reorder(hom.mpop$State, -hom.mpop$V1)
+  hom.mpop <- ddply(hom.mpop, .(State), transform,
+                    max = Rate[15])
+  hom.mpop$order <-
+      order(-hom.mpop$V1, -hom.mpop$max)
+  hom.mpop <- ddply(hom.mpop, .(State), transform,
+                    order = min(order))
+  #hom.mpop$order <- as.numeric(factor(hom.mpop$max))
+  hom.mpop$State <- reorder(hom.mpop$State, -hom.mpop$order)
   hom.mpop
 }
 
@@ -234,8 +237,8 @@ smallMultiples <- function(hom, pop, nclusters = 8){
                  scale="free_y") +
       labs(x = "", y = "Homicide Rate") +
       opts(title = config$title.sm) +
-      scale_x_continuous(breaks = c(1990, 2000, 2008),
-                         labels = c("90", "00", "08")) +
+      scale_x_continuous(breaks = c(kyears.start, 2000, 2008),
+                         labels = c("94", "00", "08")) +
       theme_bw() +
       geom_line(data = total.hom, aes(Year.of.Murder, Rate),
                 color="gray70", linetype = 2, size =.5) +
@@ -254,7 +257,7 @@ if(config$sex == "Female") {
   config$title.sm <- config$states$mtitle.sm
   config$title.bardiff <- config$states$mtitle.bardiff
   config$title.barplot <- config$states$mtitle.barplot
-  nclust <- 8
+  nclust <- 4
 }
 
 ##########################################################
@@ -262,7 +265,7 @@ if(config$sex == "Female") {
 ##########################################################
 hom <- cleanHom(type)
 pop <- cleanPop(type)
-
+pop$X1990 <- NULL;pop$X1991 <- NULL;pop$X1992 <- NULL;pop$X1993 <- NULL
 ########################################################
 #Barplot with the homicide rate in 2008
 ########################################################
@@ -306,11 +309,12 @@ dev.off()
 #Small Multiples of each state
 ########################################################
 #This is how you get anti-aliasing in R
-Cairo(file="states/output/1990-2008-homicide-small-multiples.png",
+Cairo(file="states/output/homicide-small-multiples.png",
       type="png", width=960, height=600)
 #If it's for females you might want to swith the number of
 #kmeans clusters to 4
 print(smallMultiples(hom, pop, nclust))
+nclust <- 5
 dev.off()
 
 

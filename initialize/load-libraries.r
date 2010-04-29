@@ -14,4 +14,7 @@ library(directlabels)
 library(strucchange)
 library(xtable)
 library(tseries)
+library(grDevices)
+library(shape)
+library(cluster)
 

@@ -12,11 +12,11 @@ maps:
 sex: Total
 
 states:
-    year: 2008 #change to the year you want
+    year: 2008 #change to the year you want in the barplot
     year1: 2006 #The first year for the difference barplot
     year2: 2008 #the second year
-    mtitle.sm: Mexican homicide rates 1990-2008, compared to the national average and grouped by similarity
-    ftitle.sm: Mexican femicide rates 1990-2008, compared to the national average and grouped by similarity
+    mtitle.sm: Mexican homicide rates by state, compared to the national average and grouped by similarity
+    ftitle.sm: Mexican femicide rates by state, compared to the national average and grouped by similarity
     mtitle.barplot: Homicide Rates in Mexico -
     ftitle.barplot: Femicide Rates in Mexico -
     mtitle.bardiff: Change in Mexican Homicide Rates (
