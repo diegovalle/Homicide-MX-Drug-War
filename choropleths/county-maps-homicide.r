@@ -79,18 +79,16 @@ drawMap <- function(vector, title, breaks, text = NA) {
   plotvar<- unlist(vector)
   nclr <- 9
   plotclr <- brewer.pal(nclr,"Reds")
-  class <- classIntervals(plotvar, nclr, style="fixed",
-                          fixedBreaks = breaks)
-  colcode <- findColours(class, plotclr)
+  fillRed <- colorRampPalette(plotclr)
+  plotvar[plotvar >= maxh] <- 99
+  colcode <- fillRed(maxh)[round(plotvar)+1]
   plot(mexico.ct.shp, col = colcode, lty = 0, border = "gray")
   plot(mexico.st.shp, add = TRUE, lwd=1, border = "gray30")
   title(main = title)
-  inter <- paste(names(attr(colcode, "table")),c("","",""))
-  inter[1] <- "0"
-  legend(3600000,2300000, legend=inter, #use axes=T to find the pos!
-      fill=attr(colcode, "palette"), cex=1, bty="n")
-  if(!is.na(text))
-    text(700000, 580000, text, adj = c(0,1))
+  colorlegend(posy = c(0.05,0.9), posx = c(0.9,0.92),
+              col = fillRed(100),
+              zlim=c(0, maxh), zval = breaks,
+              main = "homicides per\n100,000")
   par(bg='white')
 }
 
@@ -98,7 +96,9 @@ drawMap <- function(vector, title, breaks, text = NA) {
 #with the correct data
 mergeMap <- function(df, year){
   hom.popmX <- subset(df, Year.of.Murder == year)
-  mun.complete<-data.frame(CLAVE = mexico.ct.shp$CLAVE)
+  mun.complete<-data.frame(CLAVE = mexico.ct.shp$CLAVE,
+                           CVE_ENT = mexico.ct.shp$CVE_ENT,
+                           CVE_MUN = mexico.ct.shp$CVE_MUN)
   hom.popmX$CLAVE <- gsub(" ", "", hom.popmX$Code)
   map<-merge(mun.complete, hom.popmX, by = "CLAVE", all.x = TRUE)
   map$rate[is.na(map$rate)] <- 0
@@ -108,6 +108,7 @@ mergeMap <- function(df, year){
 savePlot <- function(df, year, text, breaks){
     name <- config$titles.ch
     map <- mergeMap(df, year)
+    write.csv(map, paste("map", year, ".csv", sep = ""))
     filename <- paste("choropleths/output/", name, ", ",
                       as.character(year), ".png", sep ="")
     title <- paste(name, ", ", as.character(year), sep ="")
@@ -156,14 +157,13 @@ mergeHomPop <- function(hom, popm){
 }
 
 ftext <- c(NA, NA, NA, NA, NA, NA)
-mtext <- c(
-#1990
-"1. Back in 1990 the southwest was the most violent area in Mexico.
-Michoacan had a higher homicide rate in 1990 than in 2006
+mtext <- c(NA,
+#1995
+"1. Back in 1995 the southwest was the most violent area in Mexico.
+Michoacan had a higher homicide rate in 1995 than in 2006
 2. The Golden Triangle has always had a high homicide rate. Most
 cartel leaders have come from Badiraguato (dark red). This has
 probably been the most violent municipality over the last 20 years.",
-NA,
 
 #2000
 "Violence has significantly decreased in the southwest. The urban
@@ -225,12 +225,14 @@ mexico.st.shp <- readShapePoly(map.inegi.st,
 if(config$sex == "Female"){
   type <- "Mujer"
   config$titles.ch <- config$choropleths$ftitle.ch
-  breaks <- c(0,0.05,1,2,3,4,5,10,20,Inf)
+  breaks <- c(0,1,2,3,4,5,10,20,Inf)
+  maxh <- 30
   text <- ftext
 } else {
   type <- "Total"
   config$titles.ch <- config$choropleths$mtitle.ch
-  breaks <- c(0,0.1,3,6,12,20,40,60,80,Inf)
+  breaks <- c(0,6,12,20,40,60,80,Inf)
+  maxh <- 100
   text <- mtext
 }
 
