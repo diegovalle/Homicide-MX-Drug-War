@@ -6,9 +6,6 @@
 #The homicide, suicide and accident rates according to the INEGI
 
 
-library(ggplot2)
-library(Cairo)
-
 #Data file with all homicides, suicides and accidents *registered* in Mexico in a given year
 #data source: Estadísticas Vitales INEGI
 
@@ -60,3 +57,29 @@ dev.off()
 Cairo(file="accidents-homicides-suicides/output/accident.png")
 print(plotDeaths(hom, "Accidente", "accident.csv"))
 dev.off()
+
+
+
+########################################################
+#There were a lot of murders registered with no year
+#of occurence before 1994
+########################################################
+ns <- read.csv(bzfile("accidents-homicides-suicides/data/accidents-homicides-suicides-bystate.csv.bz2"), skip=3)
+names(ns)[1:4] <- c("Code","State","Year","Type.of.Death")
+ns <- subset(ns, Type.of.Death == "Homicidio" &
+                 State != "Extranjero" & State == "Total" &
+                 Year == "No especificado" & Year !="Total")
+ns[is.na(ns)] <- 0
+print(qplot(1990:2008, unlist(ns[1,5:length(ns)]), geom = "line") +
+    xlab("Year Registered") +
+    ylab("Number of homicides without a year of occurrence") +
+    opts(title = "There were a lot of murders registered with no year of occurence before 1994"))
+dev.print(png, "accidents-homicides-suicides/output/noyear.png",
+          width = 600, height = 400)
+
+#bu state
+ns <- read.csv(bzfile("accidents-homicides-suicides/data/accidents-homicides-suicides-bystate.csv.bz2"), skip=3)
+names(ns)[1:4] <- c("Code","State","Year","Type.of.Death")
+ns <- subset(ns, Type.of.Death == "Homicidio" &
+                 State != "Extranjero" & State != "Total" &
+                 Year == "No especificado" & Year !="Total")
