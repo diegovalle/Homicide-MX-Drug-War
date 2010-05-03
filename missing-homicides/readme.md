@@ -69,6 +69,10 @@ Massacres
 
 [Reynosa prison riot](http://www.horacerotam.com/Not_interior1.asp?Id=NHCT22047&link=280):  October 2008, 21 dead. In the INEGI homicide database
 
+[Ensenada](http://articles.latimes.com/1998/sep/19/news/mn-24394): September 19, 1998, 18 dead. In the INEGI homidice database
+
+[24 dead outside Mexico City](http://www.nytimes.com/2008/09/14/world/americas/14mexico.html?_r=1): September 13, 2008, 24 dead. In the INEGI homicide database
+
 
 CodeBook:
 ---------

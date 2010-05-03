@@ -19,13 +19,13 @@ The Story in Charts
 
 _While the drug war met with some success at first, the homicide rate increased 65% between 2007 and 2008_
 
-![homicide rate in Mexico 1990-2009](http://imgur.com/scglO.png)
+![homicide rate in Mexico 1994-2009](http://imgur.com/UVhij.png)
 
 ------------------------------------------------------------------------------------------------------------------------
 
 _As you can see Mexico is pretty violent, but not as violent as Brazil—at least in 2008. See the last chart for an estimate for 2010_
 
-![International Comparison](http://imgur.com/Lw0xI.png)
+![International Comparison](http://imgur.com/1pjDU.png)
 
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ _Most of the violence is concentrated in the states home to the drug cartels._
 
 _Here's what it looks like at the municipality level. Keep in mind that the big municipalities tend to draw more attention because of their size, but they also tend to have low population densities_
 
-![Choropleth of homicide rates by municipality](http://imgur.com/ShYYZ.png)
+![Choropleth of homicide rates by municipality](http://imgur.com/RvNHM.png)
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ _There have been some big changes in homicide rates since the goverment declared
 
 _The top row is composed of the states that are home to drug trafficking organizations, though I would have preferred it if the kmeans clustering algorithm had classified Sonora instead of Nayarit with the narco-states. There were some big decreases in the homicide rates of the State of Mexico, Morelos, Oaxaca and Michoacan._
 
-![Homicide by State](http://imgur.com/JE2b2.png)
+![Homicide by State](http://imgur.com/0iTgo.png)
 
 -----------------------------------------------------------------------------------------------------------------------------------
 
@@ -194,7 +194,7 @@ states:
 * Maps and charts with the homicide rate at the state level
 * Maps and charts with the change in homicide rate from 2006 to 2008
 * If you run merge.bat you get a merged chart of the bar plots and maps
-* A small multiples chart with the murder rate of each state from 1990 to 2008
+* A small multiples chart with the murder rate of each state from 1994 to 2008
 
 Benford:
 

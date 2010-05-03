@@ -12,8 +12,9 @@
 source("library/utilities.r")
 
 #############################################
-#String Constants
-kyears.start <- 1994
+#Constants
+kyears.start <- 1990
+kyear.zoom <- 1994 #The data before 1994 is iffy
 kyears <- kyears.start:2008
 #############################################3
 
@@ -217,12 +218,8 @@ cluster <- function(hom.mpop, nclusters){
   t <- t[,c(1,2,3)]
   hom.mpop <- merge(hom.mpop, t, by = "State")
   hom.mpop <- ddply(hom.mpop, .(State), transform,
-                    max = Rate[15])
-  hom.mpop$order <-
-      order(-hom.mpop$V1, -hom.mpop$max)
-  hom.mpop <- ddply(hom.mpop, .(State), transform,
-                    order = min(order))
-  #hom.mpop$order <- as.numeric(factor(hom.mpop$max))
+                    max = Rate[length(Rate)])
+  hom.mpop$order <- hom.mpop$V1^3 + hom.mpop$max
   hom.mpop$State <- reorder(hom.mpop$State, -hom.mpop$order)
   hom.mpop
 }
@@ -237,12 +234,14 @@ smallMultiples <- function(hom, pop, nclusters = 8){
                  scale="free_y") +
       labs(x = "", y = "Homicide Rate") +
       opts(title = config$title.sm) +
-      scale_x_continuous(breaks = c(kyears.start, 2000, 2008),
-                         labels = c("94", "00", "08")) +
+      scale_x_continuous(breaks = seq(kyears.start, 2008, by = 4)) +
       theme_bw() +
       geom_line(data = total.hom, aes(Year.of.Murder, Rate),
                 color="gray70", linetype = 2, size =.5) +
-      opts(legend.position = "none")
+      opts(legend.position = "none") +
+      opts(axis.text.x=theme_text(angle=60, hjust=1.2 )) +
+      coord_cartesian(xlim = c(kyear.zoom, 2008))
+
 }
 
 
@@ -257,7 +256,7 @@ if(config$sex == "Female") {
   config$title.sm <- config$states$mtitle.sm
   config$title.bardiff <- config$states$mtitle.bardiff
   config$title.barplot <- config$states$mtitle.barplot
-  nclust <- 4
+  nclust <- 8
 }
 
 ##########################################################
@@ -265,7 +264,7 @@ if(config$sex == "Female") {
 ##########################################################
 hom <- cleanHom(type)
 pop <- cleanPop(type)
-pop$X1990 <- NULL;pop$X1991 <- NULL;pop$X1992 <- NULL;pop$X1993 <- NULL
+
 ########################################################
 #Barplot with the homicide rate in 2008
 ########################################################
@@ -311,12 +310,8 @@ dev.off()
 #This is how you get anti-aliasing in R
 Cairo(file="states/output/homicide-small-multiples.png",
       type="png", width=960, height=600)
-#If it's for females you might want to swith the number of
-#kmeans clusters to 4
 print(smallMultiples(hom, pop, nclust))
-nclust <- 5
 dev.off()
-
 
 #The graph for Chihuahua looks similar to the hockey stick
 #of global temperatures

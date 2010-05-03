@@ -15,6 +15,7 @@
 # Line plot of PAHO, UN, INEGI and ICESI homicide rates
 ########################################################
 homts <- read.csv("missing-homicides/data/PAHO-UN-INEGI-ICESI.csv")
+homts <- subset(homts, Year >= 1994)
 names(homts)[4] <- "SNSP"
 print(ggplot(melt(homts, id="Year"), aes(Year, value, group = variable,
                                    color = variable)) +
