@@ -80,13 +80,13 @@ drawMap <- function(vector, title, breaks, text = NA) {
   nclr <- 9
   plotclr <- brewer.pal(nclr,"Reds")
   fillRed <- colorRampPalette(plotclr)
-  plotvar[plotvar >= maxh] <- 99
-  colcode <- fillRed(maxh)[round(plotvar)+1]
+  plotvar[plotvar >= maxh] <- maxh -1
+  colcode <- fillRed(maxh)[round(plotvar) + 1]
   plot(mexico.ct.shp, col = colcode, lty = 0, border = "gray")
   plot(mexico.st.shp, add = TRUE, lwd=1, border = "gray30")
   title(main = title)
   colorlegend(posy = c(0.05,0.9), posx = c(0.9,0.92),
-              col = fillRed(100),
+              col = fillRed(maxh),
               zlim=c(0, maxh), zval = breaks,
               main = "homicides per\n100,000")
   par(bg='white')
@@ -108,7 +108,8 @@ mergeMap <- function(df, year){
 savePlot <- function(df, year, text, breaks){
     name <- config$titles.ch
     map <- mergeMap(df, year)
-    write.csv(map, paste("map", year, ".csv", sep = ""))
+    write.csv(map, paste("choropleths/output/map",
+              year, ".csv", sep = ""))
     filename <- paste("choropleths/output/", name, ", ",
                       as.character(year), ".png", sep ="")
     title <- paste(name, ", ", as.character(year), sep ="")
@@ -209,6 +210,7 @@ León and Tamaulipas"
 #2011?
 "After having defeated the Zetas and the Juarez Cartel, the Sinaloa
 Cartel goes after the only remaining cartel in Tijuana"
+#Not needed after all. Easier in Inkscape
 mtext <- c(NA, NA, NA, NA, NA, NA)
 
 
@@ -225,13 +227,13 @@ mexico.st.shp <- readShapePoly(map.inegi.st,
 if(config$sex == "Female"){
   type <- "Mujer"
   config$titles.ch <- config$choropleths$ftitle.ch
-  breaks <- c(0,1,2,3,4,5,10,20,Inf)
-  maxh <- 30
+  breaks <- c(0,5,10,Inf)
+  maxh <- 17
   text <- ftext
 } else {
   type <- "Total"
   config$titles.ch <- config$choropleths$mtitle.ch
-  breaks <- c(0,6,12,20,40,60,80,Inf)
+  breaks <- c(0,10,20,40,60,80,Inf)
   maxh <- 100
   text <- mtext
 }
