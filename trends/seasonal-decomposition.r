@@ -59,6 +59,7 @@ plotSeasonal <- function(df){
 hom <- read.csv(bzfile("timelines/data/county-month-gue-oax.csv.bz2"))
 hom <- cleanHom(hom)
 hom <- addMonths(hom)
+#hom <- subset(hom, Year.of.Murder >= 1994)
 
 
 #I can't see any clearcut paterns at the state level
@@ -99,7 +100,7 @@ print(ggplot(subset(hom, as.Date(Date) <= as.Date("1998/06/01") &
 pop <- monthlyPop()
 homrate <- addHom(hom, pop)
 homrate <- addTrend(homrate)
-#homrate <-  subset(homrate, year >= 2005)
+homrate <-  subset(homrate, year >= 1994)
 
 plotReg(homrate)
 dev.print(png, "trends/output/regression.png", width = 800,
