@@ -118,7 +118,7 @@ p <- ggplot(data = mhom, aes(year, value, group = variable,
   labs(y = "Homicide rate",x="") +
   opts (title = "Homicide rates in Brazil, Mexico, the US,\nand England and Wales (1994-2008)")
 get.pos <-
-  dl.indep(unique(transform(d,x = 2006, y = y[16]+1.2)))
+  dl.indep(unique(transform(d,x = 2006, y = y[length(x) - 4] + 1.5)))
 print(direct.label(p, get.pos))
 dev.off()
 
