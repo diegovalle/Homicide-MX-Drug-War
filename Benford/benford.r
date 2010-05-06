@@ -14,6 +14,7 @@ source("library/utilities.r")
 hom <- read.csv(bzfile("timelines/data/county-month-gue-oax.csv.bz2"))
 hom <- cleanHom(hom)
 hom <- addMonths(hom)
+hom <- subset(hom, Year.of.Murder >= 1994)
 
 ########################################################
 #See if the first digits of the monthly number of homicides
