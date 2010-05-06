@@ -140,6 +140,7 @@ mergeHomPop <- function(hom, popm){
   hom.popm$rate<- (hom.popm$tot / hom.popm$Population) *
                           100000
   hom.popm <- hom.popm[order(-hom.popm$rate),]
+  hom.popm$CLAVE <- as.character(hom.popm$CLAVE)
   #The municpalities in Oaxaca have changed since the CONAPO
   #released its population database, we have to merge them
   #by name. Hopefully their boundaries haven't changed much
@@ -154,6 +155,7 @@ mergeHomPop <- function(hom, popm){
   hom.popm.ch$County.y <- hom.popm.ch$County
   names(hom.popm.ch)[1] <- "County.x"
   names(hom.popm.ch)[25] <- "CLAVE"
+  hom.popm.ch$Code <- as.character(hom.popm.ch$CLAVE)
   rbind(hom.popm, hom.popm.ch)
 }
 
