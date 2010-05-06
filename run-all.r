@@ -10,6 +10,7 @@
 source("initialize/init.r")
 
 source("accidents-homicides-suicides/accidents-homicides-suicides.r")
+source("Benford/benford.r")
 source("guns-executions/guns-executions.r")
 source("trends/seasonal-decomposition.r")
 source("predictions/predictions.r")
@@ -18,7 +19,6 @@ source("missing-homicides/missing-homicides.r")
 source("missing-homicides/massacres.r")
 source("INEGIvsSNSP/inegi-vs-snsp.r")
 source("CIEISP/cieisp.r")
-source("Benford/benford.r")
 source("drugs/druguse.r")
 source("most-violent-counties/most-violent.r")
 source("timelines/timelines-mun.r")
@@ -26,3 +26,5 @@ source("timelines/ciudad-juarez.r")
 source("states/homicide-bystate.r")
 #You need the maps for the next line
 source("choropleths/county-maps-homicide.r")
+source("most-violent-counties/cities-mun.r")
+
