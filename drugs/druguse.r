@@ -7,8 +7,6 @@
 #Castañeda and Aguilar are right that an increase in drug use
 #hasn't increased violence
 
-library(ggplot2)
-library(car)
 
 drugs <- read.csv("drugs/data/druguse.csv")
 #The drug usage as a percetage
