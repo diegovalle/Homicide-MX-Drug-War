@@ -32,6 +32,9 @@ __Maps__
 *  [Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=MUNICIPIOS311)
 
 
+Alternatively you can download a simplified version of the maps from : [files.diegovalle.net](files.diegovalle.net) homicide-maps-3.1.1.zip 
+
+
 Notes:
 ------
 If you want choropleths of femicides set the variable sex in the file "config/config.yaml" to Female

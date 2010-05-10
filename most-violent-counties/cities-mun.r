@@ -62,15 +62,15 @@ plotCities <- function(cities, df) {
 lapply(list(south.center, north, border, vacation), plotCities, allmun)
 
 
-mun08 <- subset(allmun, Population >= 150000 &
+mun08 <- subset(allmun, Population >= 100000 &
                 Year.of.Murder == 2008)
 mun08 <- mun08[order(-mun08$rate),][1:20,]
 mun08$County.y <- factor(mun08$County.y)
 mun08$County.y <- reorder(mun08$County.y, mun08$rate)
 p <- ggplot(mun08, aes(County.y, rate)) +
-    geom_bar(stat = "identity") +
+    geom_point() +
     coord_flip() +
-    opts(title = "Most violent municipalities in 2008 (with more than 150,000 people)") +
+    opts(title = "Most violent municipalities in 2008 (with more than 100,000 people)") +
     ylab("Homicide rate") + xlab("")
 print(p)
 dev.print(png, "most-violent-counties/output/most-violent-2008.png",

@@ -114,6 +114,8 @@ Requirements
 *    Unzip both files to the "maps" subdirectory
 *    Imagemagick if you want to merge the state level homicide rate maps with the bar plots
 
+Alternatively you can download a simplified version of the maps from : [files.diegovalle.net](files.diegovalle.net) homicide-maps-3.1.1.zip
+
 To Run
 -------
 
