@@ -110,11 +110,12 @@ Requirements
     [Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=ESTADOS311)
 
     [Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=MUNICIPIOS311)
-
+    
 *    Unzip both files to the "maps" subdirectory
+*    Alternatively you can download a simplified version of the maps from : [files.diegovalle.net](http://files.diegovalle.net) homicide-maps-3.1.1.zip, just unzip them in the "maps" directory and you're done
 *    Imagemagick if you want to merge the state level homicide rate maps with the bar plots
 
-Alternatively you can download a simplified version of the maps from : [files.diegovalle.net](files.diegovalle.net) homicide-maps-3.1.1.zip
+
 
 To Run
 -------
@@ -226,7 +227,7 @@ Notes
 -----
 Where possible I tried using the official mid-year population estimates from the CONAPO, but for some of the choropleths (1990, 1995 and 2000) I used census data at the county level.
 
-The state map of Mexico was downloaded from [GADM database of Global Administrative Areas[(http://www.gadm.org/Mexico) and simplified with
+The state map of Mexico was downloaded from the [GADM database of Global Administrative Areas](http://www.gadm.org/Mexico) and simplified with
 [MapShaper](http://mapshaper.com/test/demo.html)
 
 Author

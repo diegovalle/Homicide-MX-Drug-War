@@ -132,10 +132,9 @@ printTable(report.ll$sin.int)
 \section{Tamaulipas}
 
 From the charts it looks like there were 2 breaks in the homicide
-rate, one corresponding to when ``El Chapo'' sent ``La barbie'' to take
-over the plaza in Nuevo Leon, and the other to when he realized he
-wasn't going to be able to take it over. Notice how the violence
-decreased about 5 months before the army arrived.
+rate, one corresponding to when ``El Chapo'' sent ``La Barbie'' to take
+over the plaza in Nuevo Laredo, and the other to when he realized he
+wasn't going to be able to take it over. 
 
 Municipalities with more than a 100,000 thousand people:
 
