@@ -112,7 +112,7 @@ Requirements
     [Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=MUNICIPIOS311)
     
 *    Unzip both files to the "maps" subdirectory
-*    Alternatively you can download a simplified version of the maps from : [files.diegovalle.net](http://files.diegovalle.net) homicide-maps-3.1.1.zip, just unzip them in the "maps" directory and you're done
+*    Alternatively you can download a simplified version of the maps from : [files.diegovalle.net](http://files.diegovalle.net) homicide-maps-3.1.1.zip, just unzip the file in the "maps" directory and you're done
 *    Imagemagick if you want to merge the state level homicide rate maps with the bar plots
 
 

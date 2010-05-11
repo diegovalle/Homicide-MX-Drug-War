@@ -17,13 +17,18 @@ border <- list("Nuevo Laredo" = " 28 027 ",
                "Nogales" = " 26 043 ",
                "Matamoros" = " 28 022 ",
                "Juárez" = " 08 037 ",
-               "Piedras Negras" = " 05 025 ")
+               "Piedras Negras" = " 05 025 ",
+               "Acuña" = " 05 002 ",
+               "Mexicali" = " 02 002 ")
 
 north <- list("Culiacán" = " 25 006 ",
            "Chihuahua" = " 08 019 ",
            "Durango" = " 10 005 ",
            "Mazatlán" = " 25 012 ",
-           "Ensenada" = " 02 001 ")
+           "Ensenada" = " 02 001 ",
+           "Torreón" = " 05 035 ",
+           "Saltillo" = " 05 030 ",
+           "Monterrey" = " 19 039 ")
 
 south.center <- list("Lázaro Cárdenas" = " 16 052 ",
                   "Toluca" = " 15 106 ",
