@@ -110,8 +110,7 @@ mstate$State <- cleanNames(mstate, "State")
 mstate <- subset(mstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California","Michoacán", "Tamaulipas"))
 #mstate$State <- paste(mstate$State,"-", round(mstate$V1,2))
 
-
-#mstate$State <- with(mstate, reorder(factor(State), -V1))
+#mstate$State <- with(mstate, reorder(factor(State), dif))
 scale_color <- scale_colour
 print(ggplot(mstate, aes(variable, value,
                          color = type, group = type)) +
@@ -134,6 +133,11 @@ pstate$State <- state$State
 mpstate <- melt(pstate, id = "State")
 mpstate$variable <- rep(2000:2007, each = 31)
 mpstate$State <- factor(cleanNames(mpstate, "State"))
+
+mpstate <- ddply(mpstate, .(State), transform,
+                 dif = value[5] - value[length(value)])
+
+mpstate$State <- reorder(mpstate$State, mpstate$dif)
 print(ggplot(mpstate, aes(variable, value)) +
     geom_line() +
     facet_wrap(~ State, scales = "free_y") +
@@ -142,9 +146,11 @@ print(ggplot(mpstate, aes(variable, value)) +
                          labels = c("00","04", "07")) +
     scale_y_continuous(formatter = "percent") +
     stat_smooth(method = lm, se = FALSE) +
-    opts(title = "Proportion of Homicides commited with a Firearm"))
+    opts(title = "Proportion of Homicides commited with a Firearm (ordered by difference in proportions from 2004 to 2007)"))
 dev.print(png, "guns-executions/output/homicides-firearm-st-p2005.png",
           width = 960, height = 600)
+
+
 mpstate <- subset(mpstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California","Michoacán", "Tamaulipas"))
 m <- function(df){
     lm(df$variable ~ df$value)$coef[2]

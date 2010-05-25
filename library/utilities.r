@@ -6,9 +6,11 @@
 #Shared functions
 
 #Group dates into intervals
-cutDates <- function(df, dates) {
-  vec <- c(df$Date[1], dates, df$Date[nrow(df)] + 1000)
-  cut(df$Date, vec)
+cutDates <- function(df, dates, hack = 0) {
+  DateMid <- as.Date(format(df$Date, "%Y%m15"),
+                              "%Y%m%d") + hack
+  vec <- c(DateMid[1], dates, DateMid[length(DateMid)] + 1000)
+  as.numeric(as.factor(cut(DateMid, vec)))
 }
 
 #Get rid of the full name of the states (eg: Veracruz de
@@ -19,9 +21,10 @@ cleanNames <- function(df, varname = "County"){
 }
 
 monthSeq <- function(st, len){
-  start <- as.Date(st)
-  next.mon <- seq(start, length = len, by='1 month')
-  next.mon - 1
+  #start <- as.Date(st)
+  #next.mon <- seq(start, length = len, by='1 month')
+  #next.mon - 1
+  seq(as.Date(st), length = len, by='1 month')
 }
 
 monthlyPop <- function() {
@@ -40,7 +43,7 @@ addHom <- function(df, pop) {
                          hom.st$Month.of.Murder),]
   pop$murders <- hom.st$V1
   pop$rate <- (pop$murders / pop$Monthly) * 100000 * 12
-  start <- as.Date("1990/2/01")
+  start <- as.Date("1990/01/15")
   next.mon <- seq(start, length = 12*19, by='1 month')
   period <- next.mon - 1
   pop$date <- period
@@ -75,9 +78,9 @@ cleanHom <-  function(df) {
 
 addMonths <- function(df){
   states <- unique(factor(df$County))
-  start <- as.Date("1990/2/01")
+  start <- as.Date("1990/1/15")
   next.mon <- seq(start, length=12*19, by='1 month')
-  period <- next.mon - 1
+  period <- next.mon
   dates.df <- data.frame(Date = factor(rep(period,
                                     each = 32)),
                          County = states)

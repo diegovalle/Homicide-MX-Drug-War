@@ -5,14 +5,14 @@ Homicides in Mexico have increased greatly since the government sent in the mili
 Summary
 --------
 
-* From 2007 to 2008 there was a 65% increase in the homicide rate
-* While homicides have increased greatly, most of the increase has been concentrated in the states controlled by drug cartels. Though rising rapidly, the overall homicide rate in Mexico in 2008 was about half that of Brazil.
-* In Mexico there are two sources of homicide data, police records (SNSP) and the vital statistics system (INEGI). Not surprisingly both series fail to follow Benford's law. A close look a the data reveals that:
-    * The police records in 2008 are missing more than a thousand homicides in Chihuahua! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than [1,600 homicides](http://www.reuters.com/article/idUSN08340024), more than the 1,414 reported in the whole state according to police records.
-    * The [Acteal massacre](http://en.wikipedia.org/wiki/Acteal_massacre) of 45 Indians in Chiapas is missing from the vital statistics database. According to the INEGI there were only 2 deaths during December 1997 in the municipality of Chenalhó.
-* There’s evidence that sending the army to fight the drug cartels has increased the homicide rate.
-* Since the army took control of Ciudad Juarez it has become the most violent city in the world.
-* Based on execution rates I predict the homicide rate for 2009 will be 15.5 (95% CI 14.8-16.1) and for 2010 it will be 19.5 (95% CI 18.4-20.7)
+* From 2007 to 2008 the homicide rate increased 65%
+* Most of the increase was concentrated in the states the drug cartels are based in or which they are disputing
+* In Mexico there are two sources of homicide data: Police records (provided by the SNSP), and the vital statistics system (provided by the INEGI). Not surprisingly both series fail to follow Benford's law. A closer look a the data reveals that:
+    * The police records in 2008 are missing more than a thousand homicides in Chihuahua! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than 1,600 homicides, more than the 1,414 reported in the whole state according to police records. I strongly recommend against using data obtained from police records if you need the latest homicide numbers.
+    * The Acteal massacre of 45 Tzotzil Indians in Chiapas is missing from the vital statistics database. According to the INEGI there were only 2 deaths during December 1997 in the municipality of Chenalhó.
+* While the first joint army operations in 2006 and 2007 lowered the homicide rates in Michocán and Guerrero, later military operations in Chihuahua, Durango, Nuevo León and Durango have coincided with increases in homicides and attempts by the Sinaloa cartel to take over drug trafficking routes from rival cartels.
+* After the army took control of Ciudad Juarez it became the most violent city in the world.
+* Based on execution rates I predict the homicide rate for 2009 will be 15.5 (95% CI 14.8-16.1) and 19.5 (95% CI 18.4-20.7)  for 2010.
 
 The Story in Charts
 --------------------
@@ -77,15 +77,15 @@ __With the exception of Michoacan and Guerrero, when the army moved in, there wa
 
 _Chihuahua didn't fare well_
 
-![Chihuahua](http://imgur.com/v5cAG.png)
+![Chihuahua](http://imgur.com/lW1j2.png)
 
 _Was Operation Sonora a success?_
 
-![Sonora](http://imgur.com/ymd2N.png)
+![Sonora](http://imgur.com/Ht4Gu.png)
 
 _Durango also didn't fare well_
 
-![Durango](http://imgur.com/R8fM9.png)
+![Durango](http://imgur.com/UGxLP.png)
 
 _A similar thing happened in the rest of the states where the government sent in the army_
 
@@ -93,7 +93,7 @@ _A similar thing happened in the rest of the states where the government sent in
 
 _Annualized monthly homicide rates in Ciudad Juarez. The city turned into the most violent in the world after the army took control of it. Even rushing in reinforcements didn't return the murder rate to its former levels and after three months the bloodshed became even greater._
 
-![Ciudad Juarez](http://imgur.com/pO5tF.png)
+![Ciudad Juarez](http://imgur.com/0dg1H.png)
 
 -------------------------------------------------------------------------------------------------------------
 

@@ -22,7 +22,9 @@ breakpoints(rate ~ ndays)
 where rate is the homicide rate, and ndays are the number of days in each month
 
 In the tables below, lower refers to the lower confidence interval, and
-upper refers to the upper confidence interval
+upper refers to the upper confidence interval. Keep in mind that the murders are
+only available as monthly totals, while the exact date of military
+operations is available.
 
 <<results=tex, echo=FALSE>>=
 setwd("timelines/report")
@@ -134,7 +136,7 @@ printTable(report.ll$sin.int)
 From the charts it looks like there were 2 breaks in the homicide
 rate, one corresponding to when ``El Chapo'' sent ``La Barbie'' to take
 over the plaza in Nuevo Laredo, and the other to when he realized he
-wasn't going to be able to take it over. 
+wasn't going to be able to take it over.
 
 Municipalities with more than a 100,000 thousand people:
 

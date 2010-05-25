@@ -39,6 +39,8 @@ cleanHom <-  function(df, state) {
   #Make sure we code the dates as the last day of the month
   df$Date <- as.Date(format(df$Date + 31, "%Y%m01"), "%Y%m%d") - 1
 
+
+
   #The data for the last month of 2008 isn't complete
   df <- subset(df, Date < as.Date("12/01/2008", "%m/%d/%Y"))
 
@@ -71,15 +73,15 @@ mergeHomPop <- function(df, pop, cutoff, counties = NULL) {
   #since the INEGI in all its wisdom decided to simply delete
   #the rows with no monthly homicides we have to recreate the
   #database to include them
-  start <- as.Date("2005/2/01")
+  start <- as.Date(as.Date("2005/02/01"))
   next.mon <- seq(start, length=47, by='1 month')
   period <- next.mon - 1
   dates.df <- data.frame(Date = rep(period,
                                     each = length(states)),
-                         County.x = rep(states,
-                                        #length(states) *
-                                        length(period))
+                         County.x = rep(states, length(period))
                          )
+  dates.df$DateMid <- as.Date(format(dates.df$Date, "%Y%m15"),
+                              "%Y%m%d")
   df.pop <- merge(dates.df, df.pop,
                    by = c("Date", "County.x"),
                    all.x = TRUE)
@@ -130,7 +132,7 @@ drawTS <- function(df.pop, operations, title, method) {
                                       origin = "1970-01-01"),
                           t = names(operations))
     df.pop$County.x <- reorder(factor(df.pop$County.x), -df.pop$rate)
-    ggplot(df.pop, aes(Date, rate)) +
+    ggplot(df.pop, aes(DateMid, rate)) +
       geom_point(aes(size=Total.Murders), color="darkred", alpha =.9) +
       scale_x_date() +
       geom_smooth(aes(group = group), se = FALSE, method = method) +
@@ -148,8 +150,8 @@ drawTS <- function(df.pop, operations, title, method) {
       #opts(legend.position = "none")
 }
 
-createPlot <- function(df.pop, operations, title = "", method) {
-  df.pop$group <- cutDates(df.pop, unlist(operations))
+createPlot <- function(df.pop, operations, title = "", method, hack) {
+  df.pop$group <- cutDates(df.pop, unlist(operations), hack)
   drawTS(df.pop, operations, title, method)
 }
 
@@ -164,16 +166,23 @@ breaks <- function(df, brks, h, ll){
 
 convertToDate <- function(x){
     d <- as.Date(paste((x %% 12) + 1,"/",
-                    "01", "/",
+                    "15", "/",
                     floor(x / 12) + 2005, sep =""), "%m/%d/%Y")
-    as.Date(format(d + 31, "%Y%m01"), "%Y%m%d") - 1
+    #as.Date(format(d + 31, "%Y%m01"), "%Y%m%d") - 1
+    #format(d, format = "%b")
 }
 
 convertDateToChar <- function(df){
   dateToChar <- function(x){
       as.character(as.Date(x))
+      format(as.Date(x), format = "%b-%y")
   }
-  df[,2:ncol(df)] <- sapply(df[,2:ncol(df)], dateToChar)
+  dateToFullChar <- function(x){
+      as.character(as.Date(x))
+      format(as.Date(x), format = "%d-%b-%y")
+  }
+  df[,2:4] <- sapply(df[,2:4], dateToChar)
+  df[,5:ncol(df)] <- sapply(df[,5:ncol(df)], dateToFullChar)
   df
 }
 
@@ -194,9 +203,9 @@ findbreaks <- function(df, brks = 1, h = .15, ll){
 }
 
 savePlot <- function(df, ll, title = "", width = 700, height = 600,
-                      file, method = lm) {
+                      file, method = lm, hack = 0) {
     Cairo(width, height, file=file, type="png", bg="white")
-    print(createPlot(df, ll, title, method))
+    print(createPlot(df, ll, title, method, hack))
     dev.off()
 }
 
@@ -218,7 +227,8 @@ ll.bcn <- list("Joint Operation Tijuana" = op.tij,
            "E.A.F. Captured" = doctor)
 savePlot(bcn.df, ll.bcn,
          "Baja California - Homicide Rates and Military Operations",
-          file = "timelines/output/Baja California.png")
+          file = "timelines/output/Baja California.png",
+          hack = 15)
 report.ll$bcn <- findbreaks(bcn.df, h = 3, ll = ll.bcn)
 
 

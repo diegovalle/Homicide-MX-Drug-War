@@ -59,7 +59,7 @@ predictChart <- function(exe, homrate) {
                               data.frame(Executions =
                                          exe$Executions[25:39]),
                               interval = "confidence"))
-  pre10$date <- monthSeq("2009/2/01", 15)
+  pre10$date <- monthSeq("2009/01/15", 15)
 
   pop <- c(homrate$Monthly.Pop, rep(NA,11),
            107550697, rep(NA,11), 108396211)
@@ -76,7 +76,7 @@ predictChart <- function(exe, homrate) {
 }
 
 exeRate <- function(df, population){
-  df$date <- monthSeq("2007/2/01", 39)
+  df$date <- monthSeq("2007/01/15", 39)
   df$pop <- population
   df$rate <- df$Executions / df$pop * 100000 * 12
   df

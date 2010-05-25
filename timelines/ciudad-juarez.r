@@ -54,7 +54,7 @@ source("library/utilities.r")
 
 hom <- read.csv(bzfile("timelines/data/county-month.csv.bz2"))
 cdjuarez09 <- c(136, 240, 73, 90, 125, 247, 248, 337,
-                304, 290, 374, 317, 265, 127, 253)
+                304, 290, 374, 317, 265, 127, 253, 180)
 cdjuarez0708 <- subset(hom,
                        Code == "08 037" &
                        (Year.of.Murder == "2008" |
@@ -70,19 +70,26 @@ pop$MonthlyEst <- na.spline(pop$Monthly, na.rm=TRUE)
 
 
 #A sequence of dates starting at the end of the month
-start <- as.Date(as.Date("2007/2/01"))
-next.mon <- seq(start, length= length(cdjuarez0708) + length(cdjuarez09),
+start <- as.Date(as.Date("2007/2/1"))
+next.mon <- seq(start, length= length(cdjuarez0708) +
+                length(cdjuarez09),
                 by='1 month')
-dates <- next.mon - 1
+date.end <- next.mon - 1
+
+dates.mid <- seq(as.Date("2007/01/15"), length= length(cdjuarez0708) +
+                length(cdjuarez09),
+                by='1 month')
+
 cdj <- data.frame(Murders = c(cdjuarez0708$Tot, cdjuarez09),
-           Date = dates)
+           DateEnd = date.end, Date = dates.mid)
+
 #Anualized murder rate
 cdj$rate <- (cdj$Murders / pop$MonthlyEst[1:nrow(cdj)]) * 100000 * 12
 
-cdj$group <- cutDates(cdj, c(op.chi, cdj.rein, calderon))
+cdj$group <- cutDates(cdj, c(op.chi, cdj.rein, calderon, consulate))
 
 Cairo(file = "timelines/output/ciudad-juarez.png", width=700, height=400)
-print(ggplot(cdj, aes(Date,rate)) +
+print(ggplot(cdj, aes(Date, rate)) +
     geom_point(aes(size = Murders), color = "darkred") +
     geom_vline(aes(xintercept = op.chi), alpha = .7) +
     geom_text(aes(x,y, label = "Joint Operation Chihuahua"),
@@ -110,7 +117,7 @@ dev.off()
 #Structural Change Tests
 ########################################################
 rate <- ts(cdj$rate, start=2007, freq=12)
-ndays <- strptime(cdj$Date, format = "%Y-%m-%d")$mday
+ndays <- strptime(cdj$DateEnd, format = "%Y-%m-%d")$mday
 
 fd <- Fstats(rate ~ ndays)
 sctest(rate ~ ndays, type = "Chow", point = 15)

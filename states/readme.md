@@ -42,4 +42,4 @@ The weird order of the database is because the website of the INEGI is a steamin
 
 Notes:
 ------
-If you want charts of femicides edit the file "config/config.yaml" and set sex to Women				
+If you want charts of femicides edit the file "config/config.yaml" and set sex to Female			

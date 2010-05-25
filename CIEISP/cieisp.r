@@ -114,7 +114,7 @@ homrate <- addTrend(homrate)
 homrate <- subset(homrate, year >= 2002 & year < 2008)
 month <- subset(month, Anio < 2008)
 month <- month[order(month$date),]
-month$date <- monthSeq("2002-02-01", 12*6)
+month$date <- monthSeq("2002-01-15", 12*6)
 cor(homrate$murders, month$V1)
 
 ggplot(month, aes(as.Date(date), V1)) +
