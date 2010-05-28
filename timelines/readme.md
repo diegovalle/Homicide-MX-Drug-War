@@ -70,8 +70,8 @@ __Military Deployment Dates:__
 
 [Operativo Conjunto Triangulo Dorado or Sierra Madre](http://www.elsiglodetorreon.com.mx/noticia/328548.a-punto-de-reiniciar-la-guerra-contra-el-narc.html): 01/13/2007, Part II: 05/01/2007, Part III: 02/01/2008
 
-[Operativo Conjunto Chihuaha](www.el-mexicano.com.mx%2Fnoticias%2Fnacional%2F2009%2F03%2F02%2Fsitian-militares-ciudad-juarez.aspx&ei=OoZgS-nmA4XYtgOHwpGzCw&usg=AFQjCNH5AvHSTNwSpMPqT98OuiSYA8kbjg&sig2=rucCCB325xG_lYgmU_Rodw): 03/27/2008. Keep in mind that there were already 539 soldiers on the ground by the time it was announced
-[juarezpress](http://www.juarezpress.com/not_detalle.php?id_n=12641&busca=sedena)
+[Operativo Conjunto Chihuaha](http://www.el-mexicano.com.mx%2Fnoticias%2Fnacional%2F2009%2F03%2F02%2Fsitian-militares-ciudad-juarez.aspx&ei=OoZgS-nmA4XYtgOHwpGzCw&usg=AFQjCNH5AvHSTNwSpMPqT98OuiSYA8kbjg&sig2=rucCCB325xG_lYgmU_Rodw): 03/27/2008. Keep in mind that there were already 539 soldiers on the ground by the time it was announced
+[juarezpress](http://www.eluniversal.com.mx/nacion/166104.html)
 
 [Operación Conjunta Culiacán-Navolato](http://www.tabascohoy.com.mx/nota.php?id_nota=155210): 05/13/2008
 

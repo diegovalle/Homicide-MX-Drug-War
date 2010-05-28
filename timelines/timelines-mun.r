@@ -225,6 +225,8 @@ report.ll <- list()
 bcn.df <- getData(hom, pop, baja.california, popsize)
 ll.bcn <- list("Joint Operation Tijuana" = op.tij,
            "E.A.F. Captured" = doctor)
+#This is a horrible hack. stat_smooth dies when it tries do
+#do an lm with n = 1           
 savePlot(bcn.df, ll.bcn,
          "Baja California - Homicide Rates and Military Operations",
           file = "timelines/output/Baja California.png",
