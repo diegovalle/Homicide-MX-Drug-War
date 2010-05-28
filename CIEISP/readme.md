@@ -1,13 +1,22 @@
 ﻿Homicides according to the SNSP (CIEISP Format)
 ==================================================
-This is the original data on which the homicide data from the ICESI is based. The data for 2008 seems really incomplete since it only records 309 homicides for Chihuahua instead of ~2,600. The only difference with the ICESI data is that Tlaxcala had 0 homicides in 2007, but the ICESI just used the 2008 number (42) instead 0. They did however add a footnote saying:
+This is the original data on which the homicide data from the ICESI is based. The data for 2008 seems really incomplete since it only records 309 homicides for Chihuahua instead of ~2,600. The quite a few difference between the ICESI data and the CIEISP forms from the CIDE. They did however add a footnote saying:
 
 >En el caso de Tlaxcala, el formato CIEISP señala cero homicidios dolosos. El dato utilizado fue proporcionado verbalmente por el Secretario General de Gobierno del Estado a ICESI.
 
 So if the Secretary General of the State Goverment says it, it must be true!
 
+The CIEISP formas are also downloadable from the PFD website and for generating the Michoacan chart that's what I did
+
+
 Sources
 -------
+
+[CIEISP 2007](http://www.pfp.gob.mx/portalWebApp/ShowBinary?nodeId=/BEA%20Repository/368010//archivo)
+
+[CIESIP 2006](http://www.ssp.gob.mx/portalWebApp/ShowBinary?nodeId=/BEA%20Repository/368009//archivo)
+
+[CIEISP 2005](http://www.ssp.gob.mx/portalWebApp/ShowBinary?nodeId=/BEA%20Repository/368008//archivo)
 
 Bergman, Marcelo et al. (2009?). Incidencia Delictiva - 2002 [en línea]. Distribuido por: México, D.F.: Banco de Información para la Investigación Aplicada en Ciencias Sociales : Centro de Investigación y Docencia Económicas. [Fecha de consulta - 2010-04-19], http://hdl.handle.net//10089/16125
 
