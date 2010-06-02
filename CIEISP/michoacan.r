@@ -21,7 +21,7 @@ hom <- subset(hom, County == "Michoacán" &
                    Year.of.Murder <= 2007)
 
 mich.hom <- data.frame(tot = c(m05,m06,m07, hom$Total.Murders),
-           type = rep(c("CIEISP", "INEGI"), each=12*3),
+           type = rep(c("SNSP", "INEGI"), each=12*3),
            month = rep(1:12),
            year = rep(2005:2007, each = 12))
 mich.hom$Date <-  as.Date(paste(mich.hom$year, mich.hom$month, "15"),
