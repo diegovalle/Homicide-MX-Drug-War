@@ -115,6 +115,9 @@ Cairo(file = "historic/output/ew-mx-us-homicide.png", width=450)
 p <- ggplot(data = mhom, aes(year, value, group = variable,
             color = variable))  +
   geom_line(size = 1) +
+  geom_line(data = data.frame(x=c(2008,2009),variable="MX",#, 2010),
+            y = c(homicideMX[19], k2009.rate[1])),#, k2010.rate[1])),
+            aes(x, y), size=1, linetype=2) +
   labs(y = "Homicide rate",x="") +
   opts (title = "Homicide rates in Brazil, Mexico, the US,\nand England and Wales (1994-2008)")
 get.pos <-
