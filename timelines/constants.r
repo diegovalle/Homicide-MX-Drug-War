@@ -73,7 +73,9 @@ fall <- as.Date("04/09/2010", "%m/%d/%Y")
 #http://www.google.com/hostednews/ap/article/ALeqM5gMi5B2USfJStXxfqgWWr2xjRYpOgD9EV8GRO0
 police <- as.Date("04/08/2010", "%m/%d/%Y")
 
-
+#Vicente Fox sends troops to Nuevo Laredo
+#http://www.univision.com/content/content.jhtml?cid=625397
+foxy.troops <- as.Date("06/13/2005", "%m/%d/%Y")
 
 
 

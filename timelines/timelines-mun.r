@@ -226,7 +226,7 @@ bcn.df <- getData(hom, pop, baja.california, popsize)
 ll.bcn <- list("Joint Operation Tijuana" = op.tij,
            "E.A.F. Captured" = doctor)
 #This is a horrible hack. stat_smooth dies when it tries do
-#do an lm with n = 1           
+#do an lm with n = 1
 savePlot(bcn.df, ll.bcn,
          "Baja California - Homicide Rates and Military Operations",
           file = "timelines/output/Baja California.png",
@@ -370,14 +370,16 @@ report.ll$gue.int <- findbreaks(gue.df.b, 2, ll = ll.gue)
 
 #The data for Nuevo Leon and Tamaulipas is in yet another file
 hom <- read.csv(bzfile("timelines/data/county-month-nl-tam.csv.bz2"))
+popsize <- 250000
 
 #Tamaulipas
 tam.df <- getData(hom, pop, tamaulipas, popsize)
-ll.tam <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
+ll.tam <- list("Troops in N.L." = foxy.troops,
+               "Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
 savePlot(tam.df, ll.tam,
          "Tamaulipas - Homicide Rates and Military Operations",
-         file = "timelines/output/Tamaulipas.png", height=900,
-         method = loess)
+         file = "timelines/output/Tamaulipas.png",
+         method = lm)
 report.ll$tam <- findbreaks(tam.df, 2, ll = ll.tam)
 
 #Nuevo Leon
@@ -385,7 +387,7 @@ nl.df <- getData(hom, pop, nuevo.leon, popsize)
 ll.nl <- list("Joint Operation Tamaulipas-Nuevo Leon" = op.tam.nl)
 savePlot(nl.df, ll.nl,
          "Nuevo Leon - Homicide Rates and Military Operations",
-         file = "timelines/output/Nuevo-Leon.png", height=900)
+         file = "timelines/output/Nuevo-Leon.png")
 report.ll$nl <- findbreaks(nl.df, 1, ll = ll.nl)
 
 Sweave("timelines/report/report.Rnw",

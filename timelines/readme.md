@@ -1,6 +1,9 @@
 ﻿Homicide in Mexico by month
 ================================================
-Two scripts to explore how have the different military operations affected the annualized monthly homicide rate. One for the states where there have been military operations and the other for Ciudad Juarez since it has the highest murder rate in the whole world.
+Two scripts to explore how have the different military operations
+affected the annualized monthly homicide rate. One for the states
+where there have been military operations and the other for Ciudad
+Juarez since it is the city with the highest murder rate in the whole world.
 
 Output
 ------
@@ -36,15 +39,15 @@ Codebook
 --------
 Variable used to download the data from the INEGI:
 
-Tipo de defunción : Homicidio	
+Tipo de defunción : Homicidio
 
-Consulta de: Defunciones accidentales y violentas   Por: Ent y mun de ocurrencia, Año de ocurrencia y Mes de ocurrencia   Según: Año de registro												
+Consulta de: Defunciones accidentales y violentas   Por: Ent y mun de ocurrencia, Año de ocurrencia y Mes de ocurrencia   Según: Año de registro
 
 The columns of the database correspond to:
 
 Code - Numeric code for each state and county
 
-County - Name of each county	
+County - Name of each county
 
 Year.of.Murder - The year in which the murder _occurred_
 
@@ -81,6 +84,8 @@ __Military Deployment Dates:__
 
 [Reinforcements for Ciudad Juarez](http://eleconomista.com.mx/notas-online/politica/2009/03/01/arriban-militares-ciudad-juarez): 03/01/2009
 
+[Vicente Fox sends troops to Nuevo Laredo](http://www.univision.com/content/content.jhtml?cid=625397) 06/13/2008
+
 __Other Dates:__
 
 [Alfredo Beltrán Leyva, "El Mochomo"](http://www.sedena.gob.mx/index.php?id_art=1169) captured: 01/21/2008
@@ -93,5 +98,9 @@ CONAPO [De la población de México 2005-2050](http://www.conapo.gob.mx/00cifras
 
 __Ciudad Juarez Monthly Murder Rates in 2009:__
 
-For the first half of the year [puntoporpunto](http://www.puntoporpunto.com/informacion-general/en_juarez_suman_mil_13_asesina.php),
-and for the second half [larednoticias](http://www.larednoticias.com/detalle.cfm?s=26)
+For the first half of the 2009
+[puntoporpunto](http://www.puntoporpunto.com/informacion-general/en_juarez_suman_mil_13_asesina.php),
+and for the second half of 2009
+[larednoticias](http://www.larednoticias.com/detalle.cfm?s=26)
+
+For 2010[Agencia EFE](http://www.google.com/hostednews/epa/article/ALeqM5gVsNv7FxY-In2bVMa5v0rujdQWtQ)

@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+\documentclass[landscape]{article}
 
 \title{Structural Change in Homicide Rates}
 \author{Diego Valle-Jones}
@@ -6,7 +6,6 @@
 \usepackage{longtable}
 \usepackage{anysize}
 
-\marginsize{1cm}{1cm}{2cm}{2cm}
 \begin{document}
 
 \maketitle
@@ -138,7 +137,7 @@ rate, one corresponding to when ``El Chapo'' sent ``La Barbie'' to take
 over the plaza in Nuevo Laredo, and the other to when he realized he
 wasn't going to be able to take it over.
 
-Municipalities with more than a 100,000 thousand people:
+Municipalities with more than a 250,000 thousand people:
 
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$tam)
@@ -148,7 +147,7 @@ printTable(report.ll$tam)
 
 \section{Nuevo Leon}
 
-Municipalities with more than a 100,000 thousand people:
+Municipalities with more than a 250,000 thousand people:
 
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$nl)
