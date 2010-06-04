@@ -390,5 +390,38 @@ savePlot(nl.df, ll.nl,
          file = "timelines/output/Nuevo-Leon.png")
 report.ll$nl <- findbreaks(nl.df, 1, ll = ll.nl)
 
+muni <- c("Apodaca", "Cadereyta Jiménez",
+          "Juárez", "García",
+          "Gral. Escobedo", "Guadalupe",
+          "Monterrey",
+          "Santa Catarina", "San Nicolás de los Garza",
+          "San Pedro Garza García", "Santiago")
+mont.df <- getData(hom, pop, nuevo.leon, 0, muni)
+savePlot(mont.df, ll.nl,
+         "Nuevo Leon - Metropolitan Area of Monterrey",
+         file = "timelines/output/Monterrey.png", height=700)
+report.ll$mont <- findbreaks(mont.df, 1, ll = ll.nl)
+
+#Veracruz
+hom <- read.csv(bzfile("timelines/data/county-month-ver.csv.bz2"))
+popsize <- 250000
+
+ver.df <- getData(hom, pop, veracruz, popsize)
+ll.ver <- list("Joint Operation Veracruz" = op.ver)
+savePlot(ver.df, ll.ver,
+         "Veracruz - Homicide Rates and Military Operations",
+         file = "timelines/output/Veracruz.png")
+report.ll$ver <- findbreaks(ver.df, 1, ll = ll.ver)
+
+muni <- c("Veracruz", "Xalapa",
+          "Poza Rica de Hidalgo", "Minatitlán")
+ver.int.df <- getData(hom, pop, veracruz, 0, muni)
+savePlot(ver.int.df, ll.ver,
+         "Veracruz - Interesting Municipalities",
+         file = "timelines/output/Veracruz-int.png", height=700)
+report.ll$ver.int <- findbreaks(ver.int.df, 1, ll = ll.ver)
+
+
+
 Sweave("timelines/report/report.Rnw",
         output = "timelines/report/report.tex")

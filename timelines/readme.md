@@ -65,26 +65,30 @@ __Homicide Data 1990-2008:__
 
 __Military Deployment Dates:__
 
-[Michoacan](http://en.wikipedia.org/wiki/Operation_Michoacan): 12/11/2006
+Unless otherwise noted all deployment dates come from the [SSP](http://www.ssp.gob.mx/portalWebApp/ShowBinary?nodeId=/BEA%20Repository/270970//archivo) [PDF] p. 21-24
 
-[OPERATIVO CONJUNTO  TIJUANA](http://www.pgr.gob.mx/cmsocial/coms07/210107%20resultado%20de%20operaciones%20conjuntas.ppt): 01/03/2007
+Michoacan: 12/11/2006
 
-[Operativo Conjunto Guerrero](http://pre.guerrero.gob.mx/index.php?P=leearticulo&ArtOrder=ReadArt&Article=1314&text=1): 01/15/2007
+OPERATIVO CONJUNTO  TIJUANA: 01/03/2007
 
-[Operativo Conjunto Triangulo Dorado or Sierra Madre](http://www.elsiglodetorreon.com.mx/noticia/328548.a-punto-de-reiniciar-la-guerra-contra-el-narc.html): 01/13/2007, Part II: 05/01/2007, Part III: 02/01/2008
+Operativo Conjunto Guerrero: 01/15/2007
+
+Operativo Conjunto Triangulo Dorado or Sierra Madre: 01/22/2007, [Part II](http://www.elsiglodetorreon.com.mx/noticia/328548.a-punto-de-reiniciar-la-guerra-contra-el-narc.html): 05/01/2007, [Part III]((http://www.elsiglodetorreon.com.mx/noticia/328548.a-punto-de-reiniciar-la-guerra-contra-el-narc.html)): 02/01/2008
+
+Operación Conjunta Tamaulipas-Nuevo León: 02/19/2007
+
+Operativo Veracruz: 05/14/2007
 
 [Operativo Conjunto Chihuaha](http://www.el-mexicano.com.mx%2Fnoticias%2Fnacional%2F2009%2F03%2F02%2Fsitian-militares-ciudad-juarez.aspx&ei=OoZgS-nmA4XYtgOHwpGzCw&usg=AFQjCNH5AvHSTNwSpMPqT98OuiSYA8kbjg&sig2=rucCCB325xG_lYgmU_Rodw): 03/27/2008. Keep in mind that there were already 539 soldiers on the ground by the time it was announced
 [juarezpress](http://www.eluniversal.com.mx/nacion/166104.html)
 
 [Operación Conjunta Culiacán-Navolato](http://www.tabascohoy.com.mx/nota.php?id_nota=155210): 05/13/2008
 
-[Operación Conjunta Tamaulipas-Nuevo León](http://www.elsiglodedurango.com.mx/descargas/pdf/2007/02/19/19dgo08a.pdf?v): 02/17/2007
-
 [Operativo Sonora I](http://unafuente.com/01-04-2008/narcotrafico-senalan-al-mexicano-oliverio-acosta-como-lider-del-narco-en-guatemala-marzo-finaliza-con-81-personas-asesinadas-en-sinaloa-presume-ejercito-resultados-de-sonora-uno-desatan-caceria-contra/): 03/07/2008
 
 [Reinforcements for Ciudad Juarez](http://eleconomista.com.mx/notas-online/politica/2009/03/01/arriban-militares-ciudad-juarez): 03/01/2009
 
-[Vicente Fox sends troops to Nuevo Laredo](http://www.univision.com/content/content.jhtml?cid=625397) 06/13/2008
+[Vicente Fox sends troops to Nuevo Laredo](http://www.univision.com/content/content.jhtml?cid=625397) 06/13/2005
 
 __Other Dates:__
 

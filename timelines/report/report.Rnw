@@ -153,6 +153,28 @@ Municipalities with more than a 250,000 thousand people:
 printTable(report.ll$nl)
 @
 
+These are the municipalities in the metropolitan area of Monterrey:
+
+<<results=tex,echo=FALSE>>=
+printTable(report.ll$mont)
+@
+
+\section{Veracruz}
+
+Municipalities with more than a 250,000 thousand people:
+
+<<results=tex,echo=FALSE>>=
+printTable(report.ll$ver)
+@
+
+These are the interesting municpalities
+
+<<results=tex,echo=FALSE>>=
+printTable(report.ll$ver.int)
+@
+
+
+
 
 \section{Chihuahua}
 
@@ -162,7 +184,7 @@ Municipalities with more than a 100,000 thousand people:
 printTable(report.ll$chi)
 @
 
-These are the municpalities near the US border:
+These are the municipalities near the US border:
 <<results=tex,echo=FALSE>>=
 printTable(report.ll$chi.bdr)
 @

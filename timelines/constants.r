@@ -20,6 +20,8 @@ oaxaca <- "^20"
 tamaulipas <- "^28"
 nuevo.leon <- "^19"
 
+veracruz <- "^30"
+
 ########################################################
 #Start of the joint operations to combat drug cartels
 ########################################################
@@ -31,7 +33,7 @@ op.tij <-  as.Date("01/03/2007", "%m/%d/%Y")
 #Operativo Conjunto Guerrero
 op.gue <- as.Date("01/15/2007", "%m/%d/%Y")
 #Operativo Conjunto Triángulo Dorado(SINALOA, DURANGO Y CHIHUAHUA)
-op.tria.dor <- as.Date("01/13/2007", "%m/%d/%Y")
+op.tria.dor <- as.Date("01/22/2007", "%m/%d/%Y")
 op.tria.dor.II <- as.Date("05/01/2007", "%m/%d/%Y")
 op.tria.dor.III <- as.Date("02/01/2008", "%m/%d/%Y")
 
@@ -43,10 +45,13 @@ op.chi <- as.Date("03/27/2008", "%m/%d/%Y")
 op.sin <-  as.Date("05/13/2008", "%m/%d/%Y")
 
 #Opertivo Conjunto Tamaulipas - Nuevo León
-op.tam.nl <- as.Date("02/17/2007","%m/%d/%Y")
+op.tam.nl <- as.Date("02/19/2007","%m/%d/%Y")
 
 #Operativo Sonora
 op.son <- as.Date("03/07/2008", "%m/%d/%Y")
+
+#Operativo Conjunto Veracruz
+op.ver <- as.Date("05/14/2007", "%m/%d/%Y")
 
 #Reinfocements for Ciudad Juarez
 #2,000 arrived March 1st 2009 and another 3,000 arrived during the

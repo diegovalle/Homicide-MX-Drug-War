@@ -93,7 +93,7 @@ _A similar thing happened in the rest of the states where the government sent in
 
 _Annualized monthly homicide rates in Ciudad Juarez. The city turned into the most violent in the world after the army took control of it. Even rushing in reinforcements didn't return the murder rate to its former levels and after three months the bloodshed became even greater._
 
-![Ciudad Juarez](http://imgur.com/0dg1H.png)
+![Ciudad Juarez](http://imgur.com/XmlSf.png)
 
 -------------------------------------------------------------------------------------------------------------
 
