@@ -25,3 +25,7 @@ Sources
 
     
 [State Abbreviations](http://www.statoids.com/umx.html): Which for some reason abbreviates Baja California as BCN, there's no Norte in California! I changed it to BC.
+
+Drug Eradication: [2010 International Narcotics Control Strategy Report (INCSR)](http://www.state.gov/p/inl/rls/nrcrpt/2010/vol1/137197.htm)
+
+Cocaine Price:  [WORLD DRUG REPORT 2009](https://docs.google.com/viewer?url=http%3A%2F%2Fwww.unodc.org%2Fdocuments%2Fwdr%2FWDR_2009%2FWDR2009_eng_web.pdf) (p. 220)
