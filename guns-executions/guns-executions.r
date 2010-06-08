@@ -42,9 +42,11 @@ dev.print(png, "guns-executions/output/homicides-executions.png",
 #murder with firearm as a percentage of total homicides,
 #the proportion of murders with firearm has risen mostly because it
 #has decreased *more slowly* than the overall homicide rate
-ggplot(exe, aes(Year, Firearm.Homicides / Homicides)) +
+print(ggplot(exe, aes(Year, Firearm.Homicides / Homicides)) +
     geom_line() +
-    scale_y_continuous(formatter = "percent")
+    scale_y_continuous(formatter = "percent"))
+dev.print(png, "guns-executions/output/percent-by-firearm.png",
+          width = 500, height = 400)
 
 
 
@@ -55,17 +57,17 @@ fir.state <- read.csv("guns-executions/data/firearm-hom-statetot.csv")
 state <- read.csv("accidents-homicides-suicides/output/states.csv")
 pop <- read.csv("conapo-pop-estimates/conapo-states.csv")
 
-state <- merge(fir.state, state[,c(1,12:19)], by = "State")
-state <- merge(state, pop[ ,c(1,12:19)], by = "State")
+state <- merge(fir.state, state[,c(1,12:20)], by = "State")
+state <- merge(state, pop[ ,c(1,12:20)], by = "State")
 
-clmns <- 18:25
-state[2:9] <- state[2:9] / state[,clmns] * 100000
-state[10:17] <- state[10:17] / state[, clmns] *100000
+clmns <- 20:28
+state[2:10] <- state[2:10] / state[,clmns] * 100000
+state[11:19] <- state[11:19] / state[, clmns] *100000
 
-mstate <- melt(state[,1:17], id ="State")
+mstate <- melt(state[,1:19], id ="State")
 mstate$type <- factor(rep(c("Firearm\nHomicides", "Homicides"),
-                          each = 31*8))
-mstate$variable <- rep(2000:2007, each = 31)
+                          each = 32*9))
+mstate$variable <- rep(2000:2008, each = 32)
 
 mstate$type <- factor(mstate$type, levels = rev(levels(mstate$type)))
 
@@ -128,10 +130,10 @@ dev.print(png, "guns-executions/output/homicides-firearm-st.png",
 ##Now homicides committed with a firearm as a proportion of
 #all homicides
 ##############################################################
-pstate <- state[2:9] / state [10:17]
+pstate <- state[2:10] / state [11:19]
 pstate$State <- state$State
 mpstate <- melt(pstate, id = "State")
-mpstate$variable <- rep(2000:2007, each = 31)
+mpstate$variable <- rep(2000:2008, each = 32)
 mpstate$State <- factor(cleanNames(mpstate, "State"))
 
 mpstate <- ddply(mpstate, .(State), transform,
@@ -178,3 +180,13 @@ dev.print(png, "guns-executions/output/homicides-firearm-st-p.png",
 #30000  #hmmm, according to PGR it was 28,000 over two years
 #Guns submitted for tracking
 #7200
+
+#Assault by rifle shotgun and larger firearm discharge
+print(qplot(2000:2008, c(54, 50, 61, 48, 54, 55, 42, 41, 104),
+            geom="line") +
+    geom_line() +
+    xlab("Year") + ylab("Number of Deaths") +
+    opts(title="Number of deaths in Mexico by\nassault by rifle, shotgun and larger firearm discharge"))
+dev.print(png, "guns-executions/output/long-guns.png",
+          width = 500, height = 400)
+

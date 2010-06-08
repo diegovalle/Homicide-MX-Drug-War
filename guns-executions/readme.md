@@ -26,12 +26,12 @@ Reforma in Justice In Mexico Project Narcobarometer Database (www.justiceinmexic
 
 __Homicides with Firearm__
 
-[Cuadernos del ICESI 6 - Mortalidad por homicidios en México](http://www.icesi.org.mx/documentos/publicaciones/cuadernos/cuaderno_6.pdf): _Figura 10. defunciones y mortalidad por armas de fuego 2000-2007 Tasa de mortalidad x 100 mil habitantes_ and _tabla 1. defunciones por armas de fuego, México 2000-2007._
+Dirección General de Información en Salud (DGIS). Base de datos de defunciones 1979-2007. [en línea]: Sistema Nacional de Información en Salud (SINAIS). [México]: Secretaría de Salud. <http://www.sinais.salud.gob.mx> [Consulta: 01 abril 2009].
 
-Notes:
--------
+Firearms-related homicide: 
 
-The homicide with firearm data is ordered by the year in which the death was registered and the data for overall homicides is ordered by the year in which the death occurred, but there shouldn't be much of a difference.
+* X93 Assault by handgun discharge
+* X94 Assault by rifle, shotgun and larger firearm discharge
+* X95 Assault by other and unspecified firearm discharge
 
-I subsituted the execution data from _Reforma_ with that from _Milenio_ since it seems to match what happened in Ciudad Juarez more closely.
 
