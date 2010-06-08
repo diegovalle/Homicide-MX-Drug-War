@@ -3,23 +3,39 @@
 #####       Website: www.diegovalle.net
 #####       Date Created: Tue May 25 09:58:24 2010
 ########################################################
-#This program does this and that
-#http://www.jornada.unam.mx/2009/12/26/index.php?section=politica&article=004n1pol
-#http://www.america.gov/st/washfile-english/2006/May/200605041351421xeneerg0.5226862.html
+#Pretty plots of marijuana and opium eradication
 
-mj = c(30840, 30061, 23914, 18394, 15323)
-poppy = c(21600, 16889, 12059, 13189, 13264)
-drugs <- data.frame(eradicated = c(mj, poppy),
-                    years = rep(2005:2009, 2),
-                    type = rep(c("marijuana", "poppy"), each = 5))
+drugPlot <- function(df, filename) {
+  print(ggplot(df, aes(years, area, group = type,
+                    color = type)) +
+      geom_line() +
+      geom_rect(xmin = 2006, xmax = 2009,
+              ymin=0, ymax=Inf, alpha = .02, fill = "red",
+                color= "#efefef") +
+      annotate("text", x = 2007.5, y = 28000, label = "Drug War") +
+      ylab("Eradication (ha)") + xlab("") +
+      opts(title = "The amount of cannabis and opium poppy\neradicated has decreased") +
+      scale_y_continuous(formatter = "comma"))
+  filename <- paste("drugs/output/", filename)
+  dev.print(png, filename, width=640, height=480)
+}
 
-print(ggplot(drugs, aes(factor(years), eradicated, group = type,
-                  color = type)) +
-    geom_line() +
-    ylab("hectares eradicated") + xlab("") +
-    opts(title = "The amount of cannabis and opium poppy\neradicated has decreased") +
-    scale_y_continuous(formatter = "comma"))
-dev.print(png, "drugs/output/cannabis-poppy.png", width=640, height=480)
+#http://www.state.gov/p/inl/rls/nrcrpt/2010/vol1/137197.htm
+#Eradication (ha)
+mj <- c(14135, 18663, 23316, 30162, 30857, 30852, 36585, 30775, 28699)
+opium <- c(11471, 13189, 11410, 16890, 21609, 15926, 20034, 19158, 19115)
+drugs <- data.frame(area = c(mj, opium),
+                    years = rep(2009:2001, 2),
+                    type = rep(c("marijuana", "poppy"), each = 9))
+drugPlot(drugs, "cannabis-poppy-eradication.png")
+
+#Harvestable / Net Cultivation (ha)
+mj <- c(12000, 8900, NA, 8600, 5600, 5800, 7500, 7900, 4100)
+poppy <- c(15000, 6900, NA, 5100, 3300, 3500, 4800, 2700, 4400)
+drugs <- data.frame(area = c(mj, poppy),
+                    years = rep(2009:2001, 2),
+                    type = rep(c("marijuana", "poppy"), each = 9))
+drugPlot(drugs, "cannabis-poppy-cultivation.png")
 
 
 #WORLD DRUG REPORT 2009
