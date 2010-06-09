@@ -3,9 +3,10 @@
 #####       Website: www.diegovalle.net
 #####       Date Created: Tue May 25 09:58:24 2010
 ########################################################
-#Pretty plots of marijuana and opium eradication
+#Pretty plots of marijuana and opium eradication, cultivation and
+#cocaine prices
 
-drugPlot <- function(df, filename) {
+drugPlot <- function(df, filename, ylab, title) {
   print(ggplot(df, aes(years, area, group = type,
                     color = type)) +
       geom_line() +
@@ -13,8 +14,8 @@ drugPlot <- function(df, filename) {
               ymin=0, ymax=Inf, alpha = .02, fill = "red",
                 color= "#efefef") +
       annotate("text", x = 2007.5, y = 28000, label = "Drug War") +
-      ylab("Eradication (ha)") + xlab("") +
-      opts(title = "The amount of cannabis and opium poppy\neradicated has decreased") +
+      ylab(ylab) + xlab("") +
+      opts(title = title) +
       scale_y_continuous(formatter = "comma"))
   filename <- paste("drugs/output/", filename)
   dev.print(png, filename, width=640, height=480)
@@ -27,7 +28,8 @@ opium <- c(11471, 13189, 11410, 16890, 21609, 15926, 20034, 19158, 19115)
 drugs <- data.frame(area = c(mj, opium),
                     years = rep(2009:2001, 2),
                     type = rep(c("marijuana", "poppy"), each = 9))
-drugPlot(drugs, "cannabis-poppy-eradication.png")
+drugPlot(drugs, "cannabis-poppy-eradication.png", "Eradication (ha)",
+         "The amount of cannabis and opium poppy\neradicated has decreased")
 
 #Harvestable / Net Cultivation (ha)
 mj <- c(12000, 8900, NA, 8600, 5600, 5800, 7500, 7900, 4100)
@@ -35,9 +37,13 @@ poppy <- c(15000, 6900, NA, 5100, 3300, 3500, 4800, 2700, 4400)
 drugs <- data.frame(area = c(mj, poppy),
                     years = rep(2009:2001, 2),
                     type = rep(c("marijuana", "poppy"), each = 9))
-drugPlot(drugs, "cannabis-poppy-cultivation.png")
+drugPlot(drugs, "cannabis-poppy-cultivation.png",
+         "Net Cultivation (ha)",
+         "The amount of cannabis and opium poppy\ncultivated has increased")
 
-
+########################################################
+#Cocaine Prices
+########################################################
 #WORLD DRUG REPORT 2009
 #http://www.unodc.org/documents/wdr/WDR_2009/WDR2009_eng_web.pdf page 220
 #Prices adjusted for purity and inflation
