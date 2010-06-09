@@ -1,18 +1,36 @@
-﻿Op.Michoacan:
+﻿Fox.Troops.NL:
+   Troops in Nuevo Laredo: 2005-06-13
+   source: http://www.univision.com/content/content.jhtml?cid=625397
+
+Op.Michoacan:
     Operation Michoacan: 2006-12-11
-    source: http://en.wikipedia.org/wiki/Operation_Michoacan
-    
+    source: http://www.ssp.gob.mx/portalWebApp/ShowBinary?nodeId=/BEA%20Repository/270970//archivo 
+    #p. 21
+
 Op.Tijuana:
     Operation Tijuana: 2007-01-03
-    source: http://www.pgr.gob.mx/cmsocial/coms07/210107%20resultado%20de%20operaciones%20conjuntas.ppt
-    
+    source: http://www.ssp.gob.mx/portalWebApp/ShowBinary?nodeId=/BEA%20Repository/270970//archivo
+    #p. 21
+
 Op.Guerrero:
     Operation Guerrero: 2007-01-15
-    source: http://pre.guerrero.gob.mx/index.php?P=leearticulo&ArtOrder=ReadArt&Article=1314&text=1
-    
+    source: http://www.ssp.gob.mx/portalWebApp/ShowBinary?nodeId=/BEA%20Repository/270970//archivo
+    #p. 21
+
 Op.Triangulo.Dorado.I:
-    Operation Triangulo Dorado: 2007-01-13
-    source: http://www.elsiglodetorreon.com.mx/noticia/328548.a-punto-de-reiniciar-la-guerra-contra-el-narc.html
+    Operation Triangulo Dorado: 2007-01-22
+    source: http://www.ssp.gob.mx/portalWebApp/ShowBinary?nodeId=/BEA%20Repository/270970//archivo
+    #p. 23
+
+Op.Tamaulipas-Nuevo Leon:
+    Operation Tamaulipas Nuevo-Leon: 2007-02-19
+    source: http://www.ssp.gob.mx/portalWebApp/ShowBinary?nodeId=/BEA%20Repository/270970//archivo
+    #p. 23
+
+Op.Veracruz:
+    Operation Veracruz: 2007-05-14
+    source: http://www.ssp.gob.mx/portalWebApp/ShowBinary?nodeId=/BEA%20Repository/270970//archivo
+    #p. 24
 
 Op.Triangulo.Dorado.II:
     Phase II = 2007-05-01
@@ -21,31 +39,38 @@ Op.Triangulo.Dorado.II:
 Op.Triangulo.Dorado.III:
     Phase III = 2008-02-01
     source: http://www.elsiglodetorreon.com.mx/noticia/328548.a-punto-de-reiniciar-la-guerra-contra-el-narc.html
-    
+
 Op.Chihuahua:
     Operation Chihuahua: 2008-03-27
     source: http://www.juarezpress.com/not_detalle.php?id_n=12641&busca=sedena
-    
+
 Reinforcements.Cd.Juarez:
-    Reinforcements Sent: 2009-03-01
+    5,000 Reinforcements Sent: 2009-03-01
     source: http://eleconomista.com.mx/notas-online/politica/2009/03/01/arriban-militares-ciudad-juarez
+
+Op.Sonora:
+    Operation Sonora I: 2008-03-07
+    source: http://www.elimparcial.com/busqueda/TraerNota.aspx?Numnota=295876  
+#Other sources say it started 2008-04-05 http://www.zetatijuana.com/html/EdcionesAnteriores/Edicion1726/Principal.html
 
 Op.Sinaloa:
     Operation Culiacan-Navolato: 2008-05-13
     source: http://www.tabascohoy.com.mx/nota.php?id_nota=155210
-    
-Op.Tamaulipas-Nuevo Leon:
-    Operation Tamaulipas Nuevo-Leon: 02/17/2007
-    source: http://www.elsiglodedurango.com.mx/descargas/pdf/2007/02/19/19dgo08a.pdf?v
-   
-Op.Sonora:
-    Operation Sonora I: 2008-03-07
-    source: http://unafuente.com/01-04-2008/narcotrafico-senalan-al-mexicano-oliverio-acosta-como-lider-del-narco-en-guatemala-marzo-finaliza-con-81-personas-asesinadas-en-sinaloa-presume-ejercito-resultados-de-sonora-uno-desatan-caceria-contra/     
 
 ABL.Captured:
     ABL Captured: 2008-01-21
     source: http://www.sedena.gob.mx/index.php?id_art=1169
-    
+
 EAF.Captured:
     EAF Captured: 2008-10-26
     source: http://www.elfinanciero.com.mx/ElFinanciero/Portal/cfpages/contentmgr.cfm?docId=152259&docTipo=1&orderby=docid&sortby=ASC
+
+Calderon.Visit:
+    First Presidential visit to Cd. Juarez: 2010-02-11
+    Second Presidential visit to Cd. Juarez: 2010-02-18
+    source1: http://articles.latimes.com/2010/feb/12/world/la-fg-mexico-juarez12-2010feb12
+    source2: http://www.alertnet.org/thenews/newsdesk/N18195289.htm
+
+Police.Takeover:
+    Police takevoer: 2010-04-08
+    source: http://www.google.com/hostednews/ap/article/ALeqM5gMi5B2USfJStXxfqgWWr2xjRYpOgD9EV8GRO0

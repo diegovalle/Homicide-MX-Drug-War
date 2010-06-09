@@ -59,7 +59,8 @@ plotCities <- function(cities, df) {
                      color = County.x)) +
       geom_line(size = 1.5) +
       geom_point(size = 5) +
-      coord_cartesian(xlim = c(1991.5,2009))
+      coord_cartesian(xlim = c(1991.5,2009)) +
+      theme_bw()
   print(direct.label(p, first.points))
   filename <- paste("most-violent-counties/output/municipalities-",
                     deparse(substitute(cities)), ".png", sep = "")

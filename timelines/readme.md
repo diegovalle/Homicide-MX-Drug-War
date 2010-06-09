@@ -84,7 +84,7 @@ Operativo Veracruz: 05/14/2007
 
 [Operación Conjunta Culiacán-Navolato](http://www.tabascohoy.com.mx/nota.php?id_nota=155210): 05/13/2008
 
-[Operativo Sonora I](http://unafuente.com/01-04-2008/narcotrafico-senalan-al-mexicano-oliverio-acosta-como-lider-del-narco-en-guatemala-marzo-finaliza-con-81-personas-asesinadas-en-sinaloa-presume-ejercito-resultados-de-sonora-uno-desatan-caceria-contra/): 03/07/2008
+[Operativo Sonora I](http://www.elimparcial.com/busqueda/TraerNota.aspx?Numnota=295876): 03/07/2008
 
 [Reinforcements for Ciudad Juarez](http://eleconomista.com.mx/notas-online/politica/2009/03/01/arriban-militares-ciudad-juarez): 03/01/2009
 
