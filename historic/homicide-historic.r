@@ -151,11 +151,11 @@ h80.93 <- c(12225, 12596, 13323, 12918, 12473, 14961, 15909, 15722, 15204, 15399
 pop80.93 <- c(66846833, 68645759, 70417326, 72164243, 73889573, 75596381, 77287730, 78966685, 80636309, 82299665, 83971014, 85583336, 87184832, 88752014)
 
 Cairo(file = "historic/output/prehistoric-mx-1980-2008.png")
-qplot(1980:2008,c((h80.93/pop80.93)*100000,
+print(qplot(1980:2008,c((h80.93/pop80.93)*100000,
                   homicideMX[5:length(homicideMX)]), geom = "line") +
     xlab("year") + ylab("homicide rate") + geom_line(size = 1.2) +
     geom_line(data = data.frame(x=c(2008:2010),
             y = c(homicideMX[19], k2009.rate[1], k2010.rate[1])),
             aes(x, y), color = "gray40", size=1, linetype=2) +
-    opts(title = "Homicide rate in Mexico, 1980-2008 and estimates for 2009 and 2010")
+    opts(title = "Homicide rate in Mexico, 1980-2008 and estimates for 2009 and 2010"))
 dev.off()

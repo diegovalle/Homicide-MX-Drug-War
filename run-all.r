@@ -27,7 +27,8 @@ source("most-violent-counties/most-violent.r")
 source("timelines/timelines-mun.r")
 source("timelines/ciudad-juarez.r")
 source("states/homicide-bystate.r")
-#You need the maps for the next line
-source("choropleths/county-maps-homicide.r")
-source("most-violent-counties/cities-mun.r")
+
+#You need the maps for the next lines
+testMapsExist(source("choropleths/county-maps-homicide.r"))
+testMapsExist(source("most-violent-counties/cities-mun.r"))
 
