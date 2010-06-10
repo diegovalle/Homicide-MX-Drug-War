@@ -15,12 +15,12 @@ homr <- read.csv("accidents-homicides-suicides/output/homicide.csv")
 exe <- read.csv("guns-executions/data/firearm-executions.csv")
 
 #Average the data from Reforma and Milenio
-exe$Executions[2:6] <- exe$Renglones[2:6]
-exe$Executions[7] <- (exe$Reforma[7] + exe$Renglones[7]) / 2
-exe$Executions[8:10] <- (exe$Reforma[8:10] + exe$Milenio[8:10]) / 2
+exe$Executions[4:8] <- exe$Renglones[4:8]
+exe$Executions[9] <- (exe$Reforma[9] + exe$Renglones[9]) / 2
+exe$Executions[10:12] <- (exe$Reforma[10:12] + exe$Milenio[10:12]) / 2
 exe <- exe[,1:4]
 
-exe$Homicides <- c(homr$Tot[11:19], NA)
+exe$Homicides <- c(homr$Tot[9:19], NA)
 exer <- exe
 exer[,c(2,3,5)] <- sapply(exer[,c(2,3,5)],
                          function(x) x / exer$Population * 100000)
@@ -57,17 +57,19 @@ fir.state <- read.csv("guns-executions/data/firearm-hom-statetot.csv")
 state <- read.csv("accidents-homicides-suicides/output/states.csv")
 pop <- read.csv("conapo-pop-estimates/conapo-states.csv")
 
-state <- merge(fir.state, state[,c(1,12:20)], by = "State")
-state <- merge(state, pop[ ,c(1,12:20)], by = "State")
+state <- merge(fir.state, state[,c(1,10:20)], by = "State")
+state <- merge(state, pop[ ,c(1,10:20)], by = "State")
 
-clmns <- 20:28
-state[2:10] <- state[2:10] / state[,clmns] * 100000
-state[11:19] <- state[11:19] / state[, clmns] *100000
+popclmns <- 24:34
+firclmns <- 2:12
+homclmns <- 13:23
+state[firclmns] <- state[firclmns] / state[, popclmns] * 100000
+state[homclmns] <- state[homclmns] / state[, popclmns] *100000
 
-mstate <- melt(state[,1:19], id ="State")
+mstate <- melt(state[,1:23], id ="State")
 mstate$type <- factor(rep(c("Firearm\nHomicides", "Homicides"),
-                          each = 32*9))
-mstate$variable <- rep(2000:2008, each = 32)
+                          each = 32*11))
+mstate$variable <- rep(1998:2008, each = 32)
 
 mstate$type <- factor(mstate$type, levels = rev(levels(mstate$type)))
 
@@ -130,10 +132,10 @@ dev.print(png, "guns-executions/output/homicides-firearm-st.png",
 ##Now homicides committed with a firearm as a proportion of
 #all homicides
 ##############################################################
-pstate <- state[2:10] / state [11:19]
+pstate <- state[2:12] / state [13:23]
 pstate$State <- state$State
 mpstate <- melt(pstate, id = "State")
-mpstate$variable <- rep(2000:2008, each = 32)
+mpstate$variable <- rep(1998:2008, each = 32)
 mpstate$State <- factor(cleanNames(mpstate, "State"))
 
 mpstate <- ddply(mpstate, .(State), transform,
@@ -182,9 +184,11 @@ dev.print(png, "guns-executions/output/homicides-firearm-st-p.png",
 #7200
 
 #Assault by rifle shotgun and larger firearm discharge
-print(qplot(2000:2008, c(54, 50, 61, 48, 54, 55, 42, 41, 104),
-            geom="line") +
+asweap <-  c(105, 80, 54, 50, 61, 48, 54, 55, 42, 41, 104)
+#pop9808 <- c(95790135, 97114831, 98438557, 99715527, 100909374, 101999555, 103001867, 103946866, 104874282, 105790725, 106682518)
+print(qplot(1998:2008, asweap, geom="line") +
     geom_line() +
+ #   geom_point(aes(size = asweap)) +
     xlab("Year") + ylab("Number of Deaths") +
     opts(title="Number of deaths in Mexico by\nassault by rifle, shotgun and larger firearm discharge"))
 dev.print(png, "guns-executions/output/long-guns.png",

@@ -3,7 +3,7 @@
 
 Notes
 -----
-To run it on your machine you have to modify the path to the maps in the file "config/config.yaml" in the root directory
+To run it on your machine you'll need to download a couple of maps from the INEGI
 
 Sources
 -------
