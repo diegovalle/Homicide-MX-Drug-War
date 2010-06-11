@@ -10,6 +10,11 @@
 #3. Bar plot of the differences
 #4. Scatter plot against the proportions
 
+savePlotAA <- function(p, filename, width = 960, height = 600){
+    Cairo(file = filename, width=width, height=height)
+    print(p)
+    dev.off()
+}
 
 ########################################################
 # Line plot of PAHO, UN, INEGI and ICESI homicide rates
@@ -17,12 +22,12 @@
 homts <- read.csv("missing-homicides/data/PAHO-UN-INEGI-ICESI.csv")
 homts <- subset(homts, Year >= 1994)
 names(homts)[4] <- "SNSP"
-print(ggplot(melt(homts, id="Year"), aes(Year, value, group = variable,
+p <- ggplot(melt(homts, id="Year"), aes(Year, value, group = variable,
                                    color = variable)) +
-       geom_line(size=1.5) +
+       geom_line(alpha = .7, size = 1.2) +
        ylab("Homicide rate") +
-      opts(title = "Different estimates of the ‘homicide’ rate"))
-dev.print(png, file = "missing-homicides/output/PAHO-UN-INEGI-SNSP.png", width = 500, height = 300)
+      opts(title = "Different estimates of the ‘homicide’ rate")
+savePlotAA(p, file = "missing-homicides/output/PAHO-UN-INEGI-SNSP.png", width = 640, height = 480)
 
 #FADE IN:
 #LOWLY GOVERNMENT OFFICIAL Fernando is on the phone with a POWERFUL
