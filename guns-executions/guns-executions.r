@@ -34,7 +34,7 @@ p <- ggplot(mexer, aes(Year, value, group = variable,
                        color = variable)) +
     geom_line() + ylab("Rate") +
     opts(title = "")
-mid.points <- dl.indep(data.frame(d[3,],hjust=-0.2,vjust=-0.5))
+mid.points <- dl.indep(data.frame(d[4,],hjust=-0.2,vjust=-0.8))
 print(direct.label(p, mid.points))
 dev.print(png, "guns-executions/output/homicides-executions.png",
           width = 500, height = 400)
