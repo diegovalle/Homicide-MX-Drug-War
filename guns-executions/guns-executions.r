@@ -75,14 +75,12 @@ mstate$type <- factor(mstate$type, levels = rev(levels(mstate$type)))
 
 #Is the data cointegrated?
 unitRoot <- function(df){
-    f <- subset(df, type == "Firearm\nHomicides")$value
-    h <- subset(df, type == "Homicides")$value
     reg <- lm(h ~ f)
     ht <- adf.test(residuals(reg))
     ht
 }
-#FFFFFFFFFFFFFFFCCCCCCCCC Chihuahua and Guerrero and Durango are coint
-dlply(mstate, .(State), unitRoot)
+#FFFFFFFFFFFFFFFCCCCCCCCC  they are cointegrated
+dlply(hom, .(State), unitRoot)
 
 #Simple error correction, with eight samples per state there's not much
 #info

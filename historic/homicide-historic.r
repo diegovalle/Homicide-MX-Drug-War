@@ -143,19 +143,37 @@ print(ggplot(hom[hom$year >= 1994, ], aes(year, MX),
   annotate("text", x = 2007.5, y = 16.9, label = "Drug War"))
 dev.off()
 
-#From 1980 to 2010
+#From 1979 to 2010
 #From Dirección General de Información en Salud (DGIS). Base de datos de defunciones 1979-2007. [en línea]: Sistema Nacional de Información en Salud (SINAIS). [México]: Secretaría de Salud. <http://www.sinais.salud.gob.mx> [Consulta: 01 abril 2009]. 1979-2008
-#11852
-h80.93 <- c(12225, 12596, 13323, 12918, 12473, 14961, 15909, 15722, 15204, 15399, 14497, 15129, 16596, 16044)
+#1185
+h79.93 <- c(11852, 12225, 12596, 13323, 12918, 12473, 14961, 15909, 15722, 15204, 15399, 14497, 15129, 16596, 16044)
 
-pop80.93 <- c(66846833, 68645759, 70417326, 72164243, 73889573, 75596381, 77287730, 78966685, 80636309, 82299665, 83971014, 85583336, 87184832, 88752014)
+#Census population for 1980
+pop80 <- 66846833
+#Midyear population 1990-2009 from CONAPO
+pop90.09 <- c(83971014, 85583336, 87184832, 88752014, 90265775,
+91724528, 93130089, 94478046, 95790135, 97114831, 98438557,
+99715527, 100909374, 101999555, 103001867, 103946866,
+104874282, 105790725, 106682518, 107550697)
 
+
+pop79.93 <- na.spline(c(NA, pop80, rep(NA, 9), pop90.09))[1:15]
+
+fit <- homicideMX[length(homicideMX)]
+err <- rbind(data.frame(fit = fit, lwr = fit, upr = fit),
+             k2009.rate, k2010.rate)
+err$year <- 2008:2010
 Cairo(file = "historic/output/prehistoric-mx-1980-2008.png")
-print(qplot(1980:2008,c((h80.93/pop80.93)*100000,
+print(qplot(1979:2008, c((h79.93 / pop79.93) * 100000,
                   homicideMX[5:length(homicideMX)]), geom = "line") +
-    xlab("year") + ylab("homicide rate") + geom_line(size = 1.2) +
-    geom_line(data = data.frame(x=c(2008:2010),
+    xlab("year") + ylab("homicide rate") +
+    geom_line(size = 1.2) +
+    geom_line(data = data.frame(x = 2008:2010,
             y = c(homicideMX[19], k2009.rate[1], k2010.rate[1])),
             aes(x, y), color = "gray40", size=1, linetype=2) +
-    opts(title = "Homicide rate in Mexico, 1980-2008 and estimates for 2009 and 2010"))
+    #geom_ribbon(data = err, aes(x= year, y = fit,
+     #           ymax = upr, ymin = lwr),
+      #          alpha = .2,
+       #         fill = "red") +
+    opts(title = "Homicide rate in Mexico, 1979-2008 and estimates for 2009 and 2010"))
 dev.off()
