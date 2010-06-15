@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+\documentclass[landscape]{article}
 
 \title{Structural Change in Homicide Rates}
 \author{Diego Valle-Jones}
@@ -6,7 +6,6 @@
 \usepackage{longtable}
 \usepackage{anysize}
 
-\marginsize{1cm}{1cm}{2cm}{2cm}
 \usepackage{Sweave}
 \begin{document}
 
@@ -23,7 +22,9 @@ breakpoints(rate ~ ndays)
 where rate is the homicide rate, and ndays are the number of days in each month
 
 In the tables below, lower refers to the lower confidence interval, and
-upper refers to the upper confidence interval
+upper refers to the upper confidence interval. Keep in mind that the murders are
+only available as monthly totals, while the exact date of military
+operations is available.
 
 
 \section{Michoacan}
@@ -31,25 +32,25 @@ upper refers to the upper confidence interval
 Municipalities with more than a 100,000 thousand people:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:03 2010
+% Fri Jun 04 16:55:23 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Michoacan & A.B.L. Captured \\ 
   \hline
-Apatzingán & 2006-04-30 & 2006-06-30 & 2006-08-31 & 2006-12-11 & 2008-01-21 \\ 
-  Apatzingán & 2006-12-31 & 2007-01-31 & 2007-03-31 & 2006-12-11 & 2008-01-21 \\ 
-  Hidalgo & 2004-06-30 & 2006-03-31 & 2006-04-30 & 2006-12-11 & 2008-01-21 \\ 
-  Hidalgo & 2006-07-31 & 2006-11-30 & 2008-02-29 & 2006-12-11 & 2008-01-21 \\ 
-  Lázaro Cárdenas & 2006-07-31 & 2007-01-31 & 2010-07-31 & 2006-12-11 & 2008-01-21 \\ 
-  Lázaro Cárdenas & 2008-01-31 & 2008-04-30 & 2008-06-30 & 2006-12-11 & 2008-01-21 \\ 
-  Morelia & 2004-11-30 & 2006-10-31 & 2009-08-31 & 2006-12-11 & 2008-01-21 \\ 
-  Morelia & 2006-09-30 & 2008-01-31 & 2008-05-31 & 2006-12-11 & 2008-01-21 \\ 
-  Uruapan & 2004-12-31 & 2005-10-31 & 2006-01-31 & 2006-12-11 & 2008-01-21 \\ 
-  Uruapan & 2007-08-31 & 2007-10-31 & 2008-04-30 & 2006-12-11 & 2008-01-21 \\ 
-  Zamora & 2006-01-31 & 2006-06-30 & 2006-07-31 & 2006-12-11 & 2008-01-21 \\ 
-  Zamora & 2006-12-31 & 2007-01-31 & 2007-05-31 & 2006-12-11 & 2008-01-21 \\ 
-  Zitácuaro & 2005-06-30 & 2006-02-28 & 2006-03-31 & 2006-12-11 & 2008-01-21 \\ 
-  Zitácuaro & 2006-08-31 & 2006-11-30 & 2008-11-30 & 2006-12-11 & 2008-01-21 \\ 
+Apatzingán & Apr-06 & Jun-06 & Aug-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Apatzingán & Dec-06 & Jan-07 & Mar-07 & 11-Dec-06 & 21-Jan-08 \\ 
+  Hidalgo & Jun-04 & Mar-06 & Apr-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Hidalgo & Jul-06 & Nov-06 & Feb-08 & 11-Dec-06 & 21-Jan-08 \\ 
+  Lázaro Cárdenas & Jul-06 & Jan-07 & Jul-10 & 11-Dec-06 & 21-Jan-08 \\ 
+  Lázaro Cárdenas & Jan-08 & Apr-08 & Jun-08 & 11-Dec-06 & 21-Jan-08 \\ 
+  Morelia & Nov-04 & Oct-06 & Aug-09 & 11-Dec-06 & 21-Jan-08 \\ 
+  Morelia & Sep-06 & Jan-08 & May-08 & 11-Dec-06 & 21-Jan-08 \\ 
+  Uruapan & Dec-04 & Oct-05 & Jan-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Uruapan & Aug-07 & Oct-07 & Apr-08 & 11-Dec-06 & 21-Jan-08 \\ 
+  Zamora & Jan-06 & Jun-06 & Jul-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Zamora & Dec-06 & Jan-07 & May-07 & 11-Dec-06 & 21-Jan-08 \\ 
+  Zitácuaro & Jun-05 & Feb-06 & Mar-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Zitácuaro & Aug-06 & Nov-06 & Nov-08 & 11-Dec-06 & 21-Jan-08 \\ 
    \hline
 \hline
 \end{longtable}
@@ -57,37 +58,37 @@ The cluster of municipalities near the Pacific Coast and the Tierra
 Caliente that have a very high homicide rate:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:03 2010
+% Fri Jun 04 16:55:23 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Michoacan & A.B.L. Captured \\ 
   \hline
-Aguililla & 2005-10-31 & 2006-06-30 & 2006-07-31 & 2006-12-11 & 2008-01-21 \\ 
-  Aguililla & 2006-12-31 & 2007-01-31 & 2007-07-31 & 2006-12-11 & 2008-01-21 \\ 
-  Apatzingán & 2006-04-30 & 2006-06-30 & 2006-08-31 & 2006-12-11 & 2008-01-21 \\ 
-  Apatzingán & 2006-12-31 & 2007-01-31 & 2007-03-31 & 2006-12-11 & 2008-01-21 \\ 
-  Aquila & 2006-02-28 & 2006-06-30 & 2006-07-31 & 2006-12-11 & 2008-01-21 \\ 
-  Aquila & 2006-11-30 & 2007-01-31 & 2007-05-31 & 2006-12-11 & 2008-01-21 \\ 
-  Arteaga & 2005-04-30 & 2006-01-31 & 2006-02-28 & 2006-12-11 & 2008-01-21 \\ 
-  Arteaga & 2006-01-31 & 2007-01-31 & 2008-08-31 & 2006-12-11 & 2008-01-21 \\ 
-  Carácuaro & 2005-12-31 & 2006-01-31 & 2006-03-31 & 2006-12-11 & 2008-01-21 \\ 
-  Carácuaro & 2005-08-31 & 2006-09-30 & 2006-10-31 & 2006-12-11 & 2008-01-21 \\ 
-  Chinicuila & 2003-08-31 & 2006-03-31 & 2006-06-30 & 2006-12-11 & 2008-01-21 \\ 
-  Chinicuila & 2006-08-31 & 2006-10-31 & 2009-02-28 & 2006-12-11 & 2008-01-21 \\ 
-  Churumuco &  & 2005-11-30 &  & 2006-12-11 & 2008-01-21 \\ 
-  Churumuco & 2005-11-30 & 2006-06-30 & 2007-08-31 & 2006-12-11 & 2008-01-21 \\ 
-  Coalcomán de Vázquez Pallares & 2005-11-30 & 2006-02-28 & 2006-08-31 & 2006-12-11 & 2008-01-21 \\ 
-  Coalcomán de Vázquez Pallares & 2006-09-30 & 2007-04-30 & 2007-09-30 & 2006-12-11 & 2008-01-21 \\ 
-  Huetamo & 2006-04-30 & 2006-06-30 & 2006-08-31 & 2006-12-11 & 2008-01-21 \\ 
-  Huetamo & 2006-12-31 & 2007-01-31 & 2007-02-28 & 2006-12-11 & 2008-01-21 \\ 
-  Tacámbaro & 2006-01-31 & 2006-05-31 & 2006-07-31 & 2006-12-11 & 2008-01-21 \\ 
-  Tacámbaro & 2006-12-31 & 2007-01-31 & 2007-04-30 & 2006-12-11 & 2008-01-21 \\ 
-  Tepalcatepec & 2003-10-31 & 2006-06-30 & 2009-02-28 & 2006-12-11 & 2008-01-21 \\ 
-  Tepalcatepec & 2007-03-31 & 2007-05-31 & 2008-03-31 & 2006-12-11 & 2008-01-21 \\ 
-  Tumbiscatío & 2005-03-31 & 2006-02-28 & 2006-05-31 & 2006-12-11 & 2008-01-21 \\ 
-  Tumbiscatío & 2006-08-31 & 2006-09-30 & 2007-06-30 & 2006-12-11 & 2008-01-21 \\ 
-  Turicato & 2005-12-31 & 2006-08-31 & 2006-10-31 & 2006-12-11 & 2008-01-21 \\ 
-  Turicato & 2007-02-28 & 2007-03-31 & 2007-08-31 & 2006-12-11 & 2008-01-21 \\ 
+Aguililla & Oct-05 & Jun-06 & Jul-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Aguililla & Dec-06 & Jan-07 & Jul-07 & 11-Dec-06 & 21-Jan-08 \\ 
+  Apatzingán & Apr-06 & Jun-06 & Aug-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Apatzingán & Dec-06 & Jan-07 & Mar-07 & 11-Dec-06 & 21-Jan-08 \\ 
+  Aquila & Feb-06 & Jun-06 & Jul-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Aquila & Nov-06 & Jan-07 & May-07 & 11-Dec-06 & 21-Jan-08 \\ 
+  Arteaga & Apr-05 & Jan-06 & Feb-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Arteaga & Jan-06 & Jan-07 & Aug-08 & 11-Dec-06 & 21-Jan-08 \\ 
+  Carácuaro & Dec-05 & Jan-06 & Mar-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Carácuaro & Aug-05 & Sep-06 & Oct-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Chinicuila & Aug-03 & Mar-06 & Jun-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Chinicuila & Aug-06 & Oct-06 & Feb-09 & 11-Dec-06 & 21-Jan-08 \\ 
+  Churumuco &  & Nov-05 &  & 11-Dec-06 & 21-Jan-08 \\ 
+  Churumuco & Nov-05 & Jun-06 & Aug-07 & 11-Dec-06 & 21-Jan-08 \\ 
+  Coalcomán de Vázquez Pallares & Nov-05 & Feb-06 & Aug-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Coalcomán de Vázquez Pallares & Sep-06 & Apr-07 & Sep-07 & 11-Dec-06 & 21-Jan-08 \\ 
+  Huetamo & Apr-06 & Jun-06 & Aug-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Huetamo & Dec-06 & Jan-07 & Feb-07 & 11-Dec-06 & 21-Jan-08 \\ 
+  Tacámbaro & Jan-06 & May-06 & Jul-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Tacámbaro & Dec-06 & Jan-07 & Apr-07 & 11-Dec-06 & 21-Jan-08 \\ 
+  Tepalcatepec & Oct-03 & Jun-06 & Feb-09 & 11-Dec-06 & 21-Jan-08 \\ 
+  Tepalcatepec & Mar-07 & May-07 & Mar-08 & 11-Dec-06 & 21-Jan-08 \\ 
+  Tumbiscatío & Mar-05 & Feb-06 & May-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Tumbiscatío & Aug-06 & Sep-06 & Jun-07 & 11-Dec-06 & 21-Jan-08 \\ 
+  Turicato & Dec-05 & Aug-06 & Oct-06 & 11-Dec-06 & 21-Jan-08 \\ 
+  Turicato & Feb-07 & Mar-07 & Aug-07 & 11-Dec-06 & 21-Jan-08 \\ 
    \hline
 \hline
 \end{longtable}
@@ -102,48 +103,48 @@ one when Alfredo Beltran Leyva was captured by the army.
 Municipalities with more than a 100,000 thousand people:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:04 2010
+% Fri Jun 04 16:55:23 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Guerrero & A.B.L. Captured \\ 
   \hline
-Acapulco de Juárez & 2006-01-31 & 2006-06-30 & 2006-07-31 & 2007-01-15 & 2008-01-21 \\ 
-  Acapulco de Juárez & 2006-12-31 & 2007-01-31 & 2007-09-30 & 2007-01-15 & 2008-01-21 \\ 
-  Chilapa de Alvarez & 2005-07-31 & 2005-11-30 & 2006-09-30 & 2007-01-15 & 2008-01-21 \\ 
-  Chilapa de Alvarez & 2006-03-31 & 2007-02-28 & 2007-05-31 & 2007-01-15 & 2008-01-21 \\ 
-  Chilpancingo de los Bravo & 2005-11-30 & 2006-04-30 & 2006-06-30 & 2007-01-15 & 2008-01-21 \\ 
-  Chilpancingo de los Bravo & 2006-07-31 & 2007-02-28 & 2007-08-31 & 2007-01-15 & 2008-01-21 \\ 
-  Iguala de la Independencia & 2002-12-31 & 2007-06-30 & 2008-12-31 & 2007-01-15 & 2008-01-21 \\ 
-  Iguala de la Independencia & 2007-09-30 & 2008-05-31 & 2008-08-31 & 2007-01-15 & 2008-01-21 \\ 
-  José Azueta & 2007-08-31 & 2007-09-30 & 2008-10-31 & 2007-01-15 & 2008-01-21 \\ 
-  José Azueta & 2007-12-31 & 2008-04-30 & 2008-05-31 & 2007-01-15 & 2008-01-21 \\ 
-  Taxco de Alarcón & 2006-11-30 & 2007-04-30 & 2007-05-31 & 2007-01-15 & 2008-01-21 \\ 
-  Taxco de Alarcón & 2007-06-30 & 2007-11-30 & 2008-06-30 & 2007-01-15 & 2008-01-21 \\ 
+Acapulco de Juárez & Jan-06 & Jun-06 & Jul-06 & 15-Jan-07 & 21-Jan-08 \\ 
+  Acapulco de Juárez & Dec-06 & Jan-07 & Sep-07 & 15-Jan-07 & 21-Jan-08 \\ 
+  Chilapa de Alvarez & Jul-05 & Nov-05 & Sep-06 & 15-Jan-07 & 21-Jan-08 \\ 
+  Chilapa de Alvarez & Mar-06 & Feb-07 & May-07 & 15-Jan-07 & 21-Jan-08 \\ 
+  Chilpancingo de los Bravo & Nov-05 & Apr-06 & Jun-06 & 15-Jan-07 & 21-Jan-08 \\ 
+  Chilpancingo de los Bravo & Jul-06 & Feb-07 & Aug-07 & 15-Jan-07 & 21-Jan-08 \\ 
+  Iguala de la Independencia & Dec-02 & Jun-07 & Dec-08 & 15-Jan-07 & 21-Jan-08 \\ 
+  Iguala de la Independencia & Sep-07 & May-08 & Aug-08 & 15-Jan-07 & 21-Jan-08 \\ 
+  José Azueta & Aug-07 & Sep-07 & Oct-08 & 15-Jan-07 & 21-Jan-08 \\ 
+  José Azueta & Dec-07 & Apr-08 & May-08 & 15-Jan-07 & 21-Jan-08 \\ 
+  Taxco de Alarcón & Nov-06 & Apr-07 & May-07 & 15-Jan-07 & 21-Jan-08 \\ 
+  Taxco de Alarcón & Jun-07 & Nov-07 & Jun-08 & 15-Jan-07 & 21-Jan-08 \\ 
    \hline
 \hline
 \end{longtable}
 These are the municipalities bordering Michoacan:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:04 2010
+% Fri Jun 04 16:55:23 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Guerrero & A.B.L. Captured \\ 
   \hline
-Arcelia & 2003-02-28 & 2005-10-31 & 2011-04-30 & 2007-01-15 & 2008-01-21 \\ 
-  Arcelia & 2007-07-31 & 2008-04-30 & 2008-07-31 & 2007-01-15 & 2008-01-21 \\ 
-  Coahuayutla de José María Izazaga & 2005-10-31 & 2006-06-30 & 2006-08-31 & 2007-01-15 & 2008-01-21 \\ 
-  Coahuayutla de José María Izazaga & 2007-03-31 & 2007-04-30 & 2007-11-30 & 2007-01-15 & 2008-01-21 \\ 
-  Coyuca de Catalán & 2005-10-31 & 2006-10-31 & 2006-12-31 & 2007-01-15 & 2008-01-21 \\ 
-  Coyuca de Catalán & 2005-08-31 & 2008-01-31 & 2011-12-31 & 2007-01-15 & 2008-01-21 \\ 
-  Cutzamala de Pinzón & 2007-01-31 & 2007-02-28 & 2007-08-31 & 2007-01-15 & 2008-01-21 \\ 
-  Cutzamala de Pinzón & 2007-09-30 & 2008-02-29 & 2008-03-31 & 2007-01-15 & 2008-01-21 \\ 
-  La Unión de Isidoro Montes de Oca & 2005-10-31 & 2006-04-30 & 2006-05-31 & 2007-01-15 & 2008-01-21 \\ 
-  La Unión de Isidoro Montes de Oca & 2006-03-31 & 2007-01-31 & 2008-05-31 & 2007-01-15 & 2008-01-21 \\ 
-  Pungarabato & 2004-11-30 & 2005-10-31 & 2006-04-30 & 2007-01-15 & 2008-01-21 \\ 
-  Pungarabato & 2004-06-30 & 2007-01-31 & 2010-02-28 & 2007-01-15 & 2008-01-21 \\ 
-  Zirándaro & 2002-01-31 & 2006-02-28 & 2008-10-31 & 2007-01-15 & 2008-01-21 \\ 
-  Zirándaro & 2007-12-31 & 2008-05-31 & 2008-07-31 & 2007-01-15 & 2008-01-21 \\ 
+Arcelia & Feb-03 & Oct-05 & Apr-11 & 15-Jan-07 & 21-Jan-08 \\ 
+  Arcelia & Jul-07 & Apr-08 & Jul-08 & 15-Jan-07 & 21-Jan-08 \\ 
+  Coahuayutla de José María Izazaga & Oct-05 & Jun-06 & Aug-06 & 15-Jan-07 & 21-Jan-08 \\ 
+  Coahuayutla de José María Izazaga & Mar-07 & Apr-07 & Nov-07 & 15-Jan-07 & 21-Jan-08 \\ 
+  Coyuca de Catalán & Oct-05 & Oct-06 & Dec-06 & 15-Jan-07 & 21-Jan-08 \\ 
+  Coyuca de Catalán & Aug-05 & Jan-08 & Dec-11 & 15-Jan-07 & 21-Jan-08 \\ 
+  Cutzamala de Pinzón & Jan-07 & Feb-07 & Aug-07 & 15-Jan-07 & 21-Jan-08 \\ 
+  Cutzamala de Pinzón & Sep-07 & Feb-08 & Mar-08 & 15-Jan-07 & 21-Jan-08 \\ 
+  La Unión de Isidoro Montes de Oca & Oct-05 & Apr-06 & May-06 & 15-Jan-07 & 21-Jan-08 \\ 
+  La Unión de Isidoro Montes de Oca & Mar-06 & Jan-07 & May-08 & 15-Jan-07 & 21-Jan-08 \\ 
+  Pungarabato & Nov-04 & Oct-05 & Apr-06 & 15-Jan-07 & 21-Jan-08 \\ 
+  Pungarabato & Jun-04 & Jan-07 & Feb-10 & 15-Jan-07 & 21-Jan-08 \\ 
+  Zirándaro & Jan-02 & Feb-06 & Oct-08 & 15-Jan-07 & 21-Jan-08 \\ 
+  Zirándaro & Dec-07 & May-08 & Jul-08 & 15-Jan-07 & 21-Jan-08 \\ 
    \hline
 \hline
 \end{longtable}
@@ -158,15 +159,15 @@ with a high number of homicides were available for testing.
 Municipalities with more than a 100,000 thousand people:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:04 2010
+% Fri Jun 04 16:55:24 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Tijuana & E.A.F. Captured \\ 
   \hline
-Ensenada & 2008-07-31 & 2008-08-31 & 2008-09-30 & 2007-01-03 & 2008-10-26 \\ 
-  Mexicali & 2005-04-30 & 2005-11-30 & 2006-02-28 & 2007-01-03 & 2008-10-26 \\ 
-  Tecate & 2007-07-31 & 2008-04-30 & 2008-06-30 & 2007-01-03 & 2008-10-26 \\ 
-  Tijuana & 2008-05-31 & 2008-09-30 & 2008-10-31 & 2007-01-03 & 2008-10-26 \\ 
+Ensenada & Jul-08 & Aug-08 & Sep-08 & 03-Jan-07 & 26-Oct-08 \\ 
+  Mexicali & Apr-05 & Nov-05 & Feb-06 & 03-Jan-07 & 26-Oct-08 \\ 
+  Tecate & Jul-07 & Apr-08 & Jun-08 & 03-Jan-07 & 26-Oct-08 \\ 
+  Tijuana & May-08 & Sep-08 & Oct-08 & 03-Jan-07 & 26-Oct-08 \\ 
    \hline
 \hline
 \end{longtable}
@@ -176,34 +177,34 @@ Ensenada & 2008-07-31 & 2008-08-31 & 2008-09-30 & 2007-01-03 & 2008-10-26 \\
 Municipalities with more than a 100,000 thousand people:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:04 2010
+% Fri Jun 04 16:55:24 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Triangulo Dorado & Phase III \\ 
   \hline
-Durango & 2007-10-31 & 2008-02-29 & 2008-03-31 & 2007-01-13 & 2008-02-01 \\ 
-  Gómez Palacio & 2007-10-31 & 2008-02-29 & 2008-05-31 & 2007-01-13 & 2008-02-01 \\ 
-  Lerdo & 2006-11-30 & 2008-05-31 & 2008-06-30 & 2007-01-13 & 2008-02-01 \\ 
+Durango & Oct-07 & Feb-08 & Mar-08 & 22-Jan-07 & 01-Feb-08 \\ 
+  Gómez Palacio & Oct-07 & Feb-08 & May-08 & 22-Jan-07 & 01-Feb-08 \\ 
+  Lerdo & Nov-06 & May-08 & Jun-08 & 22-Jan-07 & 01-Feb-08 \\ 
    \hline
 \hline
 \end{longtable}
 These are the municpalities with a high homicide rate:
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:05 2010
+% Fri Jun 04 16:55:24 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Triangulo Dorado & Phase III \\ 
   \hline
-El Oro & 2004-12-31 & 2008-05-31 & 2008-11-30 & 2007-01-13 & 2008-02-01 \\ 
-  Guanaceví & 2000-04-30 & 2008-03-31 & 2008-07-31 & 2007-01-13 & 2008-02-01 \\ 
-  Mezquital & 2005-02-28 & 2005-08-31 & 2007-07-31 & 2007-01-13 & 2008-02-01 \\ 
-  Ocampo & 2006-03-31 & 2008-05-31 & 2008-06-30 & 2007-01-13 & 2008-02-01 \\ 
-  Poanas & 2006-12-31 & 2008-01-31 & 2008-02-29 & 2007-01-13 & 2008-02-01 \\ 
-  Pueblo Nuevo & 2007-04-30 & 2008-03-31 & 2008-12-31 & 2007-01-13 & 2008-02-01 \\ 
-  San Dimas & 2004-08-31 & 2005-09-30 & 2006-02-28 & 2007-01-13 & 2008-02-01 \\ 
-  Súchil & 2006-11-30 & 2008-04-30 & 2008-05-31 & 2007-01-13 & 2008-02-01 \\ 
-  Tepehuanes & 2006-04-30 & 2008-05-31 & 2008-07-31 & 2007-01-13 & 2008-02-01 \\ 
-  Vicente Guerrero & 2007-11-30 & 2008-04-30 & 2008-05-31 & 2007-01-13 & 2008-02-01 \\ 
+El Oro & Dec-04 & May-08 & Nov-08 & 22-Jan-07 & 01-Feb-08 \\ 
+  Guanaceví & Apr-00 & Mar-08 & Jul-08 & 22-Jan-07 & 01-Feb-08 \\ 
+  Mezquital & Feb-05 & Aug-05 & Jul-07 & 22-Jan-07 & 01-Feb-08 \\ 
+  Ocampo & Mar-06 & May-08 & Jun-08 & 22-Jan-07 & 01-Feb-08 \\ 
+  Poanas & Dec-06 & Jan-08 & Feb-08 & 22-Jan-07 & 01-Feb-08 \\ 
+  Pueblo Nuevo & Apr-07 & Mar-08 & Dec-08 & 22-Jan-07 & 01-Feb-08 \\ 
+  San Dimas & Aug-04 & Sep-05 & Feb-06 & 22-Jan-07 & 01-Feb-08 \\ 
+  Súchil & Nov-06 & Apr-08 & May-08 & 22-Jan-07 & 01-Feb-08 \\ 
+  Tepehuanes & Apr-06 & May-08 & Jul-08 & 22-Jan-07 & 01-Feb-08 \\ 
+  Vicente Guerrero & Nov-07 & Apr-08 & May-08 & 22-Jan-07 & 01-Feb-08 \\ 
    \hline
 \hline
 \end{longtable}
@@ -213,17 +214,17 @@ El Oro & 2004-12-31 & 2008-05-31 & 2008-11-30 & 2007-01-13 & 2008-02-01 \\
 Municipalities with more than a 100,000 thousand people:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:05 2010
+% Fri Jun 04 16:55:24 2010
 \begin{longtable}{lllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & O. Sonora I \\ 
   \hline
-Cajeme & 2007-06-30 & 2008-01-31 & 2008-05-31 & 2008-03-07 \\ 
-  Guaymas & 2007-01-31 & 2008-01-31 & 2008-03-31 & 2008-03-07 \\ 
-  Hermosillo & 2003-08-31 & 2007-02-28 & 2008-05-31 & 2008-03-07 \\ 
-  Navojoa & 2005-03-31 & 2005-11-30 & 2008-03-31 & 2008-03-07 \\ 
-  Nogales & 2008-03-31 & 2008-05-31 & 2008-06-30 & 2008-03-07 \\ 
-  San Luis Río Colorado & 2006-11-30 & 2007-05-31 & 2008-10-31 & 2008-03-07 \\ 
+Cajeme & Jun-07 & Jan-08 & May-08 & 07-Mar-08 \\ 
+  Guaymas & Jan-07 & Jan-08 & Mar-08 & 07-Mar-08 \\ 
+  Hermosillo & Aug-03 & Feb-07 & May-08 & 07-Mar-08 \\ 
+  Navojoa & Mar-05 & Nov-05 & Mar-08 & 07-Mar-08 \\ 
+  Nogales & Mar-08 & May-08 & Jun-08 & 07-Mar-08 \\ 
+  San Luis Río Colorado & Nov-06 & May-07 & Oct-08 & 07-Mar-08 \\ 
    \hline
 \hline
 \end{longtable}
@@ -233,32 +234,32 @@ Cajeme & 2007-06-30 & 2008-01-31 & 2008-05-31 & 2008-03-07 \\
 Municipalities with more than a 100,000 thousand people:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:05 2010
+% Fri Jun 04 16:55:24 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Triangulo Dorado & J. O. Culiacan-Navolato \\ 
   \hline
-Ahome & 2004-08-31 & 2005-08-31 & 2006-03-31 & 2007-01-13 & 2008-05-13 \\ 
-  Culiacán & 2007-09-30 & 2008-04-30 & 2008-05-31 & 2007-01-13 & 2008-05-13 \\ 
-  Guasave & 2007-11-30 & 2008-05-31 & 2008-07-31 & 2007-01-13 & 2008-05-13 \\ 
-  Mazatlán & 2007-11-30 & 2008-05-31 & 2008-06-30 & 2007-01-13 & 2008-05-13 \\ 
-  Navolato & 2008-01-31 & 2008-04-30 & 2008-05-31 & 2007-01-13 & 2008-05-13 \\ 
+Ahome & Aug-04 & Aug-05 & Mar-06 & 22-Jan-07 & 13-May-08 \\ 
+  Culiacán & Sep-07 & Apr-08 & May-08 & 22-Jan-07 & 13-May-08 \\ 
+  Guasave & Nov-07 & May-08 & Jul-08 & 22-Jan-07 & 13-May-08 \\ 
+  Mazatlán & Nov-07 & May-08 & Jun-08 & 22-Jan-07 & 13-May-08 \\ 
+  Navolato & Jan-08 & Apr-08 & May-08 & 22-Jan-07 & 13-May-08 \\ 
    \hline
 \hline
 \end{longtable}
 Municipalities with a high homicide rate:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:05 2010
+% Fri Jun 04 16:55:24 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Triangulo Dorado & J. O. Culiacan-Navolato \\ 
   \hline
-Badiraguato & 2005-01-31 & 2008-03-31 & 2008-07-31 & 2007-01-13 & 2008-05-13 \\ 
-  Cosalá & 2006-08-31 & 2008-05-31 & 2008-08-31 & 2007-01-13 & 2008-05-13 \\ 
-  Mocorito & 2007-09-30 & 2008-04-30 & 2008-08-31 & 2007-01-13 & 2008-05-13 \\ 
-  San Ignacio & 2004-07-31 & 2008-03-31 & 2008-09-30 & 2007-01-13 & 2008-05-13 \\ 
-  Sinaloa & 2006-11-30 & 2008-05-31 & 2008-06-30 & 2007-01-13 & 2008-05-13 \\ 
+Badiraguato & Jan-05 & Mar-08 & Jul-08 & 22-Jan-07 & 13-May-08 \\ 
+  Cosalá & Aug-06 & May-08 & Aug-08 & 22-Jan-07 & 13-May-08 \\ 
+  Mocorito & Sep-07 & Apr-08 & Aug-08 & 22-Jan-07 & 13-May-08 \\ 
+  San Ignacio & Jul-04 & Mar-08 & Sep-08 & 22-Jan-07 & 13-May-08 \\ 
+  Sinaloa & Nov-06 & May-08 & Jun-08 & 22-Jan-07 & 13-May-08 \\ 
    \hline
 \hline
 \end{longtable}
@@ -269,34 +270,26 @@ Badiraguato & 2005-01-31 & 2008-03-31 & 2008-07-31 & 2007-01-13 & 2008-05-13 \\
 From the charts it looks like there were 2 breaks in the homicide
 rate, one corresponding to when ``El Chapo'' sent ``La Barbie'' to take
 over the plaza in Nuevo Laredo, and the other to when he realized he
-wasn't going to be able to take it over. 
+wasn't going to be able to take it over.
 
-Municipalities with more than a 100,000 thousand people:
+Municipalities with more than a 250,000 thousand people:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:05 2010
-\begin{longtable}{lllll}
+% Fri Jun 04 16:55:24 2010
+\begin{longtable}{llllll}
   \hline
-Municipality & Lower & Breakpoints & Upper & J. O. Tamaulipas-Nuevo Leon \\ 
+Municipality & Lower & Breakpoints & Upper & Troops in N.L. & J. O. Tamaulipas-Nuevo Leon \\ 
   \hline
-Altamira & 2006-07-31 & 2007-04-30 & 2007-05-31 & 2007-02-17 \\ 
-  Altamira & 2007-06-30 & 2007-11-30 & 2008-11-30 & 2007-02-17 \\ 
-  Ciudad Madero & 2005-06-30 & 2006-09-30 & 2006-11-30 & 2007-02-17 \\ 
-  Ciudad Madero & 2007-06-30 & 2007-09-30 & 2009-02-28 & 2007-02-17 \\ 
-  El Mante & 2005-06-30 & 2006-01-31 & 2006-05-31 & 2007-02-17 \\ 
-  El Mante & 2006-06-30 & 2006-08-31 & 2007-04-30 & 2007-02-17 \\ 
-  Matamoros & 2005-01-31 & 2005-08-31 & 2007-08-31 & 2007-02-17 \\ 
-  Matamoros & 2006-10-31 & 2008-04-30 & 2010-10-31 & 2007-02-17 \\ 
-  Nuevo Laredo & 2004-10-31 & 2006-01-31 & 2006-10-31 & 2007-02-17 \\ 
-  Nuevo Laredo & 2006-07-31 & 2006-08-31 & 2006-11-30 & 2007-02-17 \\ 
-  Reynosa & 2005-05-31 & 2005-09-30 & 2006-09-30 & 2007-02-17 \\ 
-  Reynosa & 2006-08-31 & 2008-01-31 & 2008-02-29 & 2007-02-17 \\ 
-  Río Bravo & 2006-03-31 & 2007-08-31 & 2007-09-30 & 2007-02-17 \\ 
-  Río Bravo & 2008-02-29 & 2008-03-31 & 2009-06-30 & 2007-02-17 \\ 
-  Tampico & 2004-11-30 & 2005-09-30 & 2006-06-30 & 2007-02-17 \\ 
-  Tampico & 2006-06-30 & 2006-10-31 & 2007-03-31 & 2007-02-17 \\ 
-  Victoria & 2006-06-30 & 2006-10-31 & 2008-08-31 & 2007-02-17 \\ 
-  Victoria & 2007-12-31 & 2008-02-29 & 2008-04-30 & 2007-02-17 \\ 
+Matamoros & Jan-05 & Aug-05 & Aug-07 & 13-Jun-05 & 19-Feb-07 \\ 
+  Matamoros & Oct-06 & Apr-08 & Oct-10 & 13-Jun-05 & 19-Feb-07 \\ 
+  Nuevo Laredo & Oct-04 & Jan-06 & Oct-06 & 13-Jun-05 & 19-Feb-07 \\ 
+  Nuevo Laredo & Jul-06 & Aug-06 & Nov-06 & 13-Jun-05 & 19-Feb-07 \\ 
+  Reynosa & May-05 & Sep-05 & Sep-06 & 13-Jun-05 & 19-Feb-07 \\ 
+  Reynosa & Aug-06 & Jan-08 & Feb-08 & 13-Jun-05 & 19-Feb-07 \\ 
+  Tampico & Nov-04 & Sep-05 & Jun-06 & 13-Jun-05 & 19-Feb-07 \\ 
+  Tampico & Jun-06 & Oct-06 & Mar-07 & 13-Jun-05 & 19-Feb-07 \\ 
+  Victoria & Jun-06 & Oct-06 & Aug-08 & 13-Jun-05 & 19-Feb-07 \\ 
+  Victoria & Dec-07 & Feb-08 & Apr-08 & 13-Jun-05 & 19-Feb-07 \\ 
    \hline
 \hline
 \end{longtable}
@@ -304,81 +297,134 @@ Altamira & 2006-07-31 & 2007-04-30 & 2007-05-31 & 2007-02-17 \\
 
 \section{Nuevo Leon}
 
-Municipalities with more than a 100,000 thousand people:
+Municipalities with more than a 250,000 thousand people:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:05 2010
+% Fri Jun 04 16:55:24 2010
 \begin{longtable}{lllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Tamaulipas-Nuevo Leon \\ 
   \hline
-Apodaca & 2005-03-31 & 2007-01-31 & 2007-05-31 & 2007-02-17 \\ 
-  Gral. Escobedo & 2003-09-30 & 2006-08-31 & 2008-09-30 & 2007-02-17 \\ 
-  Guadalupe & 2002-12-31 & 2005-09-30 & 2005-12-31 & 2007-02-17 \\ 
-  Juárez & 2001-12-31 & 2005-10-31 & 2006-05-31 & 2007-02-17 \\ 
-  Monterrey & 2006-08-31 & 2007-02-28 & 2007-05-31 & 2007-02-17 \\ 
-  San Nicolás de los Garza & 2004-03-31 & 2006-03-31 & 2006-08-31 & 2007-02-17 \\ 
-  San Pedro Garza García & 2002-06-30 & 2008-03-31 & 2008-12-31 & 2007-02-17 \\ 
-  Santa Catarina & 2004-09-30 & 2007-01-31 & 2007-04-30 & 2007-02-17 \\ 
+Apodaca & Mar-05 & Jan-07 & May-07 & 19-Feb-07 \\ 
+  Gral. Escobedo & Sep-03 & Aug-06 & Sep-08 & 19-Feb-07 \\ 
+  Guadalupe & Dec-02 & Sep-05 & Dec-05 & 19-Feb-07 \\ 
+  Monterrey & Aug-06 & Feb-07 & May-07 & 19-Feb-07 \\ 
+  San Nicolás de los Garza & Mar-04 & Mar-06 & Aug-06 & 19-Feb-07 \\ 
+  Santa Catarina & Sep-04 & Jan-07 & Apr-07 & 19-Feb-07 \\ 
    \hline
 \hline
 \end{longtable}
+These are the municipalities in the metropolitan area of Monterrey:
+
+% latex table generated in R 2.11.0 by xtable 1.5-6 package
+% Fri Jun 04 16:55:24 2010
+\begin{longtable}{lllll}
+  \hline
+Municipality & Lower & Breakpoints & Upper & J. O. Tamaulipas-Nuevo Leon \\ 
+  \hline
+Apodaca & Mar-05 & Jan-07 & May-07 & 19-Feb-07 \\ 
+  Cadereyta Jiménez & Jul-04 & May-08 & Jul-08 & 19-Feb-07 \\ 
+  García & Jun-05 & Aug-05 & Dec-06 & 19-Feb-07 \\ 
+  Gral. Escobedo & Sep-03 & Aug-06 & Sep-08 & 19-Feb-07 \\ 
+  Guadalupe & Dec-02 & Sep-05 & Dec-05 & 19-Feb-07 \\ 
+  Juárez & Dec-01 & Oct-05 & May-06 & 19-Feb-07 \\ 
+  Monterrey & Aug-06 & Feb-07 & May-07 & 19-Feb-07 \\ 
+  San Nicolás de los Garza & Mar-04 & Mar-06 & Aug-06 & 19-Feb-07 \\ 
+  San Pedro Garza García & Jun-02 & Mar-08 & Dec-08 & 19-Feb-07 \\ 
+  Santa Catarina & Sep-04 & Jan-07 & Apr-07 & 19-Feb-07 \\ 
+  Santiago & Jan-06 & Apr-08 & May-08 & 19-Feb-07 \\ 
+   \hline
+\hline
+\end{longtable}
+\section{Veracruz}
+
+Municipalities with more than a 250,000 thousand people:
+
+% latex table generated in R 2.11.0 by xtable 1.5-6 package
+% Fri Jun 04 16:55:25 2010
+\begin{longtable}{lllll}
+  \hline
+Municipality & Lower & Breakpoints & Upper & J. O. Veracruz \\ 
+  \hline
+Coatzacoalcos & Nov-03 & Sep-06 & Oct-08 & 14-May-07 \\ 
+  Veracruz & Apr-03 & Feb-07 & May-08 & 14-May-07 \\ 
+  Xalapa & Mar-07 & Nov-07 & Jun-08 & 14-May-07 \\ 
+   \hline
+\hline
+\end{longtable}
+These are the interesting municpalities
+
+% latex table generated in R 2.11.0 by xtable 1.5-6 package
+% Fri Jun 04 16:55:25 2010
+\begin{longtable}{lllll}
+  \hline
+Municipality & Lower & Breakpoints & Upper & J. O. Tamaulipas-Nuevo Leon \\ 
+  \hline
+Minatitlán &  & Aug-05 &  & 19-Feb-07 \\ 
+  Poza Rica de Hidalgo & Jul-98 & May-07 & Jun-08 & 19-Feb-07 \\ 
+  Veracruz & Apr-03 & Feb-07 & May-08 & 19-Feb-07 \\ 
+  Xalapa & Mar-07 & Nov-07 & Jun-08 & 19-Feb-07 \\ 
+   \hline
+\hline
+\end{longtable}
+
+
 
 \section{Chihuahua}
 
 Municipalities with more than a 100,000 thousand people:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:06 2010
+% Fri Jun 04 16:55:25 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Triangulo Dorado & J. O. Chihuahua \\ 
   \hline
-Chihuahua & 2008-02-29 & 2008-05-31 & 2008-06-30 & 2007-01-13 & 2008-03-27 \\ 
-  Cuauhtémoc & 2006-08-31 & 2007-06-30 & 2007-10-31 & 2007-01-13 & 2008-03-27 \\ 
-  Delicias & 2005-05-31 & 2008-05-31 & 2008-06-30 & 2007-01-13 & 2008-03-27 \\ 
-  Hidalgo del Parral & 2008-01-31 & 2008-04-30 & 2008-05-31 & 2007-01-13 & 2008-03-27 \\ 
-  Juárez &  & 2008-03-31 &  & 2007-01-13 & 2008-03-27 \\ 
+Chihuahua & Feb-08 & May-08 & Jun-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Cuauhtémoc & Aug-06 & Jun-07 & Oct-07 & 22-Jan-07 & 27-Mar-08 \\ 
+  Delicias & May-05 & May-08 & Jun-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Hidalgo del Parral & Jan-08 & Apr-08 & May-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Juárez &  & Mar-08 &  & 22-Jan-07 & 27-Mar-08 \\ 
    \hline
 \hline
 \end{longtable}
-These are the municpalities near the US border:
+These are the municipalities near the US border:
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:06 2010
+% Fri Jun 04 16:55:25 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Triangulo Dorado & J. O. Chihuahua \\ 
   \hline
-Ahumada & 2007-02-28 & 2008-05-31 & 2008-06-30 & 2007-01-13 & 2008-03-27 \\ 
-  Ascensión & 2006-06-30 & 2008-02-29 & 2008-03-31 & 2007-01-13 & 2008-03-27 \\ 
-  Coyame del Sotol &  & 2008-05-31 &  & 2007-01-13 & 2008-03-27 \\ 
-  Guadalupe & 2007-10-31 & 2008-04-30 & 2008-05-31 & 2007-01-13 & 2008-03-27 \\ 
-  Janos & 2007-07-31 & 2008-03-31 & 2008-08-31 & 2007-01-13 & 2008-03-27 \\ 
-  Nuevo Casas Grandes & 2007-07-31 & 2008-03-31 & 2008-04-30 & 2007-01-13 & 2008-03-27 \\ 
-  Ojinaga & 2007-09-30 & 2008-02-29 & 2008-04-30 & 2007-01-13 & 2008-03-27 \\ 
-  Praxedis G. Guerrero & 2005-07-31 & 2007-08-31 & 2009-05-31 & 2007-01-13 & 2008-03-27 \\ 
+Ahumada & Feb-07 & May-08 & Jun-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Ascensión & Jun-06 & Feb-08 & Mar-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Coyame del Sotol &  & May-08 &  & 22-Jan-07 & 27-Mar-08 \\ 
+  Guadalupe & Oct-07 & Apr-08 & May-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Janos & Jul-07 & Mar-08 & Aug-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Nuevo Casas Grandes & Jul-07 & Mar-08 & Apr-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Ojinaga & Sep-07 & Feb-08 & Apr-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Praxedis G. Guerrero & Jul-05 & Aug-07 & May-09 & 22-Jan-07 & 27-Mar-08 \\ 
    \hline
 \hline
 \end{longtable}
 These are the municipalities with a very high homicide rate:
 
 % latex table generated in R 2.11.0 by xtable 1.5-6 package
-% Mon May 10 18:10:06 2010
+% Fri Jun 04 16:55:25 2010
 \begin{longtable}{llllll}
   \hline
 Municipality & Lower & Breakpoints & Upper & J. O. Triangulo Dorado & J. O. Chihuahua \\ 
   \hline
-Balleza & 2005-05-31 & 2008-01-31 & 2008-03-31 & 2007-01-13 & 2008-03-27 \\ 
-  Bocoyna & 2005-08-31 & 2008-04-30 & 2008-05-31 & 2007-01-13 & 2008-03-27 \\ 
-  Coronado & 2004-03-31 & 2008-04-30 & 2008-06-30 & 2007-01-13 & 2008-03-27 \\ 
-  Guazapares & 2007-08-31 & 2008-03-31 & 2008-11-30 & 2007-01-13 & 2008-03-27 \\ 
-  Hidalgo del Parral & 2008-01-31 & 2008-04-30 & 2008-05-31 & 2007-01-13 & 2008-03-27 \\ 
-  Matamoros & 2006-12-31 & 2008-04-30 & 2008-05-31 & 2007-01-13 & 2008-03-27 \\ 
-  Namiquipa & 2006-03-31 & 2007-04-30 & 2007-06-30 & 2007-01-13 & 2008-03-27 \\ 
-  Nonoava & 2006-12-31 & 2008-04-30 & 2008-05-31 & 2007-01-13 & 2008-03-27 \\ 
-  Ocampo & 2007-05-31 & 2008-02-29 & 2008-09-30 & 2007-01-13 & 2008-03-27 \\ 
-  San Francisco de Borja &  & 2006-11-30 &  & 2007-01-13 & 2008-03-27 \\ 
-  Valle de Zaragoza & 2006-02-28 & 2008-04-30 & 2008-05-31 & 2007-01-13 & 2008-03-27 \\ 
+Balleza & May-05 & Jan-08 & Mar-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Bocoyna & Aug-05 & Apr-08 & May-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Coronado & Mar-04 & Apr-08 & Jun-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Guazapares & Aug-07 & Mar-08 & Nov-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Hidalgo del Parral & Jan-08 & Apr-08 & May-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Matamoros & Dec-06 & Apr-08 & May-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Namiquipa & Mar-06 & Apr-07 & Jun-07 & 22-Jan-07 & 27-Mar-08 \\ 
+  Nonoava & Dec-06 & Apr-08 & May-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  Ocampo & May-07 & Feb-08 & Sep-08 & 22-Jan-07 & 27-Mar-08 \\ 
+  San Francisco de Borja &  & Nov-06 &  & 22-Jan-07 & 27-Mar-08 \\ 
+  Valle de Zaragoza & Feb-06 & Apr-08 & May-08 & 22-Jan-07 & 27-Mar-08 \\ 
    \hline
 \hline
 \end{longtable}
