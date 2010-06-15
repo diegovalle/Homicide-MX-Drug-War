@@ -13,7 +13,7 @@ Summary
 * The cultivation of marijuana and opium poppy increased and drug eradication decreased after the drug war started. The street price of cocaine in the US increased as a consequence of a larger number of seizures by Mexican officials.
 * Cocaine consumption in Mexico rivals that of first world countries
 * While the proportion of homicides involving a firearm increased by 10% for all of Mexico since 20004, there's not much evidence the expiration of the assault weapons ban was the cause of the rise in violence in the states where the drug cartels are based.
-* While the first joint army operations in 2006 and 2007 lowered the homicide rates in Michocán and Guerrero, later military operations in Chihuahua, Durango, Nuevo León and Durango have coincided with increases in homicides and attempts by the Sinaloa cartel to take over drug trafficking routes from rival cartels.
+* While the first joint army operations in 2006 and 2007 lowered the homicide rates in Michocán and Guerrero, later military operations in Chihuahua, Durango, Veracruz, Nuevo León and Durango have coincided with increases in homicides and attempts by the Sinaloa cartel to take over drug trafficking routes from rival cartels.
 * After the army took control of Ciudad Juarez it became the most violent city in the world.
 * Based on execution rates I predict the homicide rate for 2009 will be 15.5 (95% CI 14.8-16.1) and 19.5 (95% CI 18.4-20.7)  for 2010.
 

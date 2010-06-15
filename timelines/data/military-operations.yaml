@@ -1,4 +1,8 @@
-﻿Fox.Troops.NL:
+﻿R.C.Assassination:
+  Rodolfo Carrillo Fuentes Assassination: 2004-09-11
+  source: http://www.noroeste.com.mx/publicaciones.php?id=409384
+
+Fox.Troops.NL:
    Troops in Nuevo Laredo: 2005-06-13
    source: http://www.univision.com/content/content.jhtml?cid=625397
 
@@ -33,10 +37,12 @@ Op.Veracruz:
     source: http://www.ssp.gob.mx/portalWebApp/ShowBinary?nodeId=/BEA%20Repository/270970//archivo
     #p. 24
 
+#Sinaloa, Durango, Chihuahua
 Op.Triangulo.Dorado.II:
     Phase II = 2007-05-01
     source: http://www.elsiglodetorreon.com.mx/noticia/328548.a-punto-de-reiniciar-la-guerra-contra-el-narc.html
 
+#Sinaloa, Durango, Chihuahua
 Op.Triangulo.Dorado.III:
     Phase III = 2008-02-01
     source: http://www.elsiglodetorreon.com.mx/noticia/328548.a-punto-de-reiniciar-la-guerra-contra-el-narc.html
