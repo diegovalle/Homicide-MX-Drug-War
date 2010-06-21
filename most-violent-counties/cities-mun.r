@@ -38,7 +38,8 @@ south.center <- list("Lázaro Cárdenas" = " 16 052 ",
                   "Texcoco" =  " 15 099 ",
                   "Uruapan" = " 16 102 ",
                   "Morelia" = " 16 053 ",
-                  "Oaxaca de Juárez"= "20067")
+                  "Oaxaca de Juárez"= "20067",
+                  "Tuxtla Gutiérrez" = " 07 101 ")
 
 vacation <- list("Cabos, Los" = " 03 008 ",
                  "Ensenada" = " 02 001 ",
@@ -52,7 +53,7 @@ vacation <- list("Cabos, Los" = " 03 008 ",
                  "Ciudad Madero" = " 28 009 ",
                  "Playas de Rosarito" = " 02 005 ")
 
-plotCities <- function(cities, df) {
+plotCities <- function(cities, title, df) {
   mun.int <- subset(df, Code %in% sapply(cities, "[[", 1))
   mun.int$County.x <- factor(mun.int$County.x)
   p <- ggplot(mun.int, aes(Year.of.Murder, rate, group = County.x,
@@ -60,13 +61,20 @@ plotCities <- function(cities, df) {
       geom_line(size = 1.5) +
       geom_point(size = 5) +
       coord_cartesian(xlim = c(1991.5,2009)) +
+      opts(title = title) +
       theme_bw()
   print(direct.label(p, first.points))
   filename <- paste("most-violent-counties/output/municipalities-",
-                    deparse(substitute(cities)), ".png", sep = "")
+                    title, ".png", sep = "")
   dev.print(png, filename, width = 960, height = 600)
 }
-lapply(list(south.center, north, border, vacation), plotCities, allmun)
+mapply(plotCities,
+       list(south.center, north, border, vacation),
+       list("Cities in Southern and Central Mexico",
+            "Cities in Northen Mexico (excluding border cities)",
+            "Mexican Cities Bordering the US",
+            "Vacation Spots in Mexico"),
+       MoreArgs = list(df = allmun))
 
 
 mun08 <- subset(allmun, Population >= 100000 &
@@ -76,6 +84,7 @@ mun08$County.y <- factor(mun08$County.y)
 mun08$County.y <- reorder(mun08$County.y, mun08$rate)
 p <- ggplot(mun08, aes(County.y, rate)) +
     geom_point() +
+    geom_segment(aes(xend = County.y, yend=0)) +
     coord_flip() +
     opts(title = "Most violent municipalities in 2008 (with more than 100,000 people)") +
     ylab("Homicide rate") + xlab("")
