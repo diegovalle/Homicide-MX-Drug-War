@@ -34,17 +34,17 @@ plotTrend <- function(df, ban){
   start.dw <- op.mich
   end.dw <- as.Date("2008-12-31")
   print(ggplot(df, aes(as.Date(date), rate)) +
-    #geom_rect(xmin = as.numeric(start.dw), xmax = as.numeric(end.dw),
-    #          ymin=0, ymax=Inf, alpha = .01, fill = "pink") +
-    geom_line(color = "gray70") +
-    geom_line(aes(as.Date(date), trend), color = "blue", size = 1) +
+    geom_rect(xmin = as.numeric(start.dw), xmax = as.numeric(end.dw),
+              ymin=0, ymax=Inf, alpha = .01, fill = "pink") +
+    geom_line(size = .2) +
+    geom_line(aes(as.Date(date), trend), color = "blue") +
     geom_vline(aes(xintercept = as.Date("2004-09-13")), color = "gray",
                linetype = 2) +
     scale_x_date() +
     xlab("") + ylab("Annualized Homicide Rate") +
     opts(title = "Monthly Homicide Rate and Trend (the Gray Line is the Assault Weapon Ban Expiration Date)") +
     annotate("text", x = as.numeric(start.dw), y = 16.9,
-             label = "Drug\nWar", hjust =-.2))
+             label = "Drug War", hjust =-.2))
 }
 
 plotSeasonal <- function(df){
