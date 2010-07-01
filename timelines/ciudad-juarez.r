@@ -54,7 +54,7 @@ source("library/utilities.r")
 
 hom <- read.csv(bzfile("timelines/data/county-month.csv.bz2"))
 cdjuarez09 <- c(136, 240, 73, 90, 125, 247, 248, 337,
-                304, 290, 374, 317, 227, 163, 203, 240, 253)
+                304, 290, 374, 317, 227, 163, 203, 240, 253, 303)
                                    #265, 127, 253, 180, 253)
 cdjuarez0708 <- subset(hom,
                        Code == "08 037" &
