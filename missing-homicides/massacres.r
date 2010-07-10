@@ -35,11 +35,13 @@ acteal <- extractCol(hom.chip, "Chenalhó", "Diciembre", "1997")
 chiapas <- extractCol(hom.chip, "Chiapas", "Diciembre", "1997")
 
 
-
 #[Aguas Blancas Massacre](http://www.sfgate.com/chronicle/special/mexico/massacre.html): (Warning: Graphic Video) 17 dead June 28, 1995. In the INEGI homicide database
 hom.gue <- read.csv("timelines/data/county-month-gue-oax.csv.bz2")
 AB <- extractCol(hom.gue, "Coyuca de Benítez", "Junio", "1995")
 
+#Cananea-Arizpe
+hom.son <- read.csv("timelines/data/county-month.csv.bz2")
+cana <- extractCol(hom.son, "Arizpe", "Mayo", "2007")
 
 #[Decapitated Bodies in Yucatán](http://www2.esmas.com/noticierostelevisa/mexico/009070/hallan-doce-cadaveres-decapitados-yucatan): August 28 2008, 12 dead. In the INEGI homicide database
 yuc <- extractCol(hom.tj, "Yucatán", "Agosto", "2008")
@@ -48,6 +50,6 @@ yuc <- extractCol(hom.tj, "Yucatán", "Agosto", "2008")
 hom.mx <- read.csv("timelines/data/county-month-mx.csv.bz2")
 oco <- extractCol(hom.mx, "Ocoyoacac", "Septiembre", "2008")
 
-massacres <- rbind(AB, acteal, chiapas, en, yuc, oco, tj, ry)
+massacres <- rbind(AB, acteal, chiapas, en, cana, yuc, oco, tj, ry)
 write.csv(massacres, "missing-homicides/output/massacres.csv")
-rm(hom.tj, hom.gue, hom.chip, hom.ry)
+rm(hom.tj, hom.gue, hom.chip, hom.ry, hom.son)
