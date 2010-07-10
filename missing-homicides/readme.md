@@ -65,6 +65,8 @@ Massacres
 
 [Decapitated Bodies in Yucatán](http://www2.esmas.com/noticierostelevisa/mexico/009070/hallan-doce-cadaveres-decapitados-yucatan): August 28 2008, 12 dead. In the INEGI homicide database
 
+[Arizpe-Cananea](http://www.oem.com.mx/esto/notas/n279931.htm): May 16, 2007, 22 dead. In the INEGI homicide database
+
 [Tijuana prison riot](http://news.newamericamedia.org/news/view_article.html?article_id=413e55db3c6d5eac317d63edb8ce03d8): September 2008,  25 dead. In the INEGI homicide database
 
 [Reynosa prison riot](http://www.horacerotam.com/Not_interior1.asp?Id=NHCT22047&link=280):  October 2008, 21 dead. In the INEGI homicide database
