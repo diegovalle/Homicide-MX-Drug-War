@@ -67,6 +67,7 @@ cleanHom <-  function(df) {
   df$Year.of.Murder <- as.numeric(gsub('[[:alpha:]]', '',
                                         df$Year.of.Murder))
   df <- subset(df, Year.of.Murder >= 1990)
+  df$County <- iconv(df$County, "windows-1252", "utf-8")
   col2cvt <- 5:ncol(df)
   df[is.na(df)] <- 0
   df$Total.Murders <- apply(df[ , col2cvt], 1, sum)

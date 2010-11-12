@@ -138,6 +138,7 @@ exe.st <- read.csv("predictions/data/executions-bystate.csv")
 exe.st$Universal <- NULL
 exe.st <- melt(exe.st, id = "State")
 exe.st$State <- with(exe.st,reorder(State, value))
+exe.st$State <- iconv(exe.st$State, "windows-1252", "utf-8")
 print(ggplot(exe.st, aes(value, State, group = variable,
                          color = variable, shape = variable)) +
     geom_point() +
@@ -165,7 +166,7 @@ exe$Executions <- (exe$Reforma + exe$Milenio) /2
 
 reg <- regM(homrate, exe, saveplot = TRUE)
 #plot(reg)
-durbin.watson(reg)
+durbinWatsonTest(reg)
 adf.test(residuals(reg))
 
 k2009.rate <- predict09(reg)

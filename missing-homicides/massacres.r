@@ -17,6 +17,9 @@ extractCol <- function(df, county, month, year) {
 }
 #Tijuana prison riot](http://news.newamericamedia.org/news/view_article.html?article_id=413e55db3c6d5eac317d63edb8ce03d8): September 2008,  25 dead. In the INEGI homicide database
 hom.tj <- read.csv("timelines/data/county-month.csv.bz2")
+hom.tj$County <- iconv(hom.tj$County, "windows-1252",
+                         "utf-8")
+
 tj <- extractCol(hom.tj, "Tijuana", "Septiembre", "2008")
 
 #[Ensenada](http://articles.latimes.com/1998/sep/19/news/mn-24394): September 19, 1998, 18 dead. In the INEGI homidice database
@@ -29,22 +32,27 @@ ry <- extractCol(hom.ry, "Reynosa", "Octubre", "2008")
 
 #[Acteal Massacre](http://zedillo.presidencia.gob.mx/pages/chiapas/docs/crono.html): 45 dead December 22, 1997. Not in the INEGI homicide database
 hom.chip <- read.csv("timelines/data/county-month-chiapas.csv.bz2")
-acteal <- extractCol(hom.chip, "Chenalhó", "Diciembre", "1997")
+hom.chip$County <- iconv(hom.chip$County, "windows-1252",
+                         "utf-8")
+acteal <- extractCol(hom.chip, "ChenalhÃ³", "Diciembre", "1997")
 
-#since no deaths occured in Chenalhó lets check for the whole state of Chiapas
+#since no deaths occured in ChenalhÃ³ lets check for the whole state of Chiapas
 chiapas <- extractCol(hom.chip, "Chiapas", "Diciembre", "1997")
 
 
 #[Aguas Blancas Massacre](http://www.sfgate.com/chronicle/special/mexico/massacre.html): (Warning: Graphic Video) 17 dead June 28, 1995. In the INEGI homicide database
 hom.gue <- read.csv("timelines/data/county-month-gue-oax.csv.bz2")
-AB <- extractCol(hom.gue, "Coyuca de Benítez", "Junio", "1995")
+hom.gue$County <- iconv(hom.gue$County, "windows-1252",
+                         "utf-8")
+
+AB <- extractCol(hom.gue, "Coyuca de BenÃ­tez", "Junio", "1995")
 
 #Cananea-Arizpe
 hom.son <- read.csv("timelines/data/county-month.csv.bz2")
 cana <- extractCol(hom.son, "Arizpe", "Mayo", "2007")
 
-#[Decapitated Bodies in Yucatán](http://www2.esmas.com/noticierostelevisa/mexico/009070/hallan-doce-cadaveres-decapitados-yucatan): August 28 2008, 12 dead. In the INEGI homicide database
-yuc <- extractCol(hom.tj, "Yucatán", "Agosto", "2008")
+#[Decapitated Bodies in YucatÃ¡n](http://www2.esmas.com/noticierostelevisa/mexico/009070/hallan-doce-cadaveres-decapitados-yucatan): August 28 2008, 12 dead. In the INEGI homicide database
+yuc <- extractCol(hom.tj, "YucatÃ¡n", "Agosto", "2008")
 
 #[24 dead outside Mexico City](http://www.nytimes.com/2008/09/14/world/americas/14mexico.html?_r=1): September 13, 2008, 24 dead. In the INEGI homicide database
 hom.mx <- read.csv("timelines/data/county-month-mx.csv.bz2")

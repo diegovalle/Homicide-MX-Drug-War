@@ -37,9 +37,9 @@ print(ggplot(mcie, aes(Anio, value, group = variable,
 dev.print(png, file = "INEGIvsSNSP/output/SNSP-vs-CIEISP.png", width = 960, height = 600)
 
 
-mx <- subset(mcie, State == "México")
+mx <- subset(mcie, State == "MÃ©xico")
 inegi <- c(1957,1909,1739,2017,1743,1235,1559)
-mx <- rbind(mx, data.frame(State = "México",
+mx <- rbind(mx, data.frame(State = "MÃ©xico",
                           Anio = 2002:2008,
                           variable = "INEGI",
                           value = inegi,

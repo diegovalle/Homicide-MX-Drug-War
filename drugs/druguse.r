@@ -9,6 +9,7 @@
 
 
 drugs <- read.csv("drugs/data/druguse.csv")
+drugs$Abbrv <- iconv(drugs$Abbrv, "windows-1252", "utf-8")
 #The drug usage as a percetage
 drugs[,2:7] <- drugs[,2:7] / 100
 

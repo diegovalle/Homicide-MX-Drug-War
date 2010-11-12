@@ -16,45 +16,47 @@ border <- list("Nuevo Laredo" = " 28 027 ",
                "Reynosa" = " 28 032 ",
                "Nogales" = " 26 043 ",
                "Matamoros" = " 28 022 ",
-               "Juárez" = " 08 037 ",
+               "JuÃ¡rez" = " 08 037 ",
                "Piedras Negras" = " 05 025 ",
-               "Acuña" = " 05 002 ",
+               "AcuÃ±a" = " 05 002 ",
                "Mexicali" = " 02 002 ")
 
-north <- list("Culiacán" = " 25 006 ",
+north <- list("CuliacÃ¡n" = " 25 006 ",
            "Chihuahua" = " 08 019 ",
            "Durango" = " 10 005 ",
-           "Mazatlán" = " 25 012 ",
+           "MazatlÃ¡n" = " 25 012 ",
            "Ensenada" = " 02 001 ",
-           "Torreón" = " 05 035 ",
+           "TorreÃ³n" = " 05 035 ",
            "Saltillo" = " 05 030 ",
            "Monterrey" = " 19 039 ")
 
-south.center <- list("Lázaro Cárdenas" = " 16 052 ",
+south.center <- list("LÃ¡zaro CÃ¡rdenas" = " 16 052 ",
                   "Toluca" = " 15 106 ",
-                  "Acapulco de Juárez" = " 12 001 ",
+                  "Acapulco de JuÃ¡rez" = " 12 001 ",
                   "Cuernavaca" = " 17 007 ",
                   "Chilpancingo de los Bravo" = " 12 029 ",
                   "Texcoco" =  " 15 099 ",
                   "Uruapan" = " 16 102 ",
                   "Morelia" = " 16 053 ",
-                  "Oaxaca de Juárez"= "20067",
-                  "Tuxtla Gutiérrez" = " 07 101 ")
+                  "Oaxaca de JuÃ¡rez"= "20067",
+                  "Tuxtla GutiÃ©rrez" = " 07 101 ")
 
 vacation <- list("Cabos, Los" = " 03 008 ",
                  "Ensenada" = " 02 001 ",
-                 "Puerto Peñasco" = " 26 048 ",
-                 "Benito Juárez" = " 23 005 ", #Cancún
-                 "Acapulco de Juárez" = " 12 001 ",
-                 "José Azueta" = " 12 038 ", #Zihuatanejo
+                 "Puerto PeÃ±asco" = " 26 048 ",
+                 "Benito JuÃ¡rez" = " 23 005 ", #CancÃºn
+                 "Acapulco de JuÃ¡rez" = " 12 001 ",
+                 "JosÃ© Azueta" = " 12 038 ", #Zihuatanejo
                  "Paz, La" = " 03 003 ",
-                 "Mazatlán" = " 25 012 ",
+                 "MazatlÃ¡n" = " 25 012 ",
                  "Manzanillo" = " 06 007 ",
                  "Ciudad Madero" = " 28 009 ",
                  "Playas de Rosarito" = " 02 005 ")
 
 plotCities <- function(cities, title, df) {
   mun.int <- subset(df, Code %in% sapply(cities, "[[", 1))
+  mun.int$County.x <- iconv(mun.int$County.x, "windows-1252",
+                            "utf-8")
   mun.int$County.x <- factor(mun.int$County.x)
   p <- ggplot(mun.int, aes(Year.of.Murder, rate, group = County.x,
                      color = County.x)) +
@@ -80,6 +82,8 @@ mapply(plotCities,
 mun08 <- subset(allmun, Population >= 100000 &
                 Year.of.Murder == 2008)
 mun08 <- mun08[order(-mun08$rate),][1:20,]
+mun08$County.y <- iconv(mun08$County.y, "windows-1252",
+                            "utf-8")
 mun08$County.y <- factor(mun08$County.y)
 mun08$County.y <- reorder(mun08$County.y, mun08$rate)
 p <- ggplot(mun08, aes(County.y, rate)) +

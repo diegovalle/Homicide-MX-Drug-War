@@ -4,7 +4,7 @@
 #####       Date Created: Sun Jan 24 19:33:22 2010
 ########################################################
 #Choropleths of the homicide rate by county according to the INEGI
-#data source: Estadísticas Vitales INEGI
+#data source: EstadÃ­sticas Vitales INEGI
 
 
 #Clean data file with all homicides *registered* by county and sex
@@ -12,7 +12,7 @@ cleanHomicide <- function(filename, sex) {
   df <- read.csv(bzfile(filename), skip = 4)
   names(df)[1:4] <- c("Code","County","Year.of.Murder","Sex")
   df <- df[-grep("=CONCATENAR", df$Code),]
-  #df <- df[-grep("FUENTE: INEGI. Estadísticas de mortalidad.", df$Code),]
+  #df <- df[-grep("FUENTE: INEGI. EstadÃ­sticas de mortalidad.", df$Code),]
   df <- df[-grep("Total", df$County),]
   df <- df[-grep("No especificado", df$County),]
   df <- df[-grep("Total", df$Year.of.Murder),]
@@ -207,7 +207,7 @@ sparking an inter-cartel war in Guerrero and Michoacan.
 Cartel is now firmly established in Juarez. Seeing the writing on the
 wall the Gulf Cartel allies itself with the Sinaloa Cartel and La
 Familia to take out the Zetas, sparking a surge in violence in Nuevo
-León and Tamaulipas"
+LeÃ³n and Tamaulipas"
 
 #2011?
 "After having defeated the Zetas and the Juarez Cartel, the Sinaloa

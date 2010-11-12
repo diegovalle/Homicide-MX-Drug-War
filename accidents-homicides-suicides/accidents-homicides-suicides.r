@@ -22,6 +22,7 @@ deaths$Year <- as.numeric(as.numeric(gsub('[[:alpha:]]', '',
 deaths <- subset(deaths, Year >= 1990 & Year)
 deaths[is.na(deaths)] <- 0
 deaths$Tot <- apply(deaths[,5:ncol(deaths)], 1, function(x) sum(x))
+deaths$State <- iconv(deaths$State, "windows-1252", "utf-8")
 
 #write the total murders by state to a file
 st <- cast(subset(deaths, Type.of.Death == "Homicidio"), State ~ Year, , value = "Tot")

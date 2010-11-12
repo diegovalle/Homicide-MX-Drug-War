@@ -24,6 +24,7 @@ cleanHom <-  function(df, state) {
               Month.of.Murder != "Total" &
               Month.of.Murder != "No especificado" &
               County != "No especificado")
+  df$County <- iconv(df$County, "windows-1252", "utf-8")
   df$Year.of.Murder <- as.numeric(gsub('[[:alpha:]]', '',
                                         df$Year.of.Murder))
   col2cvt <- 5:ncol(df)
@@ -123,6 +124,7 @@ cleanPop <- function(filename) {
   #remove the space before the county code
   popm$variable <- as.numeric(substring(popm$variable, 2))
   names(popm) <- c("Code", "County", "Year","Population")
+  popm$County <- iconv(popm$County, "windows-1252", "utf-8")
   addMonths(popm)
 }
 
@@ -253,7 +255,7 @@ savePlot(chi.df, ll.chi,
 report.ll$chi <- findbreaks(chi.df, 1, ll = ll.chi)
 
 #Interesting municipalities in Chihuahua (bordering the US)
-muni <- c("Janos", "Ascensión",
+muni <- c("Janos", "AscensiÃ³n",
           "Guadalupe",
           "Ojinaga", "Praxedis G. Guerrero",
           "Ahumada",
@@ -277,7 +279,7 @@ savePlot(chi.int.df, ll.chi,
 report.ll$chi.int <- findbreaks(chi.int.df, 1, ll = ll.chi)
 
 
-#MichoacÃ¡n (I hate trying to get emacs and R to understand utf!)
+#MichoacÃƒÂ¡n (I hate trying to get emacs and R to understand utf!)
 mich.df <- getData(hom, pop, michoacan, popsize)
 ll.mich <- list("Joint Operation Michoacan" = op.mich,
                 "A.B.L. Captured" = bel.ley)
@@ -286,12 +288,12 @@ savePlot(mich.df, ll.mich,
          file = "timelines/output/Michoacan.png", height=700)
 report.ll$mich <- findbreaks(mich.df, 2, ll = ll.mich)
 
-#Interesting Municipalities in Michoacán (Pacific coast and bordering Guerrero)
-muni <- c("Aquila", "Chinicuila", "Coalcomán de Vázquez Pallares",
+#Interesting Municipalities in MichoacÃ¡n (Pacific coast and bordering Guerrero)
+muni <- c("Aquila", "Chinicuila", "CoalcomÃ¡n de VÃ¡zquez Pallares",
           "Tepalcatepec",
-          "Aguililla", "Tumbiscatío", "Arteaga", "Apatzingán",
-          "Churumuco", "Huetamo", "Carácuaro", "Turicato",
-          "Tacámbaro")
+          "Aguililla", "TumbiscatÃ­o", "Arteaga", "ApatzingÃ¡n",
+          "Churumuco", "Huetamo", "CarÃ¡cuaro", "Turicato",
+          "TacÃ¡mbaro")
 mich.int.df <- getData(hom, pop, michoacan, 0, muni)
 savePlot(mich.int.df, ll.mich,
          "Michoacan - Municipalities near the Pacific and Guerrero",
@@ -309,7 +311,7 @@ savePlot(sin.df, ll.sin,
 report.ll$sin <- findbreaks(sin.df, 1, ll = ll.sin)
 
 #Municipalities in Sinaloa with a high homicide rate
-muni <-  c("Badiraguato", "Sinaloa", "Mocorito", "Cosalá",
+muni <-  c("Badiraguato", "Sinaloa", "Mocorito", "CosalÃ¡",
            "San Ignacio")
 sin.int.df <- getData(hom, pop, sinaloa, 0, muni)
 savePlot(sin.int.df, ll.sin,
@@ -328,8 +330,8 @@ savePlot(dur.df, ll.dur,
 report.ll$dur <- findbreaks(dur.df, 1, ll = ll.dur)
 
 #Municpalities in Durango with a high murder rate
-muni <- c("Súchil", "Mezquital", "Pueblo Nuevo", "San Dimas",
-          "Vicente Guerrero", "Poanas", "Guanaceví", "Tepehuanes",
+muni <- c("SÃºchil", "Mezquital", "Pueblo Nuevo", "San Dimas",
+          "Vicente Guerrero", "Poanas", "GuanacevÃ­", "Tepehuanes",
           "Ocampo", "El Oro")
 dur.int.df <- getData(hom, pop, durango, 0, muni)
 savePlot(dur.int.df, ll.dur,
@@ -351,7 +353,7 @@ report.ll$gue <- findbreaks(gue.df, 2, ll = ll.gue)
 
 
 #Interesting Municipalities in guerrero
-muni <- c("Zirándaro", "Coyuca de Catalán", "La Unión de Isidoro Montes de Oca", "Coahuayutla de José María Izazaga", "Pungarabato", "Cutzamala de Pinzón", "Arcelia")
+muni <- c("ZirÃ¡ndaro", "Coyuca de CatalÃ¡n", "La UniÃ³n de Isidoro Montes de Oca", "Coahuayutla de JosÃ© MarÃ­a Izazaga", "Pungarabato", "Cutzamala de PinzÃ³n", "Arcelia")
 gue.df.b <- getData(hom, pop, guerrero, 0, muni)
 savePlot(gue.df.b, ll.gue,
          "Guerrero - Municipalities Bordering Michoacan",
@@ -390,12 +392,12 @@ savePlot(nl.df, ll.nl,
          file = "timelines/output/Nuevo-Leon.png")
 report.ll$nl <- findbreaks(nl.df, 1, ll = ll.nl)
 
-muni <- c("Apodaca", "Cadereyta Jiménez",
-          "Juárez", "García",
+muni <- c("Apodaca", "Cadereyta JimÃ©nez",
+          "JuÃ¡rez", "GarcÃ­a",
           "Gral. Escobedo", "Guadalupe",
           "Monterrey",
-          "Santa Catarina", "San Nicolás de los Garza",
-          "San Pedro Garza García", "Santiago")
+          "Santa Catarina", "San NicolÃ¡s de los Garza",
+          "San Pedro Garza GarcÃ­a", "Santiago")
 mont.df <- getData(hom, pop, nuevo.leon, 0, muni)
 savePlot(mont.df, ll.nl,
          "Nuevo Leon - Metropolitan Area of Monterrey",
@@ -414,7 +416,7 @@ savePlot(ver.df, ll.ver,
 report.ll$ver <- findbreaks(ver.df, 1, ll = ll.ver)
 
 muni <- c("Veracruz", "Xalapa",
-          "Poza Rica de Hidalgo", "Minatitlán")
+          "Poza Rica de Hidalgo", "MinatitlÃ¡n")
 ver.int.df <- getData(hom, pop, veracruz, 0, muni)
 savePlot(ver.int.df, ll.ver,
          "Veracruz - Interesting Municipalities",

@@ -26,7 +26,7 @@ p <- ggplot(melt(homts, id="Year"), aes(Year, value, group = variable,
                                    color = variable)) +
        geom_line(alpha = .7, size = 1.2) +
        ylab("Homicide rate") +
-      opts(title = "Different estimates of the ‘homicide’ rate")
+      opts(title = "Different estimates of the \'homicide\' rate")
 savePlotAA(p, file = "missing-homicides/output/PAHO-UN-INEGI-SNSP.png", width = 640, height = 480)
 
 #FADE IN:
@@ -43,7 +43,7 @@ savePlotAA(p, file = "missing-homicides/output/PAHO-UN-INEGI-SNSP.png", width = 
 #                   FERNANDO
 
 #(into phone)
-#Iâ€™m deleting over 1,100 hundred murders from the police database boss
+#I'm deleting over 1,100 hundred murders from the police database boss
 
 
 
@@ -101,14 +101,15 @@ cleanNames <- function(df, varname = "County"){
 }
 
 ivsi$State <- cleanNames(ivsi, "State")
-
+ivsi$State <- iconv(ivsi$State, "windows-1252", "utf-8")
+ivsi$Abbrv <- iconv(ivsi$Abbrv, "windows-1252", "utf-8")
 print(ggplot(ivsi, aes(INEGI, ICESI,
                  label = paste(State," (",
                        as.character(INEGI-ICESI), ")", sep = ""))) +
        geom_text(aes(size = sqrt(abs(INEGI-ICESI))), hjust=-.1) +
        geom_point() +
        geom_abline(slope=1, linetype=2, color="blue") +
-       opts(title = "Differences in ‘homicide’ reporting rates (INEGI - SNSP)") + ylab("SNSP") +
+       opts(title = "Differences in \'homicide\' reporting rates (INEGI - SNSP)") + ylab("SNSP") +
        scale_x_continuous(limits = c(0, 4000)) +
        opts(legend.position = "none") +
        annotate("text", 1400, 1400, label = "missing-homicides/data ara equal ->",
@@ -136,7 +137,7 @@ drawBars <- function(df) {
   df$State <- with(df, reorder(factor(State), value))
   ggplot(df, aes(x=State, y=value, group = variable,
                     fill = variable)) +
-         opts(title = "Differences in reported ‘homicides’ (2008)") +
+         opts(title = "Differences in reported \'homicides\' (2008)") +
          geom_bar(stat = "identity", position = "identity",
                   alpha = .5) +
          ylab("Number of Homicides") +
@@ -195,7 +196,7 @@ mivsi <- na.omit(mivsi)
 mivsi$State <- with(mivsi, reorder(factor(State), value))
 print(ggplot(mivsi, aes(value, State, group = variable,
                   fill = variable)) +
-       opts(title = "Differences in reported ‘homicides’") +
+       opts(title = "Differences in reported \'homicides\'") +
        xlab("Number of Homicides") +
        geom_point(aes(color = variable, shape = variable),
                   size = 3, alpha = .5))

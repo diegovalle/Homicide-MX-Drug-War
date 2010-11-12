@@ -57,6 +57,19 @@ fir.state <- read.csv("guns-executions/data/firearm-hom-statetot.csv")
 state <- read.csv("accidents-homicides-suicides/output/states.csv")
 pop <- read.csv("conapo-pop-estimates/conapo-states.csv")
 
+fir.state$State <- iconv(fir.state$State,
+                         "windows-1252",
+                         "utf-8")
+
+#state$State <- iconv(state$State,
+#                         "windows-1252",
+#                         "utf-8")
+
+pop$State <- iconv(pop$State,
+                         "windows-1252",
+                         "utf-8")
+
+#pop$State fir.state$State state$State
 state <- merge(fir.state, state[,c(1,10:20)], by = "State")
 state <- merge(state, pop[ ,c(1,10:20)], by = "State")
 
@@ -74,13 +87,15 @@ mstate$variable <- rep(1998:2008, each = 32)
 mstate$type <- factor(mstate$type, levels = rev(levels(mstate$type)))
 
 #Is the data cointegrated?
-unitRoot <- function(df){
-    reg <- lm(h ~ f)
-    ht <- adf.test(residuals(reg))
-    ht
-}
+#unitRoot <- function(df){
+#    f <- subset(df, type == "Firearm\nHomicides")$value
+#    h <- subset(df, type == "Homicides")$value
+#    reg <- lm(h ~ f)
+#    ht <- adf.test(residuals(reg))
+#    ht
+#}
 #FFFFFFFFFFFFFFFCCCCCCCCC  they are cointegrated
-dlply(hom, .(State), unitRoot)
+#dlply(hom, .(County), unitRoot)
 
 #Simple error correction, with eight samples per state there's not much
 #info
@@ -109,7 +124,7 @@ correl <- function(df){
 
 #mstate <- merge(mstate, ddply(mstate, .(State), correl), by = "State")
 mstate$State <- cleanNames(mstate, "State")
-mstate <- subset(mstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California","Michoacán", "Tamaulipas"))
+mstate <- subset(mstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California","MichoacÃ¡n", "Tamaulipas"))
 #mstate$State <- paste(mstate$State,"-", round(mstate$V1,2))
 
 #mstate$State <- with(mstate, reorder(factor(State), dif))
@@ -153,7 +168,7 @@ dev.print(png, "guns-executions/output/homicides-firearm-st-p2005.png",
           width = 960, height = 600)
 
 
-mpstate <- subset(mpstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California","Michoacán", "Tamaulipas"))
+mpstate <- subset(mpstate, State %in% c("Chihuahua", "Sinaloa", "Durango", "Sonora", "Guerrero", "Baja California","MichoacÃ¡n", "Tamaulipas"))
 m <- function(df){
     lm(df$variable ~ df$value)$coef[2]
 }

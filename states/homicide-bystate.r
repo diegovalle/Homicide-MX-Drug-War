@@ -22,6 +22,8 @@ kyears <- kyears.start:2008
 cleanHom <- function(type="Total") {
   hom <- read.csv(bzfile("states/data/homicide-mun-2008.csv.bz2"), skip=4)
   names(hom)[1:4] <- c("Code", "County", "Year.of.Murder", "Sex")
+  hom$County <- iconv(hom$County, "windows-1252", "utf-8")
+  hom$Code <- iconv(hom$Code, "windows-1252", "utf-8")
   hom <- hom[grep("=CONCATENAR", hom$Code),]
   hom <- hom[-grep("Extranjero", hom$County),]
   hom <- hom[grep(type, hom$Sex),]
@@ -44,6 +46,7 @@ cleanPop <- function(type = "Total") {
   else
     pop <- read.csv("conapo-pop-estimates/conapo-states.csv")
   pop$Code <- c(1:33)
+  pop$State <- iconv(pop$State, "windows-1252", "utf-8")
   pop
 }
 
@@ -95,10 +98,11 @@ barPlot <- function(hom2008, year="") {
 
 #We need to order the variables by name to match them with the map
 mapOrder <- function(df, varname = "County.x"){
-  df2 <- df
+  #df2 <- df
   df$County <- cleanNames(df, varname)
-  df$Code <- pmatch(df$County, mexico.shp$NAME_1)
-  df.merge <- merge(data.frame(mexico.shp$NAME_1, Code = 1:32),
+  #df$County <- iconv(df$County, "windows-1252", "utf-8")
+  df$Code <- pmatch(df$County, (iconv(mexico.shp$NAME_1,"windows-1252","utf-8")))
+  df.merge <- merge(data.frame(iconv(mexico.shp$NAME_1,"windows-1252","utf-8"), Code = 1:32),
                     df, by="Code", all.x = TRUE)
   df.merge
 }

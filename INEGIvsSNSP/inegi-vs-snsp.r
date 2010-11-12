@@ -10,6 +10,9 @@ source("library/utilities.r")
 icesi <- read.csv("INEGIvsSNSP/data/states-icesi.csv")
 inegi <- read.csv("accidents-homicides-suicides/output/states.csv")
 
+icesi$State <- iconv(icesi$State, "windows-1252", "utf-8")
+#inegi$State <- iconv(inegi$State, "windows-1252", "utf-8")
+
 icesi <- melt(icesi, id = "State")
 icesi$org <- "SNSP"
 
@@ -22,9 +25,11 @@ ii <- rbind(inegi, icesi)
 ii$variable <- rep(1997:2008, each=32)
 ii$State <- cleanNames(ii, "State")
 
+
 #Population of Mexico 1997-2008
 #source: CONAPO
 pop <- read.csv("conapo-pop-estimates/conapo-states.csv")
+pop$State <- iconv(pop$State, "windows-1252", "utf-8")
 pop <- pop[-(33) ,-(2:8)]
 pop <- melt(pop, id = "State")
 pop$variable <- rep(1997:2008, each=32)
