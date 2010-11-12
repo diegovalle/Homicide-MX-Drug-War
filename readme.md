@@ -10,8 +10,8 @@ Summary
 * In Mexico there are two sources of homicide data: Police records (provided by the SNSP), and the vital statistics system (provided by the INEGI). Not surprisingly both series fail to follow Benford's law. A closer look a the data reveals that:
     * The police records in 2008 are missing more than a thousand homicides in Chihuahua! Just to give you some perspective, in Ciudad Juarez, Chihuahua's biggest city, there were more than 1,600 homicides, more than the 1,414 reported in the whole state according to police records. I strongly recommend against using data obtained from police records if you need the latest homicide numbers.
     * The Acteal massacre of 45 Tzotzil Indians in Chiapas is missing from the vital statistics database. According to the INEGI there were only 2 deaths during December 1997 in the municipality of Chenalhó.
-* The cultivation of marijuana and opium poppy increased and drug eradication decreased after the drug war started. The street price of cocaine in the US increased as a consequence of a larger number of seizures by Mexican officials.
-* Cocaine consumption in Mexico rivals that of first world countries
+* The cultivation of marijuana and opium poppy increased and drug eradication decreased after the drug war started. The street price of cocaine in the US increased as a consequence of an increase in seizures by Mexican officials.
+* The percentage of people who had ever consumed cocaine doubled in Mexico
 * While the proportion of homicides involving a firearm increased by 10% for all of Mexico since 20004, there's not much evidence the expiration of the assault weapons ban was the cause of the rise in violence in the states where the drug cartels are based.
 * While the first joint army operations in 2006 and 2007 lowered the homicide rates in Michocán and Guerrero, later military operations in Chihuahua, Durango, Veracruz, Nuevo León and Durango have coincided with increases in homicides and attempts by the Sinaloa cartel to take over drug trafficking routes from rival cartels.
 * After the army took control of Ciudad Juarez it became the most violent city in the world.
@@ -108,14 +108,7 @@ Things will only get worse until a new equilibrium is reached by the drug trafic
 
 Requirements
 ------------
-*    You'll need to download two maps of Mexico at the state and county level from the [INEGI](http://mapserver.inegi.org.mx/data/mgm/). (Note: you have to register to download them. Registration is free). They have to be version 3.1.1 or they won't work
 
-    [Áreas Geoestadísticas Estatales y Zonas Pendientes por Asignar (6.47 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=ESTADOS311)
-
-    [Áreas Geoestadísticas Municipales y Zonas Pendientes por Asignar (30.6 Mb)](http://mapserver.inegi.org.mx/data/mgm/redirect.cfm?fileX=MUNICIPIOS311)
-    
-*    Unzip both files to the "maps" subdirectory
-*    Alternatively you can download a simplified version of the maps from : [files.diegovalle.net](http://files.diegovalle.net) homicide-maps-3.1.1.zip, just unzip the file into the "maps" directory and you're done
 *    Imagemagick if you want to merge the state level homicide rate maps with the bar plots
 
 
