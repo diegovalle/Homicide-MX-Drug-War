@@ -16,7 +16,7 @@ drugPlot <- function(df, filename, ylab, title) {
       annotate("text", x = 2007.5, y = 28000, label = "Drug War") +
       ylab(ylab) + xlab("") +
       opts(title = title) +
-      scale_y_continuous(formatter = "comma"))
+      scale_y_continuous(formatter = "comma", limits = c(0, max(df$area, na.rm = TRUE))))
   filename <- paste("drugs/output/", filename)
   dev.print(png, filename, width=640, height=480)
 }
@@ -53,6 +53,7 @@ p <- qplot(1990:2008, cok.prc, geom="line") +
             ymin=0, ymax=Inf, alpha = .02, fill = "red") +
     annotate("text", x = 2007.5, y = 370, label = "Drug War") +
     opts(title = "There has been an increase in the price of\ncocaine adjusted for purity and inflation\nsince the start of the drug war") +
-    ylab("Street price - US$/gram") + xlab("year")
+    ylab("Street price - US$/gram") + xlab("year") +
+    ylim(c(0, max(cok.prc)))
 print(p)
 dev.print(png, "drugs/output/coke-price.png", width=640, height=480)
