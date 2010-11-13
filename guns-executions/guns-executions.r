@@ -161,11 +161,12 @@ print(ggplot(mpstate, aes(variable, value)) +
     geom_line() +
     facet_wrap(~ State) +
     ylab("Proportion") + xlab("Year") +
-    scale_x_continuous(breaks = c(2000, 2004, 2007),
-                         labels = c("00","04", "07")) +
+    scale_x_continuous(breaks = c(2000, 2006, 2008),
+                         labels = c("00","06", "08"),
+                       limits = c(2004,2008)) +
     scale_y_continuous(formatter = "percent") +
     stat_smooth(method = lm, se = FALSE) +
-    opts(title = "Proportion of Homicides commited with a Firearm (ordered by difference in proportions from 2004 to 2007)"))
+    opts(title = "Proportion of Homicides commited with a Firearm (ordered by difference in proportions from 2004 to 2008)"))
 dev.print(png, "guns-executions/output/homicides-firearm-st-p2005.png",
           width = 960, height = 600)
 
