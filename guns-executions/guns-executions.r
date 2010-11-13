@@ -33,7 +33,8 @@ mexer$variable <- factor(factor(mexer$variable),
 p <- ggplot(mexer, aes(Year, value, group = variable,
                        color = variable)) +
     geom_line() + ylab("Rate") +
-    opts(title = "")
+    opts(title = "") +
+    ylim(c(0, max(mexer$value, na.rm = TRUE)))
 mid.points <- dl.indep(data.frame(d[4,],hjust=-0.2,vjust=-0.8))
 print(direct.label(p, mid.points))
 dev.print(png, "guns-executions/output/homicides-executions.png",
@@ -44,7 +45,8 @@ dev.print(png, "guns-executions/output/homicides-executions.png",
 #has decreased *more slowly* than the overall homicide rate
 print(ggplot(exe, aes(Year, Firearm.Homicides / Homicides)) +
     geom_line() +
-    scale_y_continuous(formatter = "percent"))
+    scale_y_continuous(formatter = "percent"),
+    limits = c(0,.63))
 dev.print(png, "guns-executions/output/percent-by-firearm.png",
           width = 500, height = 400)
 
@@ -132,7 +134,7 @@ scale_color <- scale_colour
 print(ggplot(mstate, aes(variable, value,
                          color = type, group = type)) +
     geom_line() +
-    facet_wrap(~ State, scales = "free_y") +
+    facet_wrap(~ State) +
     ylab("Rate") + xlab("Year") +
     scale_x_continuous(breaks = c(2000, 2004, 2007),
                          labels = c("00","04", "07")) +
@@ -157,7 +159,7 @@ mpstate <- ddply(mpstate, .(State), transform,
 mpstate$State <- reorder(mpstate$State, mpstate$dif)
 print(ggplot(mpstate, aes(variable, value)) +
     geom_line() +
-    facet_wrap(~ State, scales = "free_y") +
+    facet_wrap(~ State) +
     ylab("Proportion") + xlab("Year") +
     scale_x_continuous(breaks = c(2000, 2004, 2007),
                          labels = c("00","04", "07")) +
@@ -177,7 +179,7 @@ mpstate <- merge(mpstate, ddply(mpstate, .(State), m),
 mpstate$State <- reorder(mpstate$State, mpstate$"df$value")
 print(ggplot(mpstate, aes(variable, value)) +
     geom_line() +
-    facet_wrap(~ State, scales = "free_y") +
+    facet_wrap(~ State) +
     ylab("Proportion") + xlab("Year") +
     scale_x_continuous(breaks = c(2000, 2004, 2007),
                          labels = c("00","04", "07")) +
