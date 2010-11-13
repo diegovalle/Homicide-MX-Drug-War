@@ -116,7 +116,8 @@ p <- ggplot(data = mhom, aes(year, value, group = variable,
             y = c(homicideMX[19], k2009.rate[1])),#, k2010.rate[1])),
             aes(x, y), size=1, linetype=2) +
   labs(y = "Homicide rate",x="") +
-  opts (title = "Homicide rates in Brazil, Mexico, the US,\nand England and Wales (1994-2008)")
+  opts (title = "Homicide rates in Brazil, Mexico, the US,\nand England and Wales (1994-2008)") +
+  ylim(c(0, max(mhom$value, na.rm = TRUE)))
 get.pos <-
   dl.indep(unique(transform(d,x = 2006, y = y[length(x) - 4] + 1.5)))
 print(direct.label(p, get.pos))
@@ -140,7 +141,8 @@ print(ggplot(hom[hom$year >= 1994, ], aes(year, MX),
             aes(x, y), color = "gray40", size=1, linetype=2) +
   geom_rect(xmin = 2006, xmax = 2009,
             ymin=0, ymax=Inf, alpha = .02, fill = "red") +
-  annotate("text", x = 2007.5, y = 16.9, label = "Drug War"))
+  annotate("text", x = 2007.5, y = 16.9, label = "Drug War") +
+  ylim(c(0, 17.5)))
 dev.off()
 
 #From 1979 to 2010
@@ -175,5 +177,6 @@ print(qplot(1979:2008, c((h79.93 / pop79.93) * 100000,
      #           ymax = upr, ymin = lwr),
       #          alpha = .2,
        #         fill = "red") +
-    opts(title = "Homicide rate in Mexico, 1979-2008 and estimates for 2009 and 2010"))
+    opts(title = "Homicide rate in Mexico, 1979-2008 and estimates for 2009 and 2010") +
+    ylim(c(0, 22)))
 dev.off()
