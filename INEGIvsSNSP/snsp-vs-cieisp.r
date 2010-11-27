@@ -8,7 +8,9 @@
 source("library/utilities.r")
 
 cieisp <- read.csv("CIEISP/output/cieisp.csv")
-snsp <- read.csv("INEGIvsSNSP/data/states-icesi.csv")
+snsp <- read.csv("INEGIvsSNSP/data/states-icesi.csv",
+                 fileEncoding = "windows-1252")
+#snsp$State <- iconv(snsp$State, "windows-1252", "utf-8")
 
 cieisp <- subset(cieisp, Mes == "Total")
 cieisp <- cieisp[ ,c(2:4,12)]
@@ -53,5 +55,16 @@ print(ggplot(mx, aes(Anio, value, group = variable,
     ylab("Number of Homicides") +
     xlab(""))
 dev.print(png, file = "INEGIvsSNSP/output/mxSNSP-vs-CIEISP-vs-INEGI.png", width = 640, height = 480)
+
+mx <- subset(mx, variable %in% c("INEGI", "SNSP"))
+mx$variable <- factor(mx$variable)
+print(ggplot(mx, aes(Anio, value, group = variable,
+                     color = variable)) +
+    geom_line(size = 2, alpha = .4) +
+    opts(title = "Differences in reported homicides according to\nSNSP data and the INEGI in the State of Mexico") +
+    opts(axis.text.x=theme_text(angle=60, hjust=1.2 )) +
+    ylab("Number of Homicides") +
+    xlab(""))
+dev.print(png, file = "INEGIvsSNSP/output/mxSNSP-vs-INEGI.png", width = 640, height = 480)
 
 
